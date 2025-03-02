@@ -1,0 +1,83 @@
+{
+  "type": "module",
+  "version": "0.0.15",
+  "name": "a-node-tools",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/mjs/index.mjs",
+  "description": "some about node",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist/",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "自述文件.md"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/mjs/index.mjs",
+        "types": "./dist/types/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/index.cjs",
+        "types": "./dist/types/index.d.ts"
+      }
+    }
+  },
+  "scripts": {
+    "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
+    "build": "npx ixxx rm dist run b",
+    "clean": "npx ixxx up -d  rm node_modules dist  run npm install run b",
+    "diff": "npx ixxx pkg  -d",
+    "test": "npx ixxx clear  && rollup --config rollup.config.test.js && node --trace-warnings  test/out/test/index.mjs",
+    "beautify": "npx prettier . --write",
+    "eslint": "npx eslint src",
+    "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
+    "up": "npx ixxx pkg -u run versionPatch run build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/earthnutDev/a-node-tools.git"
+  },
+  "author": {
+    "name": "earthnut",
+    "email": "earthnut.dev@outlook.com",
+    "url": "https://earthnut.dev"
+  },
+  "license": "ISC",
+  "keywords": [
+    "a-node-tools"
+  ],
+  "homepage": "https://earthnut.dev/a-node-tools",
+  "bugs": {
+    "url": "https://github.com/earthnutDev/a-node-tools/issues",
+    "email": "earthnut.dev@outlook.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.16.1",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.18.0"
+  },
+  "dependencies": {
+    "a-js-tools": "^0.0.0"
+  }
+}

@@ -1,0 +1,108 @@
+# 更新日志
+
+## 0.0.6 (3 月 2 日 2025 年)
+
+- 修复了 `runOtherCode` 方法的错误，现在可以正确地运行其他代码并返回结果
+
+## 0.0.5 (8 月 27 日 2024 年)
+
+- 维护了 `runOtherCode` 的执行，添加参数属性 `printLog`，用于指示是否打印日志信息
+- 维护了 `runOtherCode` 的等待提示，现会展示为一个随机跳动提示符
+
+## 0.0.3 (7 月 22 日 2024 年)
+
+- 添加 `dirEmpty` 判断当前文件夹是否为空
+
+## 0.0.2 (7 月 12 日 2024 年)
+
+- [多次调用显示提示](#多次调用显示提示)
+- 现在 -p 可打印多种数据而不限于打印字符串
+
+### 多次调用显示提示
+
+```sh
+ MaxListenersExceededWarning: Possible EventEmitter memory leak detected.
+  11 beforeExit listeners added to [process].
+  Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+```
+
+通过使用 `node --trace-warnings` 命令查看出最后报错位置为在 `readInput` 中产生的,现已修复
+
+## 0.0.0 (7 月 12 日 2024 年)
+
+- 热衷于换名字
+
+## 0.0.14 (7 月 10 日 2024 年)
+
+- 大部分时候打印文本需求还是以换行为主，所以，追加第二参数，缺省为 `true` ，即默认换行
+
+## 0.0.13 (7 月 10 日 2024 年)
+
+- 将 `getNpmPkgInfo` 的返回值类型具象化
+- 道出了 `npmPkgInfoType` 类型声明
+
+## 0.0.12 (6 月 21 日 2024 年)
+
+- 在 `runOtherCode` 时展示 '请稍等' 时隐藏光标
+- 导出 `_p` ，封装 `precess.stdout.write`
+
+## 0.0.10 (6 月 21 日 2024 年)
+
+- 添加 `eslint` 规范代码
+
+## 0.0.8 (6 月 21 日 2024 年)
+
+- 使用 `runOtherCode` 结束清理 “等待中”
+
+## 0.0.7 (6 月 20 日 2024 年)
+
+- 添加使用 `runOtherCode` “等待中”
+
+## 0.0.7 (6 月 16 日 2024 年)
+
+- 修复 `runOtherCode` 时候打印空行的问题
+
+## 0.0.6 (6 月 14 日 2024 年)
+
+- 将子进程的创建由 `exec` 更改为 `spawn`，这样可以拥有更好的日志输出体验
+
+## 0.0.5 (6 月 11 日 2024 年)
+
+- 修改了 `getNpmPkgInfo` 方法，之前从 npm 抓取的包信息是缓存的，现在是实时的，比较新
+
+## 0.0.3 (6 月 11 日 2024 年)
+
+- 导出遗忘的 `pathDirname`
+- 添加 `getDirectoryBy`
+
+## 0.0.2 (6 月 11 日 2024 年)
+
+- 给 `readInput` 添加了持续调用，在同一事件 loop 中，如果非线性事件，避免了同时监听问题
+- 维护了导出文件
+
+## 0.0.0 (6 月 4 日 2024 年)
+
+- 整理并迁移了项目
+
+## 0.0.15 （5 月 31 日 2024 年）
+
+- 整理了 `runOtherCode` 的参数
+
+## 0.0.12 （5 月 30 日 2024 年）
+
+- 添加 `isWindows` 判断是否为 windows 环境
+- 再次测试在 windows 上的行为
+
+## 0.0.7 （5 月 14 日 2024 年）
+
+- 添加 path 模块
+- file 模块添加 `getCallerFilename` 方法以获取调用函数所在的文件
+
+## 0.0.6 （5 月 11 日 2024 年）
+
+- 添加了 jest 测试
+
+## 0.0.1 （4 月 28 日 2024 年）
+
+- 维护了 `readFileToJson` 和 `readFileToJsonSync` 两个读取 JSON 文件的方法，在读取文件前调用 `statSync` 判断文件是否存在
