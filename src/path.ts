@@ -48,7 +48,7 @@ function pathDirname(path: string) {
  *
  *  @param fileName  传入调用该函数的文件路径（该路径需要搭配 {@link initializeFile} 获取）
  *
- * @returns { name:string, line:number,row:"" ,originArr:string[]}
+ * @returns
  *
  */
 function getCallerFileInfo(fileName: string): {
@@ -88,7 +88,9 @@ function getCallerFileInfo(fileName: string): {
     result = result.replace(/^.*file:\/*(.*)/, '$1');
   }
   // 非 windows 桌面添加 /
-  !isWindows && !result.startsWith('/') && (result = '/' + result);
+  if (!isWindows && !result.startsWith('/')) {
+    result = '/' + result;
+  }
   return {
     name: result.replace(/^(.*):\d+:\d+$/, '$1'),
     line: Number(result.replace(/^.*:(\d+):\d+$/, '$')),
@@ -120,7 +122,7 @@ function getCallerFilename(fileName: string) {
  *
  * 初始化项目的 __filename 与  __dirname
  *
- * @return {*}  [__filename,__dirname]
+ * @returns   [__filename,__dirname]
  */
 function initializeFile(): [string, string] {
   /** 文件地址  */
@@ -129,6 +131,7 @@ function initializeFile(): [string, string] {
   try {
     new Function('import("")');
     a = fileURLToPath(import.meta.url);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     a = __filename;
   }
@@ -166,7 +169,7 @@ function getDirectoryBy(
 ): string | undefined {
   // 当前工作目录
   let cwd: string = originalPath || process.cwd();
-  // 查看当前工作目录是否存在
+  /**  判断当前工作目录是否存在  */
   const cwdIsExist = fileExist(cwd);
   // 倘若 cwd 不存在（只要针对于传入参数的情况）
   if (!cwdIsExist) return '';

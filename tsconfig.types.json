@@ -7,5 +7,5 @@
     "declarationDir": "dist/types/"
     // "types": ["node"],
   },
-  "exclude": ["node_modules", "dist", "test"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

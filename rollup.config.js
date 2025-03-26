@@ -26,7 +26,7 @@ export default {
     },
   ],
   // 配置需要排除的包
-  external: id => /^(node:)|^(tslib)|^(a-js-tools)/.test(id),
+  external: id => /^(node:)|^(tslib)|^(a-js-tools)|^(a-type-of-js)/.test(id),
   plugins: [
     resolve(),
     commonjs(),
@@ -41,9 +41,10 @@ export default {
     cleanup(),
     copy({
       targets: [
-        // { src: 'package.json', dest: 'dist' },
-        // { src: 'README.md', dest: 'dist' },
-        // { src: 'LICENSE', dest: 'dist' },
+        { src: 'README.md', dest: 'dist' },
+        { src: 'LICENSE', dest: 'dist' },
+        { src: 'CHANGELOG.md', dest: 'dist' },
+        { src: 'CHANGELOG-en.md', dest: 'dist' },
       ],
     }),
   ],

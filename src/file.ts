@@ -6,23 +6,25 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
  * @returns 返回是一个 {@link  Promise}
  */
 function readFileToJson(fileDir: string) {
-  return new Promise(
-    (resolve, reject) =>
-      (!/.json^/.test(fileDir) &&
-        !statSync(fileDir, { throwIfNoEntry: false }) &&
-        reject({})) ||
+  return new Promise((resolve, reject) => {
+    if (
+      !/.json^/.test(fileDir) &&
+      !statSync(fileDir, { throwIfNoEntry: false })
+    ) {
+      reject({});
+    } else {
       readFile(fileDir, { encoding: 'utf-8' })
         .then(res => resolve(JSON.parse(res)))
-        .catch(() => reject({})),
-  );
+        .catch(() => reject({}));
+    }
+  });
 }
 /**
  *  同步 读取 json 文件并返回为 JSON
  *
- *  @param fileDir {@link String}  文件地址
- * @returns 返回的是一个 {@link JSON} 格式的数据
+ * @param fileDir   文件地址
+ * @returns 返回的是一个 `JSON` 格式的数据
  */
-
 function readFileToJsonSync(fileDir: string) {
   return (
     (!/.json^/.test(fileDir) &&
@@ -67,6 +69,7 @@ function isEmpty(dirname: string): -1 | 0 | 1 {
     if (fileInfo && fileInfo.isDirectory()) {
       return readdirSync(dirname, { withFileTypes: true }).length == 0 ? 1 : 0;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return -1;
   }

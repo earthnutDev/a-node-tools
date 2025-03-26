@@ -1,6 +1,8 @@
 import { default as path } from './src/path';
 export { path };
 
+export { isTTY } from './src/isTTY';
+
 export {
   isWindows,
   pathJoin,
@@ -13,17 +15,14 @@ export {
 } from './src/path';
 
 export { readInput } from './src/readInput/readInput';
-export { Color } from './src/color';
+
 export { runOtherCode, RunOtherCodeParam } from './src/runOtherCode';
 
-export {
-  getNpmPkgInfo,
-  testNpmPackageExist,
-  npmPkgInfoType,
-} from './src/npmPkg';
+export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
+
+export type { npmPkgInfoType } from './src/npmPkg/types';
 
 export {
-  t,
   __p,
   cursorAfterClear,
   cursorHide,

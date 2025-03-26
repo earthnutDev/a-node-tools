@@ -1,8 +1,10 @@
 import { spawn } from 'node:child_process';
-import { getRandomInt, t, typeOf } from 'a-js-tools';
+import { getRandomInt } from 'a-js-tools';
 import { isWindows, pathJoin } from './path';
 import { cursorAfterClear, cursorHide, cursorShow } from './cursor';
 import { _p } from './print';
+import { isFunction } from 'a-type-of-js';
+import { t } from 'color-pen';
 /** Parameter types for `runOtherCode`
  *
  * 执行其他代码的参数类型
@@ -161,7 +163,9 @@ function runOtherCode(param: RunOtherCodeParam): Promise<{
       childProcess.stdout.on('data', data => {
         let _data = data.toString();
         /// 尾部换行符
-        !/\n$/.test(_data) && (_data = _data.concat(isWindows ? '\r' : ''));
+        if (!/\n$/.test(_data)) {
+          _data = _data.concat(isWindows ? '\r' : '');
+        }
         if (!/^\s*$/.test(_data)) {
           // 清理光标后内容
           cursorAfterClear();
@@ -174,11 +178,15 @@ function runOtherCode(param: RunOtherCodeParam): Promise<{
       childProcess.stderr.on('data', error => {
         let _data = error.toString();
         /// 尾部换行符
-        !/\n$/.test(_data) && (_data = _data.concat(isWindows ? '\r' : ''));
+        if (!/\n$/.test(_data)) {
+          _data = _data.concat(isWindows ? '\r' : '');
+        }
         // 清理光标后内容
         cursorAfterClear();
         // 打印文本
-        printLog && _p(_data);
+        if (printLog) {
+          _p(_data);
+        }
         stderrData += _data;
       });
       /// 出现错误
@@ -186,16 +194,20 @@ function runOtherCode(param: RunOtherCodeParam): Promise<{
         success = !1;
         let _data = error.toString();
         /// 尾部换行符
-        !/\n$/.test(_data) && (_data = _data.concat(isWindows ? '\r' : ''));
+        if (!/\n$/.test(_data)) {
+          _data = _data.concat(isWindows ? '\r' : '');
+        }
         // 清理光标后内容
         cursorAfterClear();
         // 打印文本
-        printLog && _p(_data);
+        if (printLog) {
+          _p(_data);
+        }
       });
       /// 子进程关闭事件
       childProcess.on('close', () => {
         setTimeout(() => {
-          if (callBack && typeOf(callBack) == 'function') {
+          if (callBack && isFunction(callBack)) {
             Reflect.apply(callBack, null, []);
           }
           /// 清理定时器

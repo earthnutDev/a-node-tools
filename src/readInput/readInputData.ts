@@ -29,14 +29,13 @@ export default {
   on(uniKey: symbol, callFn: (a: boolean) => void) {
     const list: ReadInputListItem[] = this.callList;
     // 若当前没有执行的
-    list.length == 0 && Reflect.apply(callFn, undefined, [true]);
+    if (list.length === 0) {
+      Reflect.apply(callFn, undefined, [true]);
+    }
     (list as ReadInputListItem[]).push([uniKey, callFn]);
   },
   /**
    * 是否可以清理 readline
-   *
-   *
-   *
    */
   get remove(): boolean {
     const list: ReadInputListItem[] = this.callList;

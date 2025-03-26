@@ -1,9 +1,9 @@
 import { createInterface } from 'node:readline';
 import { _p } from './print';
+import { t } from 'color-pen';
 
 /** 一个转义码  */
-const t = '\u001B[',
-  { stdout, stdin } = process;
+const { stdout, stdin } = process;
 
 /*** 打印转义的内容  */
 const __p = (r: string | number) => _p(`${t}${r}`, false);
@@ -38,8 +38,8 @@ const cursorGetPosition = () => {
       // eslint-disable-next-line no-control-regex
       const match = data.toString().match(/^\x1b\[(\d+);(\d+)R$/i);
       if (match) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, row, col] = match;
-        _;
         stdin.removeListener('data', dataCall);
         rl.close();
         resolve([row, col]);
@@ -58,19 +58,17 @@ const cursorGetPosition = () => {
  *
  * 光标位置向上移动
  *
- * @param numberOfUpwardMoves  {@link Number}  type, number of cursor moves up
- *
- *        @code numberOfUpwardMoves   {@link Number}   类型，光标上移的数量
+ * @param numberOfUpwardMoves   type, number of cursor moves up
  */
 const cursorMoveUp = (numberOfUpwardMoves: number = 1) =>
   __p(`${numberOfUpwardMoves}A`);
 /**   Move cursor position down
  *
- * 光标位置向下移动
  *
- * @param numberOfMovesDown  {@link Number}    number of cursor moves down
  *
- *        numberOfMovesDown     {@link Number}      类型，光标下移的数量
+ * @param numberOfMovesDown      number of cursor moves down
+ *
+ *
  */
 const cursorMoveDown = (numberOfMovesDown: number = 1) =>
   __p(`${numberOfMovesDown}B`);
@@ -96,7 +94,6 @@ const cursorMoveRight = (numberOfRightShifts: number = 1) =>
   __p(`${numberOfRightShifts}C`);
 
 export {
-  t,
   __p,
   cursorAfterClear,
   cursorHide,

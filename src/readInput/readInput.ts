@@ -1,13 +1,13 @@
-import { getRandomInt, typeOf } from 'a-js-tools';
+import { getRandomInt } from 'a-js-tools';
 import { createInterface, Interface } from 'node:readline';
 import readInputData from './readInputData';
+import { isFunction } from 'a-type-of-js';
 
-/** Listen to user input
+/**  
  *
  *
  * 监听用户输入
- *
- * @param _callback Callback function, required! Which can take two parameters, namely the user's key and the original value of the key
+ 
  *
  *        _callback   回调函数，必须，可接收两个参数，分别用户按键及键原始值
  */
@@ -44,13 +44,13 @@ export function readInput(
       }
     });
 
-    /** Keyboard press callback
+    /**
      *
      * 键盘按下回调 */
     function pressCallFn(keyValue: string | undefined, key: unknown) {
       // 如果当前并非第一个注册的方法先返回等待上一个注册的方法结束先
       /// 这里为了给列表做一个
-      if (typeOf(_callback) == 'function') {
+      if (isFunction(_callback)) {
         /**
          *  回调返回的是  true
          *
@@ -68,7 +68,7 @@ export function readInput(
       }
     }
 
-    /** Remove listening
+    /**
      *
      * 移除监听 */
     function removeListenerCallFn() {
@@ -76,13 +76,16 @@ export function readInput(
       process.removeListener('beforeExit', stdRemoveListener);
       stdRemoveListener();
       // 调用移除将使用权交给先一个使用者或者结束 read input
-      rl.close && rl.close();
+      if (rl.close) {
+        rl.close();
+      }
       // 移除并调用下一个
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       readInputData.remove;
       return true;
     }
 
-    /***
+    /**
      *
      *
      */

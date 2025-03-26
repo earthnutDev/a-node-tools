@@ -1,20 +1,20 @@
-# a-node-tools
+# a node tools
 
 A purely functional tool that includes
 
-- `nodes` use
+[![version](<https://img.shields.io/npm/v/a-node-tools.svg?logo=npm&logoColor=rgb(0,0,0)&label=version&labelColor=rgb(73,73,228)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools) [![NPM Last Update](<https://img.shields.io/npm/last-update/a-node-tools?logo=npm&labelColor=rgb(255,36,63)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools) [![📦 size](<https://img.shields.io/bundlephobia/minzip/a-node-tools.svg?logo=npm&labelColor=rgb(201,158,140)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools) [![downloads](<https://img.shields.io/npm/dm/a-node-tools.svg?logo=npm&logoColor=rgb(0,0,0)&labelColor=rgb(194,112,210)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools) [![downloads](<https://img.shields.io/npm/dt/a-node-tools.svg?logo=npm&labelColor=rgb(107,187,124)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools)
 
-## language
+[![last commit](<https://img.shields.io/github/last-commit/earthnutDev/a-node-tools.svg?logo=github&logoColor=rgb(0,0,0)&labelColor=rgb(255,165,0)&color=rgb(0,0,0)>)](https://github.com/earthnutDev/a-node-tools) [![GitHub commit activity](<https://img.shields.io/github/commit-activity/y/earthnutDev/a-node-tools.svg?logo=github&labelColor=rgb(128,0,128)&color=rgb(0,0,0)>)](https://github.com/earthnutDev/a-node-tools) [![Coverage Status](<https://img.shields.io/coverallsCoverage/github/earthnutDev/a-node-tools?logo=coveralls&label=coveralls&labelColor=rgb(12, 244, 39)&color=rgb(0,0,0)>)](https://coveralls.io/github/earthnutDev/a-node-tools?branch=main) [![codecov](<https://img.shields.io/codecov/c/github/earthnutDev/a-node-tools/main?logo=codecov&label=codecov&labelColor=rgb(7, 245, 245)&color=rgb(0,0,0)>)](https://codecov.io/gh/earthnutDev/a-node-tools)
 
-| [English](https://github.com/earthnutDev/a-node-tools/blob/main/README.md) | [中文](https://github.com/earthnutDev/a-node-tools/blob/main/自述文件.md) |
+---
 
-## install
+[![🇨🇳 中文](<https://img.shields.io/badge/🇨🇳-中_%20_文-rgb(0,0,0)>)](https://github.com/earthnutDev/a-node-tools/blob/main/README-zh.md) ![🌍 English](<https://img.shields.io/badge/🌍-English-rgb(0,0,0)?style=social>) [![👀 change log](<https://img.shields.io/badge/👀-change_%20_log-rgb(0,125,206)?logo=github>)](https://github.com/earthnutDev/a-node-tools/blob/main/CHANGELOG-en.md) [![submit 🙋‍♂️ issue](<https://img.shields.io/badge/☣️-submit_%20_issue-rgb(255,0,63)?logo=github>)](https://github.com/earthnutDev/a-node-tools/issues)
 
-```sh
-npm install   a-node-tools  --save
-```
+---
 
-## `file`
+## use
+
+### `file`
 
 - `readFileToJson` read `.json` file and return JSON or `null`
 - `readFileToJsonSync` synchronous read `.json` file and return `JSON` or `null`
@@ -22,18 +22,18 @@ npm install   a-node-tools  --save
 - `dirEmpty` Does the director is empty
 - `writeJsonFile` 把 `json` Write data to a blank file
 
-## `runOtherCode` section
+### `runOtherCode` section
 
 - `runOtherCode` Run other code
 - `RunOtherCodeParam` Declaration of parameter types for running other code
 
-## `npmPkg` section
+### `npmPkg` section
 
 - `npmPkgInfoType` type of `getNpmPkgInfo` returns
 - `getNpmPkgInfo` get npm package info
 - `testNpmPackageExist` test a npm package is exist
 
-## `path` section
+### `path` section
 
 - `pathJoin` File address concatenation
 - `pathBasename` Provide file path to obtain file name, without file type suffix
@@ -42,13 +42,12 @@ npm install   a-node-tools  --save
 - `isWindows` Is it currently in a Windows environment, used to address the differences caused by different time separators when using 'path'
 - - `getDirectoryBy` Find the parent directory of the target based on its file or file name
 
-### cursor section
+#### cursor section
 
 You can use cursor to manipulate the cursor position:
 
 |         Method          |          Schematic          |                      Parameters                       |
 | :---------------------: | :-------------------------: | :---------------------------------------------------: |
-|           `t`           |          `\u001B`           |                          --                           |
 |          `_p`           | on `node` environment print | `r` print string; `lineFeed` line feed,default `true` |
 |      `cursorHide`       |         cursor hide         |                          --                           |
 |      `cursorShow`       |         cursor show         |                          --                           |
@@ -75,48 +74,3 @@ const callBackFunction = (keyValue: string | undefined, key: any) => {
     );
 };
 ```
-
-## Color section
-
-The string color value of the terminal (meaning it cannot be used in a browser environment, (in fact, browsers have [a simpler implementation method](https://developer.mozilla.org/zh-CN/docs/Web/API/console)) :
-
-### Color static method
-
-|      method       |       rgb 色值       | ｜ Hexadecimal color value |
-| :---------------: | :------------------: | :------------------------: |
-| `fromHexadecimal` |         ---          |            ---             |
-|     `fromRgb`     |         ---          |            ---             |
-|     `random`      |         ---          |            ---             |
-|    `darkBlack`    |  `rgb(86 ,86 ,86)`   |         `#565656`          |
-|     `darkRed`     |  `rgb(181 ,40 ,29)`  |         `#b5281d`          |
-|    `darkGreen`    |  `rgb(50 ,181 ,32)`  |         `#32b520`          |
-|   `darkYellow`    | `rgb(160 ,160 ,29)`  |         `#a0a01d`          |
-|    `darkBlue`     |  `rgb(64 ,10 ,217)`  |         `#400ad9`          |
-|   `darkMagenta`   | `rgb(201 ,24 ,201)`  |         `#c918c9`          |
-|    `darkCyan`     | `rgb(45 ,174 ,187)`  |         `#2daebb`          |
-|    `darkWhite`    | `rgb(193 ,193 ,193)` |         `#c1c1c1`          |
-|   `lightBlack`    | `rgb(111 ,111 ,111)` |         `#6f6f6f`          |
-|       `red`       |  `rgb(252 ,33 ,25)`  |         `#fc2119`          |
-|      `green`      |  `rgb(47 ,232 ,26)`  |         `#2fe81a`          |
-|     `yellow`      | `rgb(232 ,236 ,20)`  |         `#e8ec14`          |
-|      `blue`       |  `rgb(74 ,3 ,254)`   |         `#4a03fe`          |
-|     `magenta`     |  `rgb(251 ,0 ,253)`  |         `#fb00fa`          |
-|      `cyan`       | `rgb(255 ,255 ,255)` |         `#ffffff`          |
-
-### use Color
-
-```ts
-import { Color, _p } from 'a-node-tools';
-
-/** `_Color` does not necessarily have to ce used together with `_p` ，`_p` is just the encapsulation of `process.stdout.write` */
-
-_p(
-  `${Color.red(
-    `Red start${Color.yellow('The middle is yellow')} and the red ending`,
-  )}`,
-);
-
-_p(Color.random('Randomly print a string of color values'));
-```
-
-If you have any questions, you can directly [submit question](https://github.com/earthnutDev/a-node-tools/issues/new)

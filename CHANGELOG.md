@@ -1,5 +1,12 @@
 # 更新日志
 
+[![中文 🇨🇳](<https://img.shields.io/badge/🇨🇳-自述_%20_文件-rgb(255,12,36)>)](https://github.com/earthnutDev/a-node-tools/blob/main/README-zh.md) [![English 🌍](<https://img.shields.io/badge/🌍-README-rgb(0,0,0)>)](https://github.com/earthnutDev/a-node-tools/blob/main/README.md) ![查看 📔 日志](<https://img.shields.io/badge/👀-日_%20_志-rgb(0,125,206)?style=social>) [![查看 📔 日志](<https://img.shields.io/badge/👀-Change_%20_log-rgb(0,125,206)>)](https://github.com/earthnutDev/a-node-tools/blob/main/CHANGELOG-en.md)
+
+## 0.1.0 (3 月 26 日 2025 年)
+
+- 移除了 `color`、`t` 模块
+- 优化了 `testNpmPackageExist` 方法，现在可以正确地判断 npm 包的特定版本是否存在
+
 ## 0.0.6 (3 月 2 日 2025 年)
 
 - 修复了 `runOtherCode` 方法的错误，现在可以正确地运行其他代码并返回结果

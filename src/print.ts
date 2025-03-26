@@ -1,4 +1,4 @@
-import { typeOf } from 'a-js-tools';
+import { isFunction, typeOf } from 'a-type-of-js';
 import { stdout } from 'node:process';
 
 /** 打印文本内容\
@@ -8,18 +8,16 @@ import { stdout } from 'node:process';
  * @param [lineFeed=true]  {@link Boolean}  是否答应换行符号
  */
 export function _p(r: unknown = '', lineFeed: boolean = true): void {
-  /** Type of data for printing information\
-   *  将打印信息的数据类型 */
-  const typeOfR = typeof r;
-  /**  */
   if (
-    typeOfR === 'string' ||
-    typeOfR === 'number' ||
-    typeOfR === 'bigint' ||
-    typeOfR === 'boolean' ||
-    typeOfR === 'undefined' ||
-    typeOfR === 'function' ||
-    typeOf(r) == 'null'
+    [
+      'string',
+      'number',
+      'bigint',
+      'boolean',
+      'undefined',
+      'function',
+      'null',
+    ].includes(typeOf(r))
   ) {
     // 当为非 null 的基础类型数据
     stdout.write(`${r}`);
@@ -29,8 +27,7 @@ export function _p(r: unknown = '', lineFeed: boolean = true): void {
       JSON.stringify(
         r,
         (key: string, value: unknown) => {
-          const value_type = typeOf(value);
-          if (value_type == 'function') {
+          if (isFunction(value)) {
             return `${value}`;
           } else if (value == undefined) {
             return 'undefined';
@@ -41,5 +38,7 @@ export function _p(r: unknown = '', lineFeed: boolean = true): void {
       ),
     );
   }
-  lineFeed && stdout.write('\n');
+  if (lineFeed) {
+    stdout.write('\n');
+  }
 }
