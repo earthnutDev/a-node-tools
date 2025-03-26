@@ -1,0 +1,87 @@
+import { initializeFile } from './initializeFile';
+import { platform } from 'os';
+
+// 模拟 getCallerFilename 函数
+jest.mock('./getCallerFileInfo', () => ({
+  ...jest.requireActual('./getCallerFileInfo'),
+  getCallerFilename,
+}));
+
+describe('initializeFile', () => {
+  beforeAll(() => {
+    // 模拟 getCallerFilename 的行为
+    getCallerFilename.mockImplementation(path => path);
+  });
+
+  it('should return correct file and directory paths when dynamic import is supported', () => {
+    // 模拟动态导入支持
+    const mockUrl = 'file:///path/to/file.js';
+    const expectedPath = '/path/to/file.js';
+    const expectedDir = '/path/to';
+
+    // 模拟 import.meta.url
+    Object.defineProperty(import.meta, 'url', { value: mockUrl });
+
+    const [file, dir] = initializeFile();
+
+    expect(file).toBe(expectedPath);
+    expect(dir).toBe(expectedDir);
+  });
+
+  it('should return correct file and directory paths when dynamic import is not supported', () => {
+    // 模拟动态导入不支持
+    const mockFilename = '/path/to/file.js';
+    const expectedPath = '/path/to/file.js';
+    const expectedDir = '/path/to';
+
+    // 模拟 __filename
+    Object.defineProperty(global, '__filename', { value: mockFilename });
+
+    const [file, dir] = initializeFile();
+
+    expect(file).toBe(expectedPath);
+    expect(dir).toBe(expectedDir);
+  });
+
+  it('should handle Windows paths correctly', () => {
+    // 模拟 Windows 环境
+    const originalPlatform = platform;
+    Object.defineProperty(platform, 'platform', { value: 'win32' });
+
+    const mockUrl = 'file:///C:/path/to/file.js';
+    const expectedPath = 'C:/path/to/file.js';
+    const expectedDir = 'C:/path/to';
+
+    // 模拟 import.meta.url
+    Object.defineProperty(import.meta, 'url', { value: mockUrl });
+
+    const [file, dir] = initializeFile();
+
+    expect(file).toBe(expectedPath);
+    expect(dir).toBe(expectedDir);
+
+    // 恢复原始平台
+    Object.defineProperty(platform, 'platform', { value: originalPlatform });
+  });
+
+  it('should handle non-Windows paths correctly', () => {
+    // 模拟非 Windows 环境
+    const originalPlatform = platform;
+    Object.defineProperty(platform, 'platform', { value: 'linux' });
+
+    const mockUrl = 'file:///path/to/file.js';
+    const expectedPath = '/path/to/file.js';
+    const expectedDir = '/path/to';
+
+    // 模拟 import.meta.url
+    Object.defineProperty(import.meta, 'url', { value: mockUrl });
+
+    const [file, dir] = initializeFile();
+
+    expect(file).toBe(expectedPath);
+    expect(dir).toBe(expectedDir);
+
+    // 恢复原始平台
+    Object.defineProperty(platform, 'platform', { value: originalPlatform });
+  });
+});

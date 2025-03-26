@@ -8,20 +8,27 @@ const { stdout, stdin } = process;
 /*** 打印转义的内容  */
 const __p = (r: string | number) => _p(`${t}${r}`, false);
 
-/** Cursor is hidden at the terminal
+/**
  *
- * 光标在终端进行隐藏
+ * Cursor is hidden at the terminal
+ *
+ *
  */
 const cursorHide = () => __p('?25l');
-/** Cursor display
+/**
  *
- * 光标进行显示
+ * Cursor display
+ *
+ *
  */
 const cursorShow = () => __p('?25h');
 
 /**
  *
- * 清理光标之后的内容
+ *
+ * Clean up the content after the cursor
+ *
+ *
  */
 const cursorAfterClear = () => __p('0J');
 /** get cursor position
@@ -60,8 +67,13 @@ const cursorGetPosition = () => {
  *
  * @param numberOfUpwardMoves   type, number of cursor moves up
  */
-const cursorMoveUp = (numberOfUpwardMoves: number = 1) =>
-  __p(`${numberOfUpwardMoves}A`);
+const cursorMoveUp = (numberOfUpwardMoves: number = 1) => {
+  numberOfUpwardMoves =
+    isFinite(numberOfUpwardMoves) && numberOfUpwardMoves > 0
+      ? Math.round(numberOfUpwardMoves)
+      : 1;
+  return __p(`${numberOfUpwardMoves}A`);
+};
 /**   Move cursor position down
  *
  *

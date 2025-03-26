@@ -1,58 +1,15 @@
 import { spawn } from 'node:child_process';
 import { getRandomInt } from 'a-js-tools';
-import { isWindows, pathJoin } from './path';
-import { cursorAfterClear, cursorHide, cursorShow } from './cursor';
-import { _p } from './print';
+import { cursorAfterClear, cursorHide, cursorShow } from '../cursor';
+import { _p } from '../print';
 import { isFunction } from 'a-type-of-js';
 import { t } from 'color-pen';
-/** Parameter types for `runOtherCode`
- *
- * 执行其他代码的参数类型
- */
-type RunOtherCodeParam =
-  | {
-      /** The code to be executed
-       *
-       * 将要执行的代码
-       */
-      code: string;
-      /** Directory for executing code
-       *
-       * 执行代码的目录
-       */
-      cwd?: string | undefined;
-      /** Whether to hide waiting
-       *
-       * 是否隐藏等待
-       */
-      hideWaiting?: boolean;
-      /** The waiting prompt text defaults to ""
-       *
-       * 等待的提示文本，默认为 ""
-       */
-      waitingMessage?: string;
-      /** Whether to proactively print date information
-       *
-       * 是否主动打印日志信息
-       */
-      printLog?: boolean;
-      /** Callback function
-       *
-       * 回调函数
-       */
-      callBack?: () => undefined;
-    }
-  | string;
+import { RunOtherCodeParam } from './types';
+import { isWindows, pathJoin } from '../path';
 
-/** Execute other commands\
- *  执行其他的命令\
- * The exec of `child_process` used here creates a child thread\
- *  这里使用的  `child_process` 的 exec 创建子线程
- *  - code            {@link String}  执行的具体代码。必须参数，缺省时执行设定工作目录下的
- *  - cwd             {@link String}  执行环境（执行的目录）。可选参数，缺省时为当前执行目录
- *  - hideWaiting     {@link Boolean} 隐藏等待提示。可选参数，缺省为 false
- *  - waitingMessage  {@link String}  等待提示文本。
- *  - printLog        {@link Boolean} 是否打印日志信息
+/** Execute other commands
+ *
+ * The exec of `child_process` used here creates a child thread
  *
  *
  *   ```ts
@@ -68,27 +25,31 @@ type RunOtherCodeParam =
  *          });
  *
  *   ```
- * 或者
+ *
+ * or
  *
  * ```ts
- *  const  result = await runOtherCoder('ls');
+ *  const result = await runOtherCoder('ls');
  *
- *  console.log(result.success); // 打印 true 或者 false
+ *  // log  `true` or `false`
+ *  console.log(result.success);
  *
- *  console.log(result.error); // 如果出现执行错误，这里会有值
+ *  // If an execution error occurs, there will be a value here.
+ *  console.log(result.error);
  *
- *  console.log(result.data); // 如果 result.success == true ，这里会有你自行的代码的实际返回值
+ *  // If result.success === true, there will be the actual return value of your own code
+ *  console.log(result.data);
  *
  * ```
  *
  * @param param {@link RunOtherCodeParam}  { code:string , cwd: string, callback:()=> void}
- *            执行的 shell 代码
+ *
  * @returns     return a  {@link Promise} \
  *              返回一个 {@link Promise} \
  *  返回值包含执行的信息。\
  *  如果是串行执行，那么结果的话可能就是一个奇特的大字符串
  */
-function runOtherCode(param: RunOtherCodeParam): Promise<{
+export function runOtherCode(param: RunOtherCodeParam): Promise<{
   error: undefined | string | unknown;
   success?: boolean;
   data?: undefined | string;
@@ -232,4 +193,3 @@ function runOtherCode(param: RunOtherCodeParam): Promise<{
     });
   }
 }
-export { runOtherCode, RunOtherCodeParam };

@@ -1,6 +1,3 @@
-import { default as path } from './src/path';
-export { path };
-
 export { isTTY } from './src/isTTY';
 
 export {
@@ -12,11 +9,13 @@ export {
   getCallerFilename,
   initializeFile,
   getDirectoryBy,
-} from './src/path';
+} from './src/path/index';
 
 export { readInput } from './src/readInput/readInput';
 
-export { runOtherCode, RunOtherCodeParam } from './src/runOtherCode';
+export { runOtherCode } from './src/run-other-code';
+
+export type { RunOtherCodeParam } from './src/run-other-code/types';
 
 export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
 
