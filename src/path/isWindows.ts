@@ -1,8 +1,8 @@
 /**
  *
- * Determines whether it is a Windows environment
+ * 是否是 [windows](https://nodejs.org/docs/latest/api/path.html) 系统
  *
- *  https://nodejs.org/docs/latest/api/path.html
+ *
  *
  */
 export const isWindows: boolean =

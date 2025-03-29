@@ -10,14 +10,14 @@ const __p = (r: string | number) => _p(`${t}${r}`, false);
 
 /**
  *
- * Cursor is hidden at the terminal
+ * 隐藏光标消失
  *
  *
  */
 const cursorHide = () => __p('?25l');
 /**
  *
- * Cursor display
+ * 展示光标出现
  *
  *
  */
@@ -26,14 +26,16 @@ const cursorShow = () => __p('?25h');
 /**
  *
  *
- * Clean up the content after the cursor
+ * 清理光标之后的显示
  *
  *
  */
 const cursorAfterClear = () => __p('0J');
-/** get cursor position
+/**
  *
- * 获取光标的位置 */
+ * 获取光标的位置
+ *
+ */
 const cursorGetPosition = () => {
   const rl = createInterface({
     input: stdin,
@@ -56,16 +58,11 @@ const cursorGetPosition = () => {
     stdin.on('data', dataCall);
   });
 };
-/** set cursor position
- *
- * 设置光标位置
- */
-// const cursorSetPosition = (cursorPosition: number[]) => __p(`${cursorPosition.join(';')}H`);
-/** Move cursor position up
+/**
  *
  * 光标位置向上移动
  *
- * @param numberOfUpwardMoves   type, number of cursor moves up
+ * @param numberOfUpwardMoves
  */
 const cursorMoveUp = (numberOfUpwardMoves: number = 1) => {
   numberOfUpwardMoves =
@@ -74,33 +71,33 @@ const cursorMoveUp = (numberOfUpwardMoves: number = 1) => {
       : 1;
   return __p(`${numberOfUpwardMoves}A`);
 };
-/**   Move cursor position down
+/**
+ * 光标位置向下移动
  *
  *
  *
- * @param numberOfMovesDown      number of cursor moves down
+ * @param numberOfMovesDown
  *
  *
  */
 const cursorMoveDown = (numberOfMovesDown: number = 1) =>
   __p(`${numberOfMovesDown}B`);
-/** Move cursor position left
+/**
  *
  * 光标位置向左移动
  *
- * @param numberOfLeftShifts  {@link Number} Number of left shifts
- *
- *        numberOfLeftShifts {@link Number}  光标左移的数量
+ * @param numberOfLeftShifts   光标左移的数量
  */
 const cursorMoveLeft = (numberOfLeftShifts: number = 1) =>
   __p(`${numberOfLeftShifts}D`);
-/** Number of right shifts
+/**
  *
  *
  *  光标向右移动
- * @param numberOfRightShifts  {@link Number} of right shifts
  *
- *       numberOfRightShifts  {@link Number} 类型，光标右移的数量
+ * @param numberOfRightShifts  类型，光标右移的数量
+ *
+ *
  */
 const cursorMoveRight = (numberOfRightShifts: number = 1) =>
   __p(`${numberOfRightShifts}C`);

@@ -2,10 +2,10 @@ import { dirname } from 'node:path';
 
 /**
  *
- * Get the directory name of the file
+ * 获取文件的目录名称
  *
- * @param path  file path
- * @returns  directory name
+ * @param path  文件路径
+ * @returns  文件目录
  * @example
  *
  * ```ts

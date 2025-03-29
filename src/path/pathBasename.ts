@@ -4,10 +4,10 @@ import { isWindows } from './isWindows';
 /**
  *
  *
- *  file name
+ *  文件名
  *
- *  @param filename  file name
- *  @returns  file name
+ *  @param filename  文件名
+ *  @returns  不带后缀的文件名
  *
  */
 export function pathBasename(filename: string) {

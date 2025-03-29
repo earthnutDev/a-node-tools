@@ -7,46 +7,51 @@ import { t } from 'color-pen';
 import { RunOtherCodeParam } from './types';
 import { isWindows, pathJoin } from '../path';
 
-/** Execute other commands
+/**
  *
- * The exec of `child_process` used here creates a child thread
+ * 运行其他命令
+ *
+ * 此处使用的 'child_process' 的 exec 创建一个子线程
  *
  *
  *   ```ts
- *          import { runOtherCode } from  "ismi-node-tools";
- *          runOtherCode({
- *                  code:"ls",
- *                  cwd : "../",
- *                  hideWaiting: true,
- *                  waitingMessage: 'please wait a moment',
- *                  printLog: true,
- *          }).then((resolve)=>{
- *              console.log(resolve);
- *          });
+ *   import { runOtherCode } from  "ismi-node-tools";
+ *
+ *
+ *   runOtherCode({
+ *           code:"ls",
+ *           cwd : "../",
+ *           hideWaiting: true,
+ *           waitingMessage: 'please wait a moment',
+ *           printLog: true,
+ *   }).then((resolve)=>{
+ *       console.log(resolve);
+ *   });
  *
  *   ```
  *
- * or
+ * 或者
  *
  * ```ts
  *  const result = await runOtherCoder('ls');
  *
- *  // log  `true` or `false`
+ *  // 打印  `true` 后者 `false`
  *  console.log(result.success);
  *
- *  // If an execution error occurs, there will be a value here.
+ *  //如果发生执行错误，则此处将有一个值。
  *  console.log(result.error);
  *
- *  // If result.success === true, there will be the actual return value of your own code
+ *  // 如果 result.success === true，则会出现你自己的代码的实际返回值
  *  console.log(result.data);
  *
  * ```
  *
- * @param param {@link RunOtherCodeParam}  { code:string , cwd: string, callback:()=> void}
+ * @param param  { code:string , cwd: string, callback:()=> void}
  *
- * @returns     return a  {@link Promise} \
- *              返回一个 {@link Promise} \
- *  返回值包含执行的信息。\
+ * @returns   返回一个 Promise
+ *
+ *  返回值包含执行的信息。
+ *
  *  如果是串行执行，那么结果的话可能就是一个奇特的大字符串
  */
 export function runOtherCode(param: RunOtherCodeParam): Promise<{

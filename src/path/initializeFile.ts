@@ -5,7 +5,7 @@ import { dirname } from 'node:path';
 
 /**
  *
- * Initialize the project's `__filename` and `__dirname`
+ * 初始化 `__filename` 和 `__dirname`
  *
  * @returns   [__filename,__dirname]
  */

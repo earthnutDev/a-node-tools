@@ -2,10 +2,10 @@ import { join, normalize } from 'node:path';
 
 /**
  *
- * Address concatenation
+ * 地址串联
  *
- * @param _path - Address concatenation
- * @returns - Address concatenation
+ * @param _path - 地址
+ * @returns - 地址串联
  * @example
  *
  * ```ts

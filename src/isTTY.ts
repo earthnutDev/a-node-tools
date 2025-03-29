@@ -1,9 +1,6 @@
-/** 当前是否为终端环境   */
 /**
  *
- * Whether it is a terminal environment
- *
- * @requires if you are running in a terminal environment, return true, otherwise return false
+ *  当前是否是终端
  *
  */
 export const isTTY = () =>

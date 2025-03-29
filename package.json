@@ -1,16 +1,16 @@
 {
   "type": "module",
   "version": "0.1.1",
+  "private": true,
   "name": "a-node-tools",
   "main": "cjs/index.cjs",
   "module": "mjs/index.mjs",
   "typings": "types/index.d.ts",
-  "description": "some function about node",
+  "description": "一些简单的 node 函数",
   "files": [
     "mjs/",
     "cjs/",
-    "types/",
-    "CHANGELOG-en.md"
+    "types/"
   ],
   "exports": {
     ".": {
@@ -28,18 +28,17 @@
     "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
     "clean:package": "node scripts/clean-package-json.js",
     "build": "npx ixxx rm dist && npm run b && npm run clean:package",
-    "push:version": "npm run beautify && bash -c 'git add . && git commit -m \"version: $1 $(date +\"%Y-%m-%d %H:%M:%S\")${2:+ }$2\" && git tag -a \"v$1\" -m \"$(date +\"%Y-%m-%d %H:%M:%S\")${2:+ }$2\" && git push origin main --tags' -- ",
-    "push:submit": "npm run beautify && bash -c 'git add . && git commit -m \"submit: $(date +\"%Y-%m-%d %H:%M:%S\")${1:+ }$1\" && git push origin main' -- ",
-    "clean": "npx ixxx up -d  rm node_modules dist  && npm run npm install && npm run b",
+    "push:version": "gvv",
+    "push:submit": "gvv",
     "eslint": "npx ixxx cls && npx eslint src",
     "beautify": "npm run eslint && npm run prettier",
     "prettier": "npx ixxx cls && npx prettier . --write",
     "prepare": "husky",
-    "test": "npx ixxx cls && npx jest --coverage",
+    "test": "npx ixxx cls && npx lint-staged && npx jest --coverage",
     "report": "cat ./coverage/lcov.info | coveralls",
     "coverage": "codecov",
-    "versionUpdate": "npx ixxx up -n",
-    "pub": "npm run build && && cd ./dist && npm publish && cd../"
+    "vjj": "vjj",
+    "prepublishOnly": "pjj"
   },
   "repository": {
     "type": "git",
@@ -89,6 +88,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-junit": "^16.0.0",
     "lint-staged": "^15.5.0",
+    "pjj": "^0.1.0",
     "prettier": "^3.5.3",
     "rollup": "^4.37.0",
     "rollup-plugin-cleanup": "^3.2.1",
@@ -99,9 +99,9 @@
     "typescript-eslint": "^8.28.0"
   },
   "dependencies": {
-    "a-js-tools": ">=0.1.1 <1.0.0",
-    "a-type-of-js": ">=0.1.5 <1.0.0",
-    "color-pen": ">=0.1.0 <1.0.0"
+    "a-js-tools": ">=0.1.3 <1.0.0",
+    "a-type-of-js": ">=0.1.6 <1.0.0",
+    "color-pen": ">=0.1.1 <1.0.0"
   },
   "browserslist": [
     "node>=12.0.0"
