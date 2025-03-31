@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { getRandomInt } from 'a-js-tools';
 import { cursorAfterClear, cursorHide, cursorShow } from '../cursor';
 import { _p } from '../print';
-import { isFunction } from 'a-type-of-js';
+import { isFunction, isString } from 'a-type-of-js';
 import { t } from 'color-pen';
 import { RunOtherCodeParam } from './types';
 import { isWindows, pathJoin } from '../path';
@@ -66,7 +66,7 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
   };
 
   /// 倘若传入的实参是一个字符串，则默认仅传入
-  if (typeof param == 'string') {
+  if (isString(param)) {
     param = { code: param };
   }
 
@@ -136,7 +136,9 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
           // 清理光标后内容
           cursorAfterClear();
           // 打印文本
-          _p(_data);
+          if (printLog) {
+            _p(_data);
+          }
           stdoutData += _data;
         }
       });

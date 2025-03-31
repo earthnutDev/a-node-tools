@@ -3,7 +3,8 @@ name: 测试率自动化工具
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+
+  workflow_dispatch: # 允许允许手动触发
     inputs:
       version:
         description: '触发原因（选填）'
