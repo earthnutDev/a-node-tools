@@ -184,6 +184,7 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
           cursorAfterClear();
           /// 返回之前将光标展示出来
           cursorShow();
+          process.removeListener('exit', cursorShow);
           resolve({ success, data: stdoutData, error: stderrData });
         }, 100);
       });
@@ -196,6 +197,7 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
     return new Promise(resolve => {
       /// 在返回值之前展示光标
       cursorShow();
+      process.removeListener('exit', cursorShow);
       resolve({ error, data: undefined, success: false });
     });
   }

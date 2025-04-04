@@ -1,5 +1,10 @@
 # 更新日志
 
+## 0.1.3 (4 月 34 日 2025 年)
+
+- 修复了 `runOtherCode` 的 🀄️ 仅注册 process.exit 触发事件而没有正确移除导致的 `(node:23349) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 41 exit listeners added to [process]. MaxListeners is 40. Use emitter.setMaxListeners() to increase limit
+(Use \`node --trace-warnings ...\` to show where the warning was created)` 🙅
+
 ## 0.1.2 (3 月 31 日 2025 年)
 
 - 修复了 `runOtherCode` 的日志打印的小 bug
