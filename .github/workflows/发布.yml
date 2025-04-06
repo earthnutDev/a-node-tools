@@ -74,4 +74,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
           cd dist
-          npm publish --provenance --access public tag ${{ env.tag }}
+          npm publish --provenance --access public --tag ${{ env.tag }}
