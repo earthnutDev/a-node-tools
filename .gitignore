@@ -11,3 +11,11 @@ test/out
 *.tgz
 
 coverage
+
+.eg
+
+**/.DS_Store
+
+.DS_Store
+
+**/.DS_Store

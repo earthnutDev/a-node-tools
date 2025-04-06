@@ -55,7 +55,7 @@
 |    `cursorMoveDown`     |       光标下移       |        `numberOfMovesDown` 偏移量，缺省 1        |
 |    `cursorMoveLeft`     |       光标左移       |       `numberOfLeftShifts` 偏移量，缺省 1        |
 |    `cursorMoveRight`    |       光标右移       |       `numberOfRightShifts` 偏移量，缺省 1       |
-|   `cursorAfterClear`    |    光标后内容清理    |                        --                        |
+|   `cursorAfterClear`    |     光标后内容🧹     |                        --                        |
 
 ### readInput 部分
 

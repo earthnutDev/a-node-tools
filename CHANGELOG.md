@@ -1,6 +1,11 @@
 # 更新日志
 
-## 0.1.3 (4 月 34 日 2025 年)
+## 1.0.0 (4 月 6 日 2025 年)
+
+- 替换了 `getNpmPkgInfo` 和 `testNpmPackageExist` 的请求地址，返回值的结构发生了变化，可能不兼容上一版本
+- 优化了 `runOtherCode` 方法，现在可以正确地运行其他代码并返回结果
+
+## 0.1.3 (4 月 4 日 2025 年)
 
 - 修复了 `runOtherCode` 的 🀄️ 仅注册 process.exit 触发事件而没有正确移除导致的 `(node:23349) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 41 exit listeners added to [process]. MaxListeners is 40. Use emitter.setMaxListeners() to increase limit
 (Use \`node --trace-warnings ...\` to show where the warning was created)` 🙅
@@ -71,7 +76,7 @@
 
 ## 0.0.8 (6 月 21 日 2024 年)
 
-- 使用 `runOtherCode` 结束清理 “等待中”
+- 使用 `runOtherCode` 结束🧹 “等待中”
 
 ## 0.0.7 (6 月 20 日 2024 年)
 

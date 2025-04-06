@@ -98,7 +98,7 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
     process.on('exit', cursorShow);
     /// 心跳打印 '请稍等'
     aSettingRollup.timeStamp = setInterval(() => {
-      // 清理光标后内容
+      // 🧹光标后内容
       cursorAfterClear();
       // 打印文本
       _p(
@@ -127,17 +127,18 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
       });
       /// 标准输出流
       childProcess.stdout.on('data', data => {
-        let _data = data.toString();
+        let _data: string = data.toString();
         /// 尾部换行符
         if (!/\n$/.test(_data)) {
-          _data = _data.concat(isWindows ? '\r' : '');
+          _data = _data.concat(isWindows ? '\r\n' : '\n');
         }
+
         if (!/^\s*$/.test(_data)) {
-          // 清理光标后内容
+          // 🧹光标后内容
           cursorAfterClear();
           // 打印文本
           if (printLog) {
-            _p(_data);
+            _p(_data, !_data.endsWith('\n'));
           }
           stdoutData += _data;
         }
@@ -147,13 +148,13 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
         let _data = error.toString();
         /// 尾部换行符
         if (!/\n$/.test(_data)) {
-          _data = _data.concat(isWindows ? '\r' : '');
+          _data = _data.concat(isWindows ? '\r\n' : '\n');
         }
-        // 清理光标后内容
+        // 🧹光标后内容
         cursorAfterClear();
         // 打印文本
         if (printLog) {
-          _p(_data);
+          _p(_data, !_data.endsWith('\n'));
         }
         stderrData += _data;
       });
@@ -163,13 +164,13 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
         let _data = error.toString();
         /// 尾部换行符
         if (!/\n$/.test(_data)) {
-          _data = _data.concat(isWindows ? '\r' : '');
+          _data = _data.concat(isWindows ? '\r\n' : '\n');
         }
-        // 清理光标后内容
+        // 🧹光标后内容
         cursorAfterClear();
         // 打印文本
         if (printLog) {
-          _p(_data);
+          _p(_data, !_data.endsWith('\n'));
         }
       });
       /// 子进程关闭事件
@@ -178,9 +179,9 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
           if (callBack && isFunction(callBack)) {
             Reflect.apply(callBack, null, []);
           }
-          /// 清理定时器
+          /// 🧹定时器
           clearInterval(aSettingRollup.timeStamp);
-          /// 清理光标后的内容，避免出现打印残留
+          /// 🧹光标后的内容，避免出现打印残留
           cursorAfterClear();
           /// 返回之前将光标展示出来
           cursorShow();
@@ -191,9 +192,9 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
     });
   } catch (error) {
     clearInterval(aSettingRollup.timeStamp);
-    //  清理光标后的剩余屏幕部分
+    //  🧹光标后的剩余屏幕部分
     cursorAfterClear();
-    _p('catch error'.concat((error as string).toString()));
+    _p('❌ ❌ 子线程执行失败 ❌ ❌ ❌'.concat((error as string).toString()));
     return new Promise(resolve => {
       /// 在返回值之前展示光标
       cursorShow();

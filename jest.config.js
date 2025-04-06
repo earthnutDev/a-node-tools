@@ -8,7 +8,8 @@ export default () => {
       '^.+\\.tsx?$': [
         'ts-jest',
         {
-          isolatedModules: true,
+          // "isolatedModules" is deprecated and will be removed in v30.0.0.
+          // isolatedModules: true,
           tsconfig: 'tsconfig.json',
         },
       ],
@@ -18,6 +19,8 @@ export default () => {
       enableGlobally: true,
     },
     testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+    testTimeout: 500,
+    setupFilesAfterEnv: ['./jest.setup.ts'],
     collectCoverage: true,
     collectCoverageFrom: [
       'src/**/*.{ts,js,tsx,jsx}',

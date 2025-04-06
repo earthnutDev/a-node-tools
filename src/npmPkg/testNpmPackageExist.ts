@@ -1,5 +1,5 @@
-import https from 'https';
 import { parseName } from './parseName';
+import { getNpmPkgInfo } from './getNpmPkgInfo';
 /**
  * 测试 npm  包是否存在
  *
@@ -12,15 +12,10 @@ export async function testNpmPackageExist(
   if (!pkgName) {
     return null;
   }
-  return new Promise(resolve => {
-    const req = https.get(
-      `https://www.npmjs.com/package/${pkgName}`,
-      response => (
-        response.on('data', () => 0),
-        response.on('end', () => resolve(response.statusCode == 200))
-      ),
-    );
-    req.on('error', () => resolve(404));
-    req.end();
-  });
+  const result = await getNpmPkgInfo(pkgName);
+  if (result) {
+    return true;
+  } else {
+    return false;
+  }
 }

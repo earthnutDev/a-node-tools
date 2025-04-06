@@ -1,4 +1,4 @@
-import { testNpmPackageExist } from './testNpmPackageExist';
+import { parseName } from './parseName';
 import { npmPkgInfoType } from './types';
 import https from 'node:https';
 
@@ -12,42 +12,45 @@ import https from 'node:https';
  */
 export async function getNpmPkgInfo(
   pkgName: string,
-): Promise<Record<string, never> | npmPkgInfoType> {
+): Promise<npmPkgInfoType | null> {
   return new Promise(resolve => {
-    (async () => {
+    (() => {
       let result: string = '';
-      const npmPackageIsExit = await testNpmPackageExist(pkgName);
-      if (npmPackageIsExit == 404 || !npmPackageIsExit) return resolve({});
-      const req = https.get(
-        `https://www.npmjs.com/package/${pkgName || 'ismi-node-tools'}`,
-        {
-          headers: {
-            'sec-fetch-dest': 'empty',
-            // "X-Requested-With": "XMLHttpRequest",
-            // "Sec-Fetch-Mode": "cors",
-            // "Sec-Fetch-Site": "same-origin",
-            // Accept: "*/*",
-            // Referer: `https://www.npmjs.com/package/${pkgName}`,
-            'X-Spiferack': 1,
-          },
+      const parsedName = parseName(pkgName) || 'a-node-tools';
+      /**  请求的网址  */
+      const path = `/${parsedName}`;
+
+      const options = {
+        hostname: 'registry.npmjs.org',
+        path,
+        headers: {
+          'sec-fetch-dest': 'empty',
+          'X-Spiferacl': '1',
         },
-        response => {
-          response.on('data', data => (result += data.toString()));
-          /// 请求结束后
-          response.on('end', () => {
+      };
+
+      const req = https.get(options, response => {
+        response.on('data', data => (result += data.toString()));
+        /// 请求结束后
+        response.on('end', () => {
+          try {
             if (response.statusCode == 200) {
               const pkgInfo: npmPkgInfoType = JSON.parse(result);
-              const info = pkgInfo.packageVersion;
-              pkgInfo.name = info.name;
-              pkgInfo.version = info.version;
-              resolve(pkgInfo || {});
-            } else {
-              resolve({});
+              pkgInfo.version = pkgInfo['dist-tags'].latest;
+              resolve(pkgInfo || null);
             }
-          });
-        },
-      );
-      req.on('error', () => resolve({}));
+            // 404 返回值为 { error: 'Not found' }
+            else {
+              resolve(null);
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          } catch (error) {
+            resolve(null);
+          }
+        });
+      });
+
+      req.on('error', () => resolve(null));
       req.end();
     })();
   });
