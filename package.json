@@ -1,29 +1,9 @@
 {
   "type": "module",
-  "version": "1.0.1",
-  "private": true,
+  "version": "1.0.2",
   "name": "a-node-tools",
-  "main": "cjs/index.cjs",
-  "module": "mjs/index.mjs",
-  "typings": "types/index.d.ts",
+  "private": true,
   "description": "一点点 🤏 node 函数",
-  "files": [
-    "mjs/",
-    "cjs/",
-    "types/"
-  ],
-  "exports": {
-    ".": {
-      "import": {
-        "default": "./mjs/index.mjs",
-        "types": "./types/index.d.ts"
-      },
-      "require": {
-        "default": "./cjs/index.cjs",
-        "types": "./types/index.d.ts"
-      }
-    }
-  },
   "scripts": {
     "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
     "clean:package": "node scripts/clean-package-json.js",
@@ -42,28 +22,7 @@
     "vjj": "vjj",
     "prepublishOnly": "pjj"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/earthnutDev/a-node-tools.git"
-  },
-  "author": {
-    "name": "earthnut",
-    "email": "earthnut.dev@outlook.com",
-    "url": "https://earthnut.dev"
-  },
   "license": "ISC",
-  "keywords": [
-    "a-node-tools"
-  ],
-  "homepage": "https://earthnut.dev/a-node-tools",
-  "bugs": {
-    "url": "https://github.com/earthnutDev/a-node-tools/issues",
-    "email": "earthnut.dev@outlook.com"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "lint-staged": {
     "src/*.{js,ts,tsx,jsx,md,mdx}": [
       "eslint --fix",
@@ -112,11 +71,5 @@
     "a-js-tools": ">=0.1.4 <1.0.0",
     "a-type-of-js": ">=0.2.0 <1.0.0",
     "color-pen": ">=0.1.3 <1.0.0"
-  },
-  "browserslist": [
-    "node>=12.0.0"
-  ],
-  "engines": {
-    "node": ">=12.0.0"
   }
 }

@@ -6,13 +6,55 @@ import {
   writeJsonFile,
 } from '../dist/mjs/index.mjs';
 
-const packageJson = readFileToJsonSync('./package.json');
+let packageJson = readFileToJsonSync('./package.json');
 
-const deleteKeys = ['scripts', 'devDependencies', 'lint-staged', 'private'];
+['scripts', 'devDependencies', 'lint-staged', 'private'].forEach(
+  key => delete packageJson[key],
+);
 
-deleteKeys.forEach(key => {
-  delete packageJson[key];
-});
+packageJson = {
+  main: 'cjs/index.cjs',
+  module: 'mjs/index.mjs',
+  types: 'types/index.d.ts',
+  ...packageJson,
+  publishConfig: {
+    access: 'public',
+    registry: 'https://registry.npmjs.org/',
+  },
+  files: ['mjs/', 'cjs/', 'types/'],
+  exports: {
+    '.': {
+      import: {
+        default: './mjs/index.mjs',
+        types: './types/index.d.ts',
+      },
+      require: {
+        default: './cjs/index.cjs',
+        types: './types/index.d.ts',
+      },
+    },
+  },
+  repository: {
+    type: 'git',
+    url: 'git+https://github.com/earthnutDev/a-node-tools.git',
+  },
+  author: {
+    name: 'earthnut',
+    email: 'earthnut.dev@outlook.com',
+    url: 'https://earthnut.dev',
+  },
+  browserslist: ['node>=12.0.0'],
+  engines: {
+    node: '>=12.0.0',
+  },
+  keywords: ['a-node-tools'],
+
+  homepage: 'https://earthnut.dev/a-node-tools',
+  bugs: {
+    url: 'https://github.com/earthnutDev/a-node-tools/issues',
+    email: 'earthnut.dev@outlook.com',
+  },
+};
 
 const distPath = getDirectoryBy('dist', 'directory');
 
