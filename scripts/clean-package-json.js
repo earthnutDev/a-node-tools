@@ -1,15 +1,21 @@
 // 因为先执行的 `npm run b` 进行 rollup 打包，所以 `dist` 一定存在
-import { pathJoin, readFileToJsonSync } from '../dist/mjs/index.mjs';
-import { writeFileSync } from 'node:fs';
+import {
+  pathJoin,
+  readFileToJsonSync,
+  getDirectoryBy,
+  writeJsonFile,
+} from '../dist/mjs/index.mjs';
 
 const packageJson = readFileToJsonSync('./package.json');
 
-delete packageJson.scripts;
-delete packageJson.devDependencies;
-delete packageJson['lint-staged'];
-delete packageJson.private;
+const deleteKeys = ['scripts', 'devDependencies', 'lint-staged', 'private'];
 
-// eslint-disable-next-line no-undef
-const distPath = pathJoin(process.cwd(), './dist/package.json');
+deleteKeys.forEach(key => {
+  delete packageJson[key];
+});
 
-writeFileSync(distPath, JSON.stringify(packageJson, null, 2));
+const distPath = getDirectoryBy('dist', 'directory');
+
+const distPackagePath = pathJoin(distPath, './dist/package.json');
+
+writeJsonFile(distPackagePath, packageJson);
