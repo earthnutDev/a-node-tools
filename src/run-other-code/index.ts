@@ -191,6 +191,9 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
       });
     });
   } catch (error) {
+    if (process.env.A_NODE_TOOLS_DEV === 'true') {
+      console.error(error);
+    }
     clearInterval(aSettingRollup.timeStamp);
     //  🧹光标后的剩余屏幕部分
     cursorAfterClear();

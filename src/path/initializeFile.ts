@@ -16,8 +16,10 @@ export function initializeFile(): [string, string] {
   try {
     new Function('import("")');
     a = fileURLToPath(import.meta.url);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
+    if (process.env.A_NODE_TOOLS_DEV === 'true') {
+      console.error(error);
+    }
     a = __filename;
   }
   if (isWindows) a = a.replace(/\\/gm, '/');

@@ -69,8 +69,10 @@ function isEmpty(dirname: string): -1 | 0 | 1 {
     if (fileInfo && fileInfo.isDirectory()) {
       return readdirSync(dirname, { withFileTypes: true }).length == 0 ? 1 : 0;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
+    if (process.env.A_NODE_TOOLS_DEV === 'true') {
+      console.error(error);
+    }
     return -1;
   }
   return -1;

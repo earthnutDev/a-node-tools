@@ -1,5 +1,5 @@
 import { parseName } from './parseName';
-import { npmPkgInfoType } from './types';
+import { DefaultT, npmPkgInfoType } from './types';
 import https from 'node:https';
 
 /**
@@ -10,7 +10,7 @@ import https from 'node:https';
  *
  * @returns 返回是一个对象
  */
-export async function getNpmPkgInfo(
+export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
   pkgName: string,
 ): Promise<npmPkgInfoType | null> {
   return new Promise(resolve => {
@@ -35,7 +35,8 @@ export async function getNpmPkgInfo(
         response.on('end', () => {
           try {
             if (response.statusCode == 200) {
-              const pkgInfo: npmPkgInfoType = JSON.parse(result);
+              const pkgInfo: npmPkgInfoType<T> = JSON.parse(result);
+
               pkgInfo.version = pkgInfo['dist-tags'].latest;
               resolve(pkgInfo || null);
             }
@@ -43,8 +44,10 @@ export async function getNpmPkgInfo(
             else {
               resolve(null);
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
           } catch (error) {
+            if (process.env.A_NODE_TOOLS_DEV === 'true') {
+              console.error(error);
+            }
             resolve(null);
           }
         });

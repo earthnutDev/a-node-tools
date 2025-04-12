@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -19,7 +19,7 @@
     "test": "jja clear && npx jest --coverage",
     "report": "cat ./coverage/lcov.info | coveralls",
     "coverage": "codecov",
-    "vjj": "vjj",
+    "vjj": "vjj -b",
     "prepublishOnly": "pjj"
   },
   "license": "ISC",

@@ -19,7 +19,7 @@ export type { RunOtherCodeParam } from './src/run-other-code/types';
 
 export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
 
-export type { npmPkgInfoType } from './src/npmPkg/types';
+export type { npmPkgInfoType, PackageJson } from './src/npmPkg';
 
 export {
   __p,

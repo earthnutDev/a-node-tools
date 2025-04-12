@@ -43,9 +43,9 @@ packageJson = {
     email: 'earthnut.dev@outlook.com',
     url: 'https://earthnut.dev',
   },
-  browserslist: ['node>=12.0.0'],
+  browserslist: ['node>=18.0.0'],
   engines: {
-    node: '>=12.0.0',
+    node: '>=18.0.0',
   },
   keywords: ['a-node-tools'],
 
