@@ -31,7 +31,13 @@
 
 ```
 
-各源 [![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/HEAD/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/HEAD/media/测试源情况.png)
+各源的测试情况
+
+[![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/main/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/blob/main/media/测试源情况.png)
+
+由上图可见，使用 `淘宝` 源时，延迟相对较低。而有些国内源都没有 `npm` 原源延迟低。
+
+（不是对为为有偏见，而是为为总是返回一个空的文件）
 
 ## path 模块
 
