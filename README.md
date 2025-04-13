@@ -23,6 +23,16 @@
 - `getNpmPkgInfo` 获取 npm 包信息
 - `testNpmPackageExist` 测试包是否可下载存在
 
+现可通过第二参数指定 npm registry 源
+
+可接受参数
+
+```ts
+
+```
+
+各源 [![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/HEAD/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/HEAD/media/测试源情况.png)
+
 ## path 模块
 
 - `pathJoin` 文件地址拼接

@@ -1,5 +1,6 @@
 import { parseName } from './parseName';
 import { getNpmPkgInfo } from './getNpmPkgInfo';
+import { npmRegistry } from './types';
 /**
  * 测试 npm  包是否存在
  *
@@ -7,15 +8,23 @@ import { getNpmPkgInfo } from './getNpmPkgInfo';
  */
 export async function testNpmPackageExist(
   pkgName: string,
+  registry: npmRegistry = '淘宝',
 ): Promise<boolean | number | null> {
   pkgName = parseName(pkgName);
   if (!pkgName) {
     return null;
   }
-  const result = await getNpmPkgInfo(pkgName);
-  if (result) {
-    return true;
-  } else {
-    return false;
+  try {
+    const result = await getNpmPkgInfo(pkgName, registry);
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    if (process.env.A_NODE_TOOLS_DEV === 'true') {
+      console.log(error);
+    }
+    return null;
   }
 }

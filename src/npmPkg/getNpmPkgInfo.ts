@@ -1,5 +1,5 @@
 import { parseName } from './parseName';
-import { DefaultT, npmPkgInfoType } from './types';
+import { DefaultT, npmPkgInfoType, npmRegistry } from './types';
 import https from 'node:https';
 
 /**
@@ -12,16 +12,27 @@ import https from 'node:https';
  */
 export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
   pkgName: string,
+  registry: npmRegistry = '淘宝',
 ): Promise<npmPkgInfoType | null> {
+  const registryList = {
+    淘宝: 'registry.npmjs.org',
+    官方: 'registry.npmjs.org',
+    腾讯: 'mirrors.tencent.com',
+    中科大: 'npmreg.proxy.ustclug.org',
+    yarn: 'registry.yarnpkg.com',
+  };
+  const hostname: string = registryList[registry] || registryList['淘宝'];
+
   return new Promise(resolve => {
     (() => {
       let result: string = '';
       const parsedName = parseName(pkgName) || 'a-node-tools';
+
       /**  请求的网址  */
-      const path = `/${parsedName}`;
+      const path = (registry === '腾讯' ? '/npm' : '').concat(`/${parsedName}`);
 
       const options = {
-        hostname: 'registry.npmjs.org',
+        hostname,
         path,
         headers: {
           'sec-fetch-dest': 'empty',

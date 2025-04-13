@@ -171,3 +171,5 @@ export type npmPkgInfoType<T extends DefaultT = DefaultT> = {
   users: { [x: string]: string };
   [x: string]: unknown;
 };
+
+export type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
