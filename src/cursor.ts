@@ -1,6 +1,7 @@
 import { createInterface } from 'node:readline';
 import { _p } from './print';
 import { t } from 'color-pen';
+import { isNumber } from 'a-type-of-js';
 
 /** 一个转义码  */
 const { stdout, stdin } = process;
@@ -26,11 +27,11 @@ const cursorShow = () => __p('?25h');
 /**
  *
  *
- * 🧹光标之后的显示
+ * 🧹 光标之后的显示
  *
  *
  */
-const cursorAfterClear = () => __p('0J');
+const cursorAfterClear = () => __p('J');
 /**
  *
  * 获取光标的位置
@@ -60,47 +61,104 @@ const cursorGetPosition = () => {
 };
 /**
  *
- * 光标位置向上移动
+ * ## 光标位置向 ⬆️ 移动
  *
- * @param numberOfUpwardMoves
+ * 当值为无穷大时，默认移动到最 ⬆️，但是可能会显示大片 🈳 白
+ * @param len 光标向 ⬆️ 移动的行数
+ *   - 默认为 1
+ *   - 必须大于 1
+ *   - 必须是整数
+ *   - 非数值则尝试转化为数值
+ *   - 无穷大则会移动到最 ⬆️
+ * @returns void 返回 void
+ *
  */
-const cursorMoveUp = (numberOfUpwardMoves: number = 1) => {
-  numberOfUpwardMoves =
-    isFinite(numberOfUpwardMoves) && numberOfUpwardMoves > 0
-      ? Math.round(numberOfUpwardMoves)
-      : 1;
-  return __p(`${numberOfUpwardMoves}A`);
+const cursorMoveUp = (len: number = 1) => {
+  return __p(`${computerLen(len, 'vertical')}A`);
 };
 /**
- * 光标位置向下移动
+ * ## 光标位置向 ⬇️ 移动
  *
- *
- *
- * @param numberOfMovesDown
+ * 当值为无穷大时，默认移动到最 ⬇️，但是可能会显示大片 🈳 白
+ * @param len 光标向 ⬇️ 移动的行数
+ *   - 默认为 1
+ *   - 必须大于 1
+ *   - 必须是整数
+ *   - 非数值则尝试转化为数值
+ *   - 无穷大则会移动到最 ⬇️
+ * @returns void 返回 void
  *
  *
  */
-const cursorMoveDown = (numberOfMovesDown: number = 1) =>
-  __p(`${numberOfMovesDown}B`);
+function cursorMoveDown(len: number = 1) {
+  __p(`${computerLen(len, 'vertical')}B`);
+}
 /**
  *
- * 光标位置向左移动
+ * ## 光标位置向 ⬅️ 移动
  *
- * @param numberOfLeftShifts   光标左移的数量
+ * 当值为无穷大时，默认移动到最 ⬅️ 侧
+ * @param len   光标 ⬅️ 移的数量
+ *   - 默认为 1
+ *   - 必须大于 1
+ *   - 必须是整数
+ *   - 非数值则尝试转化为数值
+ *   - 无穷大则会移动到最 ⬅️ 侧
+ * @returns void 返回 void
+ *
  */
-const cursorMoveLeft = (numberOfLeftShifts: number = 1) =>
-  __p(`${numberOfLeftShifts}D`);
+function cursorMoveLeft(len: number = 1) {
+  __p(`${computerLen(len)}D`);
+}
 /**
  *
+ * ## 光标向 ➡️ 移动
  *
- *  光标向右移动
+ * 当值为无穷大时，默认移动到最 ➡️ 侧
+ * @param len   光标 ➡️ 移的数量
+ *   - 默认为 1
+ *   - 必须大于 1
+ *   - 必须是整数
+ *   - 非数值则尝试转化为数值
+ *   - 无穷大则会移动到最  ➡️ 侧
+ * @returns void 返回 void
+ */
+function cursorMoveRight(len: number = 1) {
+  __p(`${computerLen(len)}C`);
+}
+
+/**
  *
- * @param numberOfRightShifts  类型，光标右移的数量
+ * 计算光标移动的长度
  *
+ * @param len  数值
+ * @returns number 整理后的数值
  *
  */
-const cursorMoveRight = (numberOfRightShifts: number = 1) =>
-  __p(`${numberOfRightShifts}C`);
+function computerLen(
+  len: number,
+  direction: 'horizontal' | 'vertical' = 'horizontal',
+): number {
+  len = Number(len);
+  // 非数值
+  if (
+    !isNumber(len) ||
+    isNaN(len) ||
+    len < 1 ||
+    Number.isInteger(len) === false
+  ) {
+    len = 1;
+  }
+
+  /**  最大值  */
+  const maxLength =
+    direction === 'horizontal' ? process.stdout.columns : process.stdout.rows;
+
+  if (Infinity === len || len > maxLength) {
+    len = maxLength;
+  }
+  return len;
+}
 
 export {
   __p,

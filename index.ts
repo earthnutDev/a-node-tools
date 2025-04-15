@@ -15,7 +15,10 @@ export { readInput } from './src/readInput/readInput';
 
 export { runOtherCode } from './src/run-other-code';
 
-export type { RunOtherCodeParam } from './src/run-other-code/types';
+export type {
+  RunOtherCodeOption as RunOtherCodeParam,
+  RunOtherCodeOption,
+} from './src/run-other-code/types';
 
 export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
 

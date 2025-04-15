@@ -1,21 +1,20 @@
 import { spawn } from 'node:child_process';
-import { getRandomInt } from 'a-js-tools';
-import { cursorAfterClear, cursorHide, cursorShow } from '../cursor';
 import { _p } from '../print';
-import { isFunction, isString } from 'a-type-of-js';
-import { t } from 'color-pen';
-import { RunOtherCodeParam } from './types';
-import { isWindows, pathJoin } from '../path';
+import { isFunction } from 'a-type-of-js';
+import { RunOtherCodeOption, runOtherCodeResult } from './types';
+import { organizeText } from './organizeText';
+import { waiting } from './waiting';
+import { parse } from './parse';
 
 /**
  *
- * 运行其他命令
+ * 运行其他简单的命令
  *
  * 此处使用的 'child_process' 的 exec 创建一个子线程
  *
  *
  *   ```ts
- *   import { runOtherCode } from  "ismi-node-tools";
+ *   import { runOtherCode } from  "a-node-tools";
  *
  *
  *   runOtherCode({
@@ -46,132 +45,54 @@ import { isWindows, pathJoin } from '../path';
  *
  * ```
  *
- * @param param  { code:string , cwd: string, callback:()=> void}
+ * @param options  { code:string , cwd: string, callback:()=> void}
  *
- * @returns   返回一个 Promise
- *
- *  返回值包含执行的信息。
- *
- *  如果是串行执行，那么结果的话可能就是一个奇特的大字符串
+ * @returns  返回一个 Promise
+ *    - 返回值包含执行的信息。
+ *    - 如果是串行执行，那么结果的话可能就是一个奇特的大字符串
+ *    - 执行结果 🀄️ 的 code 是执行状态值
+ *          - 为 0 时
  */
-export function runOtherCode(param: RunOtherCodeParam): Promise<{
-  error: undefined | string | unknown;
-  success?: boolean;
-  data?: undefined | string;
-}> {
-  /** 一个简单的轮询  */
-  const aSettingRollup = {
-    count: 0,
-    timeStamp: setTimeout(() => 1),
+export function runOtherCode(
+  options: RunOtherCodeOption,
+): Promise<runOtherCodeResult> {
+  /** 解析后的参数  */
+  const runOptions = parse(options);
+
+  const result: runOtherCodeResult = {
+    success: true,
+    data: '',
+    error: '',
+    status: 1,
   };
 
-  /// 倘若传入的实参是一个字符串，则默认仅传入
-  if (isString(param)) {
-    param = { code: param };
-  }
-
-  /// 混合值，将实参进行整理
-  const template = Object.assign(
-    {
-      cwd: '',
-      hideWaiting: false,
-      waitingMessage: '',
-      printLog: true,
-    },
-    param,
-  );
-  const { code, callBack, hideWaiting, waitingMessage, printLog } = template;
-  let { cwd } = template;
+  const { cmd, callBack, hideWaiting, waitingMessage, printLog, cwd } =
+    runOptions;
   /** 打印请稍等。。。 */
-  if (!hideWaiting) {
-    /** 随机出一个待渲染列队 */
-    const pList: string[] = [
-      ['.', '..', '...', '....', '...', '..'],
-      ['···', '⋱', '⋮', '⋰'],
-      ['⤯', '⤰', '⤮', '⤩', '⤪', '⤧', '⤨'],
-    ][getRandomInt(2)];
-    /** 随机出的等待标志符数组的长度 */
-    const pLength: number = pList.length;
-    /// 隐藏光标
-    cursorHide();
-    // 放置一个在进程结束时展示光标，即便在测试发现异步操作会阻塞该事件的触发
-    process.on('exit', cursorShow);
-    /// 心跳打印 '请稍等'
-    aSettingRollup.timeStamp = setInterval(() => {
-      // 🧹光标后内容
-      cursorAfterClear();
-      // 打印文本
-      _p(
-        `\n${waitingMessage}${'.'.repeat(++aSettingRollup.count % pLength)}${t}20D${t}1A`,
-        false,
-      );
-    }, 100);
-  }
-  /// 整理工作路径
-  cwd = pathJoin(process.cwd(), cwd);
-  /** 解析命令 */
-  const commandLine = code
-    .replace(/\s{2,}/, ' ')
-    .trim()
-    .split(' ');
+  const waitingDestroyed = waiting(hideWaiting, waitingMessage);
 
   try {
     return new Promise(resolve => {
-      let stdoutData = '',
-        stderrData = '',
-        success = true;
       /** 子命令  */
-      const childProcess = spawn(commandLine[0], commandLine.slice(1), {
+      const childProcess = spawn(cmd[0], cmd.slice(1), {
         cwd,
         shell: true,
       });
       /// 标准输出流
-      childProcess.stdout.on('data', data => {
-        let _data: string = data.toString();
-        /// 尾部换行符
-        if (!/\n$/.test(_data)) {
-          _data = _data.concat(isWindows ? '\r\n' : '\n');
-        }
-
-        if (!/^\s*$/.test(_data)) {
-          // 🧹光标后内容
-          cursorAfterClear();
-          // 打印文本
-          if (printLog) {
-            _p(_data, !_data.endsWith('\n'));
-          }
-          stdoutData += _data;
-        }
-      });
+      childProcess.stdout.on(
+        'data',
+        value => (result.data += organizeText(value, printLog)),
+      );
       /// 标准输出流输出错误
-      childProcess.stderr.on('data', error => {
-        let _data = error.toString();
-        /// 尾部换行符
-        if (!/\n$/.test(_data)) {
-          _data = _data.concat(isWindows ? '\r\n' : '\n');
-        }
-        // 🧹光标后内容
-        cursorAfterClear();
-        // 打印文本
-        if (printLog) {
-          _p(_data, !_data.endsWith('\n'));
-        }
-        stderrData += _data;
-      });
-      /// 出现错误
-      childProcess.on('error', error => {
-        success = !1;
-        let _data = error.toString();
-        /// 尾部换行符
-        if (!/\n$/.test(_data)) {
-          _data = _data.concat(isWindows ? '\r\n' : '\n');
-        }
-        // 🧹光标后内容
-        cursorAfterClear();
-        // 打印文本
-        if (printLog) {
-          _p(_data, !_data.endsWith('\n'));
-        }
+      childProcess.stderr.on(
+        'data',
+        value => (result.error += organizeText(value, printLog)),
+      );
+      // 子进程创建失败并不会抛出 error 触发 try.catch ，相反会在这里打印消息
+      childProcess.on('error', value => {
+        result.success = false;
+        result.status = result.data !== '' ? 2 : 3;
+        result.error += organizeText(value, printLog);
       });
       /// 子进程关闭事件
       childProcess.on('close', () => {
@@ -179,30 +100,23 @@ export function runOtherCode(param: RunOtherCodeParam): Promise<{
           if (callBack && isFunction(callBack)) {
             Reflect.apply(callBack, null, []);
           }
-          /// 🧹定时器
-          clearInterval(aSettingRollup.timeStamp);
-          /// 🧹光标后的内容，避免出现打印残留
-          cursorAfterClear();
-          /// 返回之前将光标展示出来
-          cursorShow();
-          process.removeListener('exit', cursorShow);
-          resolve({ success, data: stdoutData, error: stderrData });
-        }, 100);
+          waitingDestroyed(); // 移除定时器
+          resolve(result);
+        });
       });
     });
   } catch (error) {
+    const errorStr: string = error.toString();
     if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      console.error(error);
+      console.error(errorStr);
     }
-    clearInterval(aSettingRollup.timeStamp);
-    //  🧹光标后的剩余屏幕部分
-    cursorAfterClear();
-    _p('❌ ❌ 子线程执行失败 ❌ ❌ ❌'.concat((error as string).toString()));
+    _p('❌ ❌ 子线程执行失败 ❌ ❌ ❌'.concat(errorStr));
     return new Promise(resolve => {
-      /// 在返回值之前展示光标
-      cursorShow();
-      process.removeListener('exit', cursorShow);
-      resolve({ error, data: undefined, success: false });
+      waitingDestroyed();
+      result.error = errorStr;
+      result.success = false;
+      result.status = 0;
+      resolve(result);
     });
   }
 }
