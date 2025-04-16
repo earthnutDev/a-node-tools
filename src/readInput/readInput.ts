@@ -3,15 +3,25 @@ import { createInterface, Interface } from 'node:readline';
 import readInputData from './readInputData';
 import { isFunction } from 'a-type-of-js';
 
-/**  
+/**
  *
  *
- * 监听用户输入
- 
+ * ## 监听用户输入
  *
- *        _callback   回调函数，必须，可接收两个参数，分别用户按键及键原始值
+ * @param _callback 回调函数，必须，可接收两个参数，分别用户按键及键原始值
+ * @returns   Promise<unknown>
+ * @example
+ *
+ * ```ts
+ * import { readInput , _p } from 'a-node-tools';
+ *
+ *
+ *
+ *
+ * ```
+ *
  */
-export function readInput(
+export async function readInput(
   _callback: (keyValue: string | undefined, key: unknown) => boolean,
   // option: null = null,
 ) {

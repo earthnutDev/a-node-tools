@@ -2,10 +2,11 @@ import { fileURLToPath } from 'node:url';
 import { isWindows } from './isWindows';
 import { getCallerFilename } from './getCallerFileInfo';
 import { dirname } from 'node:path';
+import { _p } from 'src/print';
 
 /**
  *
- * 初始化 `__filename` 和 `__dirname`
+ * ## 初始化 `__filename` 和 `__dirname`
  *
  * @returns   [__filename,__dirname]
  */
@@ -18,7 +19,7 @@ export function initializeFile(): [string, string] {
     a = fileURLToPath(import.meta.url);
   } catch (error) {
     if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      console.error(error);
+      _p(error);
     }
     a = __filename;
   }

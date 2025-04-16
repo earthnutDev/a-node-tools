@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { _p } from './print';
 /**
  *  读取 json 文件返回为 JSON 格式
  * @param fileDir  {@link String}  文件目录
@@ -34,12 +35,24 @@ function readFileToJsonSync(fileDir: string) {
   );
 }
 
-/** 将一个 JSON 数据写入空白文件 */
-function writeJsonFile(pathName: string, data: { [key: string]: string }) {
-  writeFileSync(pathName, JSON.stringify(data, null, 2), {
-    encoding: 'utf-8',
-    flag: 'w',
-  });
+/**
+ *  将一个 JSON 数据写入空白文件
+ *
+ *
+ */
+function writeJsonFile(pathName: string, data: object): true | Error {
+  try {
+    writeFileSync(pathName, JSON.stringify(data, null, 2), {
+      encoding: 'utf-8',
+      flag: 'w',
+    });
+    return true;
+  } catch (error) {
+    if (process.env.A_NODE_TOOLS_DEV === 'true') {
+      _p(error);
+    }
+    return error;
+  }
 }
 
 /**
@@ -56,12 +69,18 @@ function isExist(fileDir: string) {
  * 判断文件夹是否为空
  *
  *
- * @returns 返回值为简单的 `-1`、`0`、`1`
+ * @returns [-1 , 0 , 1] 返回值为简单的 `-1`、`0`、`1`
+ *      - `-1` 当前给出的目录名在当前目录下不是目录或是打开失败时返回该值
+ *      - `0`   当前给出的目录名为目录，但是该目录为非空目录
+ *      - `1` 当前目录为空
  *
- * - `-1` 当前给出的目录名在当前目录下不是目录或是打开失败时返回该值
- * - `0`   当前给出的目录名为目录，但是该目录为非空目录
- * - `1` 当前目录为空
+ * @example
  *
+ * ```ts
+ * import { isEmpty } from 'a-node-tools';
+ *
+ * isEmpty('src/index.ts'); // -1
+ * ```
  */
 function isEmpty(dirname: string): -1 | 0 | 1 {
   try {
@@ -71,7 +90,7 @@ function isEmpty(dirname: string): -1 | 0 | 1 {
     }
   } catch (error) {
     if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      console.error(error);
+      _p(error);
     }
     return -1;
   }

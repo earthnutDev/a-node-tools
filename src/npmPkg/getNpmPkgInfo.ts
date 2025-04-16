@@ -1,21 +1,37 @@
+import { _p } from 'src/print';
 import { parseName } from './parseName';
 import { DefaultT, npmPkgInfoType, npmRegistry } from './types';
 import https from 'node:https';
 
 /**
  *
- * 获取给定 npm 包的内容的信息
+ * ## 获取给定 npm 包的内容的信息
  *
  * @param pkgName 包的名字
- *
+ * @param [registry='淘宝'] npm 源，默认是淘宝源。可选值： 淘宝、官方、腾讯、中科大、yarn、华为
  * @returns 返回是一个对象
+ *
+ * @example
+ *
+ * ```ts
+ * import { getNpmPkgInfo ,_p } from 'a-node-tools';
+ *
+ * const pkgInlineInfo: npmPkgInfoType | null  = await getNpmPkgInfo('a-node-tools');
+ *
+ * if (isNull(pkgInlineInfo)) {
+ *    throw new Error('获取包信息失败');
+ * }
+ *
+ * _p(pkgInlineInfo.name); // 'a-node-tools';
+ *
+ * ```
  */
 export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
   pkgName: string,
   registry: npmRegistry = '淘宝',
 ): Promise<npmPkgInfoType | null> {
-  const registryList = {
-    淘宝: 'registry.npmjs.org',
+  const registryList: Record<npmRegistry, string> = {
+    淘宝: 'registry.npmmirror.com',
     官方: 'registry.npmjs.org',
     腾讯: 'mirrors.tencent.com',
     中科大: 'npmreg.proxy.ustclug.org',
@@ -57,14 +73,19 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
             }
           } catch (error) {
             if (process.env.A_NODE_TOOLS_DEV === 'true') {
-              console.error(error);
+              _p(error);
             }
             resolve(null);
           }
         });
       });
 
-      req.on('error', () => resolve(null));
+      req.on('error', error => {
+        if (process.env.A_NODE_TOOLS_DEV === 'true') {
+          _p(error);
+        }
+        resolve(null);
+      });
       req.end();
     })();
   });

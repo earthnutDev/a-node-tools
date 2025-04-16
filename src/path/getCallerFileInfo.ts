@@ -2,12 +2,15 @@ import { isWindows } from './isWindows';
 
 /**
  *
- * Get the information of the calling file
+ * 获取调用文件信息，此方法存在一些限制，请谨慎使用
  *
  *
- *  @param fileName  Pass in the file path that calls the function (this path needs to be obtained with `initializeFile`
- *
- * @returns The calling file information
+ * @param fileName 通过调用文件信息，返回调用者的文件路径
+ * @returns 调用文件的信息
+ *     - name 文件名
+ *     - line 行号
+ *     - row  列数
+ *     - originArr 调用栈信息
  *
  */
 export function getCallerFileInfo(fileName: string): {
@@ -60,13 +63,13 @@ export function getCallerFileInfo(fileName: string): {
 
 /**
  *
- * Get the address of the calling file, this method has some limitations, please use it with caution
+ * 获取调用文件的文本信息
  *
- * It is recommended to use it with `initializeFile`
+ * 需要搭配使用 `initializeFile`
  *
  *
- * @param fileName Please call the function when passing __filename
- * @returns The calling file address name string
+ * @param fileName 请使用 __filename
+ * @returns 调用者信息
  * @example
  *
  *  ```ts

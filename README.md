@@ -28,7 +28,7 @@
 可接受参数
 
 ```ts
-type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
+type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn' | '华为';
 ```
 
 各源的测试情况
@@ -72,16 +72,34 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 例：
 
 ```js
-import { readInput } from "a-node-tools";
+import { readInput , _p} from "a-node-tools";
 
 const callBackFunction = (keyValue: string | undefined, key:any)
 => {
-    if(key.name && key.name == 'return')
+    if(key.name && key.name == 'return') {
         return true;
-    else return  console.log(`换一个键试试，这个键（${keyValue}）不执行退出`);
+    }
+    else {
+      return _p(`换一个键试试，这个键（${keyValue}）不执行退出`);
+    }
 };
 ```
 
 ## 文档地址
 
 参看 [https://earthnut.dev/a-node-tools/](https://earthnut.dev/a-node-tools/)
+
+## 参考
+
+- [阿里源](https://developer.aliyun.com/mirror/)
+- [腾讯源](https://mirrors.tencent.com/)
+- [中科大源](https://mirrors.ustc.edu.cn/)
+
+以下源不支持 npm
+
+- [清华大学源](https://mirrors.tuna.tsinghua.edu.cn/)
+- [网易源](https://mirrors.163.com)
+
+以下源禁止接口访问
+
+- [华为源](https://mirrors.huaweicloud.com)

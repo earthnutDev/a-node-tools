@@ -37,7 +37,7 @@ const cursorAfterClear = () => __p('J');
  * 获取光标的位置
  *
  */
-const cursorGetPosition = () => {
+const cursorGetPosition = async () => {
   const rl = createInterface({
     input: stdin,
     output: stdout,

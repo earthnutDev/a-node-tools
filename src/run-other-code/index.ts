@@ -8,13 +8,21 @@ import { parse } from './parse';
 
 /**
  *
- * 运行其他简单的命令
+ * ## 运行其他简单的命令
+ * @param options  { code:string , cwd: string, callback:()=> void}
+ *
+ * @returns  返回一个 Promise
+ *    - 返回值包含执行的信息。
+ *    - 如果是串行执行，那么结果的话可能就是一个奇特的大字符串
+ *    - 执行结果 🀄️ 的 code 是执行状态值
+ *          - 为 0 时
  *
  * 此处使用的 'child_process' 的 exec 创建一个子线程
  *
+ * @example
  *
- *   ```ts
- *   import { runOtherCode } from  "a-node-tools";
+ * ```ts
+ * import { runOtherCode , _sp} from  "a-node-tools";
  *
  *
  *   runOtherCode({
@@ -24,7 +32,7 @@ import { parse } from './parse';
  *           waitingMessage: 'please wait a moment',
  *           printLog: true,
  *   }).then((resolve)=>{
- *       console.log(resolve);
+ *       _p(resolve);
  *   });
  *
  *   ```
@@ -32,26 +40,21 @@ import { parse } from './parse';
  * 或者
  *
  * ```ts
+ *  import { runOtherCode, _p }  form 'a-node-tools';
+ *
  *  const result = await runOtherCoder('ls');
  *
  *  // 打印  `true` 后者 `false`
- *  console.log(result.success);
+ *  _p(result.success);
  *
  *  //如果发生执行错误，则此处将有一个值。
- *  console.log(result.error);
+ *  _p(result.error);
  *
  *  // 如果 result.success === true，则会出现你自己的代码的实际返回值
- *  console.log(result.data);
+ *  _p(result.data);
  *
  * ```
  *
- * @param options  { code:string , cwd: string, callback:()=> void}
- *
- * @returns  返回一个 Promise
- *    - 返回值包含执行的信息。
- *    - 如果是串行执行，那么结果的话可能就是一个奇特的大字符串
- *    - 执行结果 🀄️ 的 code 是执行状态值
- *          - 为 0 时
  */
 export function runOtherCode(
   options: RunOtherCodeOption,
@@ -108,7 +111,7 @@ export function runOtherCode(
   } catch (error) {
     const errorStr: string = error.toString();
     if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      console.error(errorStr);
+      _p(errorStr);
     }
     _p('❌ ❌ 子线程执行失败 ❌ ❌ ❌'.concat(errorStr));
     return new Promise(resolve => {
