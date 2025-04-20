@@ -5,7 +5,7 @@ import { npmRegistry } from 'src/npmPkg/types';
 const list: npmRegistry[] = ['官方', '淘宝', '腾讯', '中科大', 'yarn'];
 
 list.forEach(async e => {
-  test.skip('测试 npm 包信息获取', async t => {
+  test('测试 npm 包信息获取', async t => {
     _p('');
     await t.test('测试本包（a-node-tools）是否存在', async () => {
       const startTime = Date.now();

@@ -1,4 +1,4 @@
-import { _p } from 'src/print';
+import { dog } from './../dog';
 import { parseName } from './parseName';
 import { DefaultT, npmPkgInfoType, npmRegistry } from './types';
 import https from 'node:https';
@@ -39,11 +39,13 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
   };
   const hostname: string = registryList[registry] || registryList['淘宝'];
 
+  dog('get npm pkg info 开始执行');
+
   return new Promise(resolve => {
     (() => {
       let result: string = '';
       const parsedName = parseName(pkgName) || 'a-node-tools';
-
+      dog('解析后的 pkg 名称', parsedName);
       /**  请求的网址  */
       const path = (registry === '腾讯' ? '/npm' : '').concat(`/${parsedName}`);
 
@@ -55,7 +57,7 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
           'X-Spiferacl': '1',
         },
       };
-
+      dog('请求参数', options);
       const req = https.get(options, response => {
         response.on('data', data => (result += data.toString()));
         /// 请求结束后
@@ -72,21 +74,18 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
               resolve(null);
             }
           } catch (error) {
-            if (process.env.A_NODE_TOOLS_DEV === 'true') {
-              _p(error);
-            }
+            dog.error('转化错误', error);
             resolve(null);
           }
         });
       });
 
       req.on('error', error => {
-        if (process.env.A_NODE_TOOLS_DEV === 'true') {
-          _p(error);
-        }
+        dog.error('请求错误', error);
         resolve(null);
       });
       req.end();
+      dog('结束方法');
     })();
   });
 }

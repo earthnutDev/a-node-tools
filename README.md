@@ -85,6 +85,23 @@ const callBackFunction = (keyValue: string | undefined, key:any)
 };
 ```
 
+## 使用日志
+
+在引用该包的包内使用该包内的方法时，可以使用启动参数 `a_node_tools_dev=xxx` 来启用部分方法的日志。
+
+`xxx` 可用的值为：
+
+- `"all"`
+- `"error"`
+- `"warn"`
+- `"info"`
+- `"true"`
+- `"false"`
+
+在使用 `a_node_tools_dev` 参数值为上面的值时，将会覆盖原配置的参数值，甚至是在代码中配置值也将被覆盖。
+
+代码内下面的值配置 `ANodeToolsDevLog.type` 该值将会原配置值，是运行时配置
+
 ## 文档地址
 
 参看 [https://earthnut.dev/a-node-tools/](https://earthnut.dev/a-node-tools/)

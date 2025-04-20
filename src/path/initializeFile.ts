@@ -23,7 +23,9 @@ export function initializeFile(): [string, string] {
     }
     a = __filename;
   }
-  if (isWindows) a = a.replace(/\\/gm, '/');
+  if (isWindows) {
+    a = a.replace(/\\/gm, '/');
+  }
   a = getCallerFilename(a);
   const b: string = dirname(a);
   return [a, b];

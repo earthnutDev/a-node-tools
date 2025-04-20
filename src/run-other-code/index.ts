@@ -1,10 +1,10 @@
 import { spawn } from 'node:child_process';
-import { _p } from '../print';
 import { isFunction } from 'a-type-of-js';
 import { RunOtherCodeOption, runOtherCodeResult } from './types';
 import { organizeText } from './organizeText';
 import { waiting } from './waiting';
 import { parse } from './parse';
+import { dog } from 'src/dog';
 
 /**
  *
@@ -24,28 +24,28 @@ import { parse } from './parse';
  * ```ts
  * import { runOtherCode , _sp} from  "a-node-tools";
  *
- *
- *   runOtherCode({
- *           code:"ls",
- *           cwd : "../",
- *           hideWaiting: true,
- *           waitingMessage: 'please wait a moment',
- *           printLog: true,
- *   }).then((resolve)=>{
- *       _p(resolve);
- *   });
+ * runOtherCode({
+ *    code:"ls", // 执行命令
+ *    cwd : "../", // 执行的工作目录
+ *    hideWaiting: true, // 是否隐藏等待，默认不显示等待 ⌛️ 提示文本
+ *    waitingMessage: 'please wait a moment', // // 等待信息，默认为 “请稍等”
+ *    shell: true, //  是否使用 shell 执行，默认值为 true
+ *    printLog: true, // 是否打印原始 stdout 输出，默认值为 true
+ * }).then((resolve)=>{
+ *     _p(resolve);
+ * });
  *
  *   ```
  *
  * 或者
  *
  * ```ts
- *  import { runOtherCode, _p }  form 'a-node-tools';
+ * import { runOtherCode, _p }  form 'a-node-tools';
  *
- *  const result = await runOtherCoder('ls');
+ * const result = await runOtherCoder('ls');
  *
- *  // 打印  `true` 后者 `false`
- *  _p(result.success);
+ * // 打印  `true` 后者 `false`
+ * _p(result.success);
  *
  *  //如果发生执行错误，则此处将有一个值。
  *  _p(result.error);
@@ -59,8 +59,12 @@ import { parse } from './parse';
 export function runOtherCode(
   options: RunOtherCodeOption,
 ): Promise<runOtherCodeResult> {
+  dog('runOtherCode 方法 开始执行 ');
+
   /** 解析后的参数  */
   const runOptions = parse(options);
+
+  dog('执行参数', runOptions);
 
   const result: runOtherCodeResult = {
     success: true,
@@ -69,7 +73,7 @@ export function runOtherCode(
     status: 1,
   };
 
-  const { cmd, callBack, hideWaiting, waitingMessage, printLog, cwd } =
+  const { cmd, callBack, hideWaiting, waitingMessage, printLog, cwd, shell } =
     runOptions;
   /** 打印请稍等。。。 */
   const waitingDestroyed = waiting(hideWaiting, waitingMessage);
@@ -79,26 +83,32 @@ export function runOtherCode(
       /** 子命令  */
       const childProcess = spawn(cmd[0], cmd.slice(1), {
         cwd,
-        shell: true,
+        shell,
       });
       /// 标准输出流
-      childProcess.stdout.on(
-        'data',
-        value => (result.data += organizeText(value, printLog)),
-      );
+      childProcess.stdout.on('data', value => {
+        const str = organizeText(value, printLog);
+        dog('stdout on data', str);
+        result.data += str;
+      });
       /// 标准输出流输出错误
-      childProcess.stderr.on(
-        'data',
-        value => (result.error += organizeText(value, printLog)),
-      );
+      childProcess.stderr.on('data', value => {
+        const str = organizeText(value, printLog);
+        dog('stderr on data', str);
+        result.error += str;
+      });
       // 子进程创建失败并不会抛出 error 触发 try.catch ，相反会在这里打印消息
       childProcess.on('error', value => {
+        dog('error', value);
+        const str = organizeText(value, printLog);
+        dog.error('error', str);
         result.success = false;
         result.status = result.data !== '' ? 2 : 3;
-        result.error += organizeText(value, printLog);
+        result.error += str;
       });
       /// 子进程关闭事件
       childProcess.on('close', () => {
+        dog('进行正常关闭');
         setTimeout(() => {
           if (callBack && isFunction(callBack)) {
             Reflect.apply(callBack, null, []);
@@ -110,10 +120,8 @@ export function runOtherCode(
     });
   } catch (error) {
     const errorStr: string = error.toString();
-    if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      _p(errorStr);
-    }
-    _p('❌ ❌ 子线程执行失败 ❌ ❌ ❌'.concat(errorStr));
+    dog.error('创建子进程出错', error);
+
     return new Promise(resolve => {
       waitingDestroyed();
       result.error = errorStr;

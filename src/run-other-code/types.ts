@@ -36,6 +36,14 @@ export interface RunOtherCodeOptions {
   printLog?: boolean;
   /**
    *
+   * 使用使用 shell 执行代码
+   *
+   * 缺省值为 true ，使用时请注意校验用户输入，防止命令恶意注入
+   *
+   */
+  shell?: boolean;
+  /**
+   *
    * 回调函数
    *
    */

@@ -25,6 +25,7 @@ export function parse(options: RunOtherCodeOption): RunOtherCodeOptions & {
 
   /// 混合值，将实参进行整理
   return {
+    shell: true,
     hideWaiting: false,
     waitingMessage: '',
     printLog: true,

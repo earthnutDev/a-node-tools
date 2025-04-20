@@ -1,23 +1,39 @@
 import { readFile } from 'node:fs/promises';
-import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import {
+  readdirSync,
+  readFileSync,
+  Stats,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { _p } from './print';
 /**
  *  读取 json 文件返回为 JSON 格式
  * @param fileDir  {@link String}  文件目录
  * @returns 返回是一个 {@link  Promise}
  */
-function readFileToJson(fileDir: string) {
+function readFileToJson<T extends object = object>(
+  fileDir: string,
+): Promise<T | null> {
   return new Promise((resolve, reject) => {
     if (
       !/.json^/.test(fileDir) &&
       !statSync(fileDir, { throwIfNoEntry: false })
     ) {
-      reject({});
-    } else {
-      readFile(fileDir, { encoding: 'utf-8' })
-        .then(res => resolve(JSON.parse(res)))
-        .catch(() => reject({}));
+      reject(null);
     }
+    readFile(fileDir, { encoding: 'utf-8' })
+      .then(res => {
+        try {
+          resolve(JSON.parse(res));
+        } catch (error) {
+          if (process.env.A_NODE_TOOLS_DEV === 'true') {
+            _p(error);
+          }
+          reject(null);
+        }
+      })
+      .catch(() => reject(null));
   });
 }
 /**
@@ -26,13 +42,27 @@ function readFileToJson(fileDir: string) {
  * @param fileDir   文件地址
  * @returns 返回的是一个 `JSON` 格式的数据
  */
-function readFileToJsonSync(fileDir: string) {
-  return (
-    (!/.json^/.test(fileDir) &&
-      !statSync(fileDir, { throwIfNoEntry: false }) &&
-      {}) ||
-    JSON.parse(readFileSync(fileDir, { encoding: 'utf-8' }) || '{}')
-  );
+function readFileToJsonSync<T extends object = object>(
+  fileDir: string,
+): T | null {
+  /**  文件不存在或是  */
+  if (
+    !/.json^/.test(fileDir) &&
+    !statSync(fileDir, { throwIfNoEntry: false })
+  ) {
+    return null;
+  }
+
+  try {
+    const fileContent = readFileSync(fileDir, { encoding: 'utf-8' });
+
+    return JSON.parse(fileContent || 'null');
+  } catch (error) {
+    if (process.env.A_NODE_TOOLS_DEV === 'true') {
+      _p(error);
+    }
+    return null;
+  }
 }
 
 /**
@@ -40,7 +70,7 @@ function readFileToJsonSync(fileDir: string) {
  *
  *
  */
-function writeJsonFile(pathName: string, data: object): true | Error {
+function writeJsonFile(pathName: string, data: object): boolean {
   try {
     writeFileSync(pathName, JSON.stringify(data, null, 2), {
       encoding: 'utf-8',
@@ -51,7 +81,7 @@ function writeJsonFile(pathName: string, data: object): true | Error {
     if (process.env.A_NODE_TOOLS_DEV === 'true') {
       _p(error);
     }
-    return error;
+    return false;
   }
 }
 
@@ -59,9 +89,9 @@ function writeJsonFile(pathName: string, data: object): true | Error {
  *  检验文件或文件接是否存在
  *
  * @param  fileDir  {@link String} 类型，为文件的路径（相对路径或绝对路径）
- * @returns Stats    Stats 或是 null
+ * @returns Stats    Stats 或是 undefined
  */
-function isExist(fileDir: string) {
+function isExist(fileDir: string): Stats | undefined {
   return statSync(fileDir, { throwIfNoEntry: false });
 }
 

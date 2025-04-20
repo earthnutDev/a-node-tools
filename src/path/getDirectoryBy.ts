@@ -1,3 +1,4 @@
+import { dog } from './../dog';
 import { fileExist } from '../file';
 import { pathDirname } from './pathDirname';
 import { pathJoin } from './pathJoin';
@@ -33,8 +34,10 @@ export function getDirectoryBy(
   let cwd: string = originalPath || process.cwd();
   /**  判断当前工作目录是否存在  */
   const cwdIsExist = fileExist(cwd);
+  dog('当前工作目录', cwd);
   // 倘若 cwd 不存在（只要针对于传入参数的情况）
   if (!cwdIsExist) {
+    dog('🎯 工作目录不存在');
     return '';
   }
   if (cwdIsExist.isFile()) {
@@ -53,6 +56,7 @@ export function getDirectoryBy(
     ) {
       return cwd;
     }
+    dog('♻️ 查找中...', cwd);
     cwd = pathJoin(cwd, '..');
   } while (cwd !== pathJoin(cwd, '..'));
   return '';

@@ -6,4 +6,4 @@
  *
  */
 export const isWindows: boolean =
-  (process && process.platform == 'win32') || !1;
+  (globalThis.process && globalThis.process.platform == 'win32') || !1;
