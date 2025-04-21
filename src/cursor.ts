@@ -31,7 +31,7 @@ const cursorShow = () => __p('?25h');
  *
  *
  */
-const cursorAfterClear = () => __p('J');
+const cursorAfterClear = () => __p('1J');
 /**
  *
  * 获取光标的位置
