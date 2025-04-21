@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -9,7 +9,7 @@
     "clean:package": "node scripts/clean-package-json.js",
     "build": "jja rm dist && npm run b && npm run clean:package",
     "build:dev": "rollup --config rollup.dev.config.js",
-    "dev": "jja rm .eg cls && npm run build:dev && node --unhandled-rejections=strict .eg/index.mjs",
+    "dev": "jja rm .eg cls && npm run build:dev && a_node_tools_dev=all node --unhandled-rejections=strict .eg/eg/index.mjs",
     "push:version": "gvv",
     "push:submit": "gvv",
     "diff": "jja pkg -d",
@@ -69,8 +69,8 @@
     "vjj": "^0.3.1"
   },
   "dependencies": {
-    "@qqi/dev-log": "^0.1.0",
-    "a-js-tools": "^0.5.4",
+    "@qqi/dev-log": ">=0.1.0 <1.0.0",
+    "a-js-tools": ">=0.5.4 <1.0.0",
     "a-type-of-js": ">=0.2.0 <1.0.0",
     "color-pen": ">=0.2.0 <1.0.0"
   }
