@@ -145,7 +145,7 @@ function computerLen(
     !isNumber(len) ||
     isNaN(len) ||
     len < 1 ||
-    Number.isInteger(len) === false
+    (Number.isInteger(len) === false && len !== Infinity)
   ) {
     len = 1;
   }
