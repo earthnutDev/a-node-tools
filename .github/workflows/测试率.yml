@@ -38,7 +38,7 @@ jobs:
       - name: 初始化 Node 并设定 Node 版本
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
 
       - name: 安装 dependencies 依赖
         run: npm install

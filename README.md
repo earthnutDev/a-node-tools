@@ -52,18 +52,21 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn' | '华�
 
 你可以使用 cursor 进行对光标位置进行操控：
 
-|          方法           |         示意         |                       参数                       |
-| :---------------------: | :------------------: | :----------------------------------------------: |
-|          `_p`           | 在 node 环境下的打印 | `r` 打印的文本; `lineFeed` 是否换行，缺省为 true |
-|      `cursorHide`       |       光标隐藏       |                        --                        |
-|      `cursorShow`       |       光标展示       |                        --                        |
-|  `cursorPositionSave`   |     储存光标位置     |                        --                        |
-| `cursorPositionRestore` |     恢复光标位置     |                        --                        |
-|     `cursorMoveUp`      |       光标上移       |       `numberOfUpwardMoves` 偏移量，缺省 1       |
-|    `cursorMoveDown`     |       光标下移       |        `numberOfMovesDown` 偏移量，缺省 1        |
-|    `cursorMoveLeft`     |       光标左移       |       `numberOfLeftShifts` 偏移量，缺省 1        |
-|    `cursorMoveRight`    |       光标右移       |       `numberOfRightShifts` 偏移量，缺省 1       |
-|   `cursorAfterClear`    |     光标后内容🧹     |                        --                        |
+|          方法           |              示意              |                       参数                       |
+| :---------------------: | :----------------------------: | :----------------------------------------------: |
+|          `_p`           |      在 node 环境下的打印      | `r` 打印的文本; `lineFeed` 是否换行，缺省为 true |
+|      `cursorHide`       |            光标隐藏            |                        --                        |
+|      `cursorShow`       |            光标展示            |                        --                        |
+|  `cursorPositionSave`   |          储存光标位置          |                        --                        |
+| `cursorPositionRestore` |          恢复光标位置          |                        --                        |
+|     `cursorMoveUp`      |            光标上移            |       `numberOfUpwardMoves` 偏移量，缺省 1       |
+|    `cursorMoveDown`     |            光标下移            |        `numberOfMovesDown` 偏移量，缺省 1        |
+|    `cursorMoveLeft`     |            光标左移            |       `numberOfLeftShifts` 偏移量，缺省 1        |
+|    `cursorMoveRight`    |            光标右移            |       `numberOfRightShifts` 偏移量，缺省 1       |
+|   `cursorAfterClear`    |          光标后内容🧹          |                        --                        |
+| `cursorLineAfterClear`  | 清理光标所在行光标位置后的内容 |                                                  |
+| `cursorLineBeforeClear` | 清理光标所在行光标位置前的内容 |                                                  |
+|    `cursorLineClear`    |    清理光标所在行的所有内容    |                                                  |
 
 ### readInput 部分
 
@@ -106,7 +109,9 @@ const callBackFunction = (keyValue: string | undefined, key:any)
 
 参看 [https://earthnut.dev/a-node-tools/](https://earthnut.dev/a-node-tools/)
 
-## 参考
+### npm 源参考
+
+推荐使用 [nry 切换 npm 源](https://www.npmjs.com/package/nry)
 
 - [阿里源](https://developer.aliyun.com/mirror/)
 - [腾讯源](https://mirrors.tencent.com/)

@@ -1,64 +1,59 @@
-import { createInterface } from 'node:readline';
+/****************************************************************************
+ *  @Author earthnut
+ *  @Email earthnut.dev@outlook.com
+ *  @ProjectName a-node-tools
+ *  @FileName cursor.ts
+ *  @CreateDate  周二  04/22/2025
+ *  @Description [ANSI 转义码](https://earthnutdev.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
+ *
+ ****************************************************************************/
+
 import { _p } from './print';
-import { t } from 'color-pen';
+import { csi } from 'color-pen';
 import { isNumber } from 'a-type-of-js';
+import { dog } from './dog';
 
-/** 一个转义码  */
-const { stdout, stdin } = process;
+/** 打印转义的内容  */
+function __p(r: string | number) {
+  _p(`${csi}${r}`, false);
+}
+/**  隐藏光标消失  */
+function cursorHide() {
+  __p('?25l');
+}
+/**   展示光标出现 */
+function cursorShow() {
+  __p('?25h');
+}
 
-/*** 打印转义的内容  */
-const __p = (r: string | number) => _p(`${t}${r}`, false);
-
+/**  🧹 光标之后的显示 */
+function cursorAfterClear() {
+  __p('0J');
+}
+/**  清理光标所在行光标之后的显示  */
+function cursorLineAfterClear() {
+  __p('0K');
+}
+/**  清理光标所在行光标之前的内容  */
+function cursorLineBeforeClear() {
+  __p('1K');
+}
 /**
+ * ## 清除光标所在行
  *
- * 隐藏光标消失
- *
+ * @param [resetCursor=false]  是否重置光标的位置，缺省值为 false
  *
  */
-const cursorHide = () => __p('?25l');
-/**
- *
- * 展示光标出现
- *
- *
- */
-const cursorShow = () => __p('?25h');
-
-/**
- *
- *
- * 🧹 光标之后的显示
- *
- *
- */
-const cursorAfterClear = () => __p('1J');
-/**
- *
- * 获取光标的位置
- *
- */
-const cursorGetPosition = async () => {
-  const rl = createInterface({
-    input: stdin,
-    output: stdout,
-  });
-  return new Promise((resolve, reject) => {
-    __p('6n');
-    const dataCall = (data: { toString: () => string }) => {
-      // eslint-disable-next-line no-control-regex
-      const match = data.toString().match(/^\x1b\[(\d+);(\d+)R$/i);
-      if (match) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [_, row, col] = match;
-        stdin.removeListener('data', dataCall);
-        rl.close();
-        resolve([row, col]);
-      }
-      reject([0, 0]);
-    };
-    stdin.on('data', dataCall);
-  });
-};
+function cursorLineClear(resetCursor: boolean = false) {
+  __p('2K');
+  if (resetCursor) {
+    cursorMoveLeft(Infinity);
+  }
+}
+/**  获取光标的位置  */
+function cursorGetPosition() {
+  __p('6n');
+}
 /**
  *
  * ## 光标位置向 ⬆️ 移动
@@ -73,9 +68,9 @@ const cursorGetPosition = async () => {
  * @returns void 返回 void
  *
  */
-const cursorMoveUp = (len: number = 1) => {
-  return __p(`${computerLen(len, 'vertical')}A`);
-};
+function cursorMoveUp(len: number = 1) {
+  __p(`${computerLen(len, 'vertical')}A`);
+}
 /**
  * ## 光标位置向 ⬇️ 移动
  *
@@ -139,7 +134,10 @@ function computerLen(
   len: number,
   direction: 'horizontal' | 'vertical' = 'horizontal',
 ): number {
+  dog('计算光标移动的长度', '方向为：', direction);
+  dog('数值化前的值:', len);
   len = Number(len);
+  dog('数值化后的值:', len);
   // 非数值
   if (
     !isNumber(len) ||
@@ -147,6 +145,7 @@ function computerLen(
     len < 1 ||
     (Number.isInteger(len) === false && len !== Infinity)
   ) {
+    dog.warn('由于 len =', len, '不符合要求，转化为 1');
     len = 1;
   }
 
@@ -155,6 +154,7 @@ function computerLen(
     direction === 'horizontal' ? process.stdout.columns : process.stdout.rows;
 
   if (Infinity === len || len > maxLength) {
+    dog.warn('由于 len 的值超大而转化为超大值');
     len = maxLength;
   }
   return len;
@@ -170,4 +170,7 @@ export {
   cursorMoveDown,
   cursorMoveLeft,
   cursorMoveRight,
+  cursorLineAfterClear,
+  cursorLineBeforeClear,
+  cursorLineClear,
 };

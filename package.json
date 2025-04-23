@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -34,7 +34,7 @@
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-typescript": "^7.27.0",
-    "@eslint/js": "^9.25.0",
+    "@eslint/js": "^9.25.1",
     "@jest/globals": "^29.7.0",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-json": "^6.1.0",
@@ -46,9 +46,9 @@
     "babel-jest": "^29.7.0",
     "codecov": "^3.8.3",
     "coveralls": "^3.1.1",
-    "eslint": "^9.25.0",
+    "eslint": "^9.25.1",
     "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-jsdoc": "^50.6.9",
+    "eslint-plugin-jsdoc": "^50.6.10",
     "globals": "^16.0.0",
     "gvv": "^0.0.0",
     "husky": "^9.1.7",
@@ -65,13 +65,13 @@
     "ts-jest": "^29.3.2",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.30.1",
+    "typescript-eslint": "^8.31.0",
     "vjj": "^0.3.1"
   },
   "dependencies": {
     "@qqi/dev-log": ">=0.1.0 <1.0.0",
     "a-js-tools": ">=0.5.4 <1.0.0",
     "a-type-of-js": ">=0.2.0 <1.0.0",
-    "color-pen": ">=0.2.0 <1.0.0"
+    "color-pen": ">=1.0.0 <2.0.0"
   }
 }

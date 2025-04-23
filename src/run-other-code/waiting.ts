@@ -1,5 +1,5 @@
 import { getRandomInt } from 'a-js-tools';
-import { t } from 'color-pen';
+import { csi } from 'color-pen';
 import {
   cursorAfterClear,
   cursorHide,
@@ -52,7 +52,7 @@ export function waiting(hideWaiting: boolean, waitingMessage: string) {
     cursorAfterClear();
     // 打印文本
     _p(
-      `\n${waitingMessage}${'.'.repeat(++count % pLength)}${t}20D${t}1A`,
+      `\n${waitingMessage}${'.'.repeat(++count % pLength)}${csi}20D${csi}1A`,
       false,
     );
   }, 100);

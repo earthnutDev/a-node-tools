@@ -7,7 +7,7 @@ import {
   cursorShow,
 } from './cursor';
 import { stdout } from 'node:process';
-import { t } from 'color-pen';
+import { csi } from 'color-pen';
 
 // 使用 Jest 的 mock 功能来模拟 stdout.write 方法
 jest.mock('node:process', () => ({
@@ -123,37 +123,37 @@ describe('about cursor', () => {
     // 测试默认参数情况
     it('should move cursor up by default number of moves (1)', () => {
       cursorMoveUp();
-      expect(stdout.write).toHaveBeenCalledWith(t.concat('1A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('1A'));
     });
 
     // 测试正整数参数
     it('should move cursor up by specified number of moves (positive integer)', () => {
       cursorMoveUp(3);
-      expect(stdout.write).toHaveBeenCalledWith(t.concat('3A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('3A'));
     });
 
     // 测试浮点数参数，应该被四舍五入
     it('should move cursor up by rounded number of moves (float)', () => {
       cursorMoveUp(2.7);
-      expect(stdout.write).toHaveBeenCalledWith(t.concat('3A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('3A'));
     });
 
     // 测试非数字参数，应该使用默认值
     it('should move cursor up by default number of moves (non-number)', () => {
       cursorMoveUp('a');
-      expect(stdout.write).toHaveBeenCalledWith(t.concat('1A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('1A'));
     });
 
     // 测试负数参数，应该使用默认值
     it('should move cursor up by default number of moves (negative number)', () => {
       cursorMoveUp(-1);
-      expect(stdout.write).toHaveBeenCalledWith(t.concat('1A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('1A'));
     });
 
     // 测试非有限数参数，应该使用默认值
     it('should move cursor up by default number of moves (non-finite number)', () => {
       cursorMoveUp(NaN);
-      expect(stdout.write).toHaveBeenCalledWith(t.concat('1A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('1A'));
     });
 
     // 测试 BigInt 参数，应该被转换为字符串并附加 'n'

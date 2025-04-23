@@ -5,6 +5,7 @@ import { organizeText } from './organizeText';
 import { waiting } from './waiting';
 import { parse } from './parse';
 import { dog } from 'src/dog';
+import pen from 'color-pen';
 
 /**
  *
@@ -88,19 +89,19 @@ export function runOtherCode(
       /// 标准输出流
       childProcess.stdout.on('data', value => {
         const str = organizeText(value, printLog);
-        dog('stdout on data', str);
+        dog(pen.bgBrightMagenta`stdout on data`, str);
         result.data += str;
       });
       /// 标准输出流输出错误
       childProcess.stderr.on('data', value => {
         const str = organizeText(value, printLog);
-        dog('stderr on data', str);
+        dog(pen.bgBrightMagenta`stderr on data`, str);
         result.error += str;
       });
       // 子进程创建失败并不会抛出 error 触发 try.catch ，相反会在这里打印消息
       childProcess.on('error', value => {
-        dog('error', value);
         const str = organizeText(value, printLog);
+        dog(pen.bgBrightMagenta`error`, str);
         dog.error('error', str);
         result.success = false;
         result.status = result.data !== '' ? 2 : 3;

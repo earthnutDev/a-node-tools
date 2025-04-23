@@ -34,6 +34,9 @@ export {
   cursorMoveDown,
   cursorMoveLeft,
   cursorMoveRight,
+  cursorLineAfterClear,
+  cursorLineBeforeClear,
+  cursorLineClear,
 } from './src/cursor.js';
 
 export {
