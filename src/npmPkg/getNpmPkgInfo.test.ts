@@ -69,7 +69,7 @@ describe('getNpmPkgInfo', () => {
     });
 
     // Execute the function
-    const result = await getNpmPkgInfo('lodash');
+    const result = await getNpmPkgInfo('lodash', '官方');
 
     // Verify the results
     expect(result).not.toBeNull();
@@ -97,7 +97,7 @@ describe('getNpmPkgInfo', () => {
 });
 
 describe('getNpmPkgInfoTest', () => {
-  it('should handle scoped package name correctly', async () => {
+  it('应正确处理作用域的包名称', async () => {
     // Mock parseName to return the scoped package name
     mockedParseName.mockReturnValue('@types/node');
 
@@ -145,7 +145,7 @@ describe('getNpmPkgInfoTest', () => {
     });
 
     // Execute the function
-    const result = await getNpmPkgInfo('@types/node');
+    const result = await getNpmPkgInfo('@types/node', '官方');
 
     // Verify the results
     expect(result).toEqual({
@@ -199,7 +199,7 @@ describe('getNpmPkgInfo', () => {
     });
 
     // Execute the function with non-existent package name
-    const result = await getNpmPkgInfo('non-existent-package-12345');
+    const result = await getNpmPkgInfo('non-existent-package-12345', '官方');
 
     // Assert the result is null
     expect(result).toBeNull();

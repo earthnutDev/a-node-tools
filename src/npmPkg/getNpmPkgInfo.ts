@@ -1,3 +1,4 @@
+import { isUndefined } from 'a-type-of-js';
 import { dog } from './../dog';
 import { parseName } from './parseName';
 import { DefaultT, npmPkgInfoType, npmRegistry } from './types';
@@ -59,7 +60,9 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
       };
       dog('请求参数', options);
       const req = https.get(options, response => {
-        response.on('data', data => (result += data.toString()));
+        response.on('data', data => {
+          if (!isUndefined(data)) result += data.toString();
+        });
         /// 请求结束后
         response.on('end', () => {
           try {

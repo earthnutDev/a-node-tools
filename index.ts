@@ -45,11 +45,12 @@ export {
   fileExist,
   writeJsonFile,
   dirEmpty,
-} from './src/file';
+} from './src/file/';
 
 export { _p } from './src/print';
 
-import { default as file } from './src/file';
+import { default as file } from './src/file/';
+
 export { file };
 
 export { dog as ANodeToolsDevLog } from './src/dog';

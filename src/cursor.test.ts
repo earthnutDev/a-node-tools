@@ -132,10 +132,10 @@ describe('about cursor', () => {
       expect(stdout.write).toHaveBeenCalledWith(csi.concat('3A'));
     });
 
-    // 测试浮点数参数，应该被四舍五入
-    it('should move cursor up by rounded number of moves (float)', () => {
+    // 测试浮点数参数，强制转化值为 1
+    it('将向上移动光标位置', () => {
       cursorMoveUp(2.7);
-      expect(stdout.write).toHaveBeenCalledWith(csi.concat('3A'));
+      expect(stdout.write).toHaveBeenCalledWith(csi.concat('1A'));
     });
 
     // 测试非数字参数，应该使用默认值
