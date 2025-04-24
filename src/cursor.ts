@@ -49,10 +49,10 @@ function cursorLineBeforeClear() {
  *
  */
 function cursorLineClear(resetCursor: boolean = false) {
-  __p('2K');
   if (resetCursor) {
     cursorMoveLeft(Infinity);
   }
+  __p('2K');
 }
 /**  获取光标的位置  */
 function cursorGetPosition() {
@@ -69,11 +69,12 @@ function cursorGetPosition() {
  *   - 必须是整数
  *   - 非数值则尝试转化为数值
  *   - 无穷大则会移动到最 ⬆️
+ * @param [resetCursor=false] 是否重置光标位置到最左侧，缺省值为不移动
  * @returns void 返回 void
  *
  */
-function cursorMoveUp(len: number = 1) {
-  __p(`${computerLen(len, 'vertical')}A`);
+function cursorMoveUp(len: number = 1, resetCursor: boolean = false) {
+  __p(`${computerLen(len, 'vertical')}${resetCursor ? 'E' : 'A'}`);
 }
 /**
  * ## 光标位置向 ⬇️ 移动
@@ -85,12 +86,13 @@ function cursorMoveUp(len: number = 1) {
  *   - 必须是整数
  *   - 非数值则尝试转化为数值
  *   - 无穷大则会移动到最 ⬇️
+ * @param [resetCursor=false] 是否重置光标位置到最左侧，缺省值为不移动
  * @returns void 返回 void
  *
  *
  */
-function cursorMoveDown(len: number = 1) {
-  __p(`${computerLen(len, 'vertical')}B`);
+function cursorMoveDown(len: number = 1, resetCursor: boolean = false) {
+  __p(`${computerLen(len, 'vertical')}${resetCursor ? 'F' : 'B'}`);
 }
 /**
  *
