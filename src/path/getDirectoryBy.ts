@@ -1,5 +1,5 @@
 import { dog } from './../dog';
-import { fileExist } from '../file/isEmpty';
+import { fileExist } from '../file/';
 import { pathDirname } from './pathDirname';
 import { pathJoin } from './pathJoin';
 

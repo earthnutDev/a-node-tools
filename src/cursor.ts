@@ -27,7 +27,11 @@ function cursorShow() {
 }
 
 /**  🧹 光标之后的显示 */
-function cursorAfterClear() {
+function cursorAfterClear(cursorReset: boolean = false) {
+  // 移动光标到最左侧
+  if (cursorReset) {
+    cursorMoveLeft(Infinity);
+  }
   __p('0J');
 }
 /**  清理光标所在行光标之后的显示  */
