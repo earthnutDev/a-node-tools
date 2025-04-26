@@ -108,13 +108,18 @@ export function runOtherCode(
         result.error += str;
       });
       /// 子进程关闭事件
-      childProcess.on('close', () => {
+      childProcess.on('close', (code: number) => {
         dog('进行正常关闭');
         setTimeout(() => {
           if (callBack && isFunction(callBack)) {
             Reflect.apply(callBack, null, []);
           }
           waitingDestroyed(); // 移除定时器
+          if (code !== 0) {
+            result.success = false;
+            result.status = 3;
+          }
+
           resolve(result);
         });
       });

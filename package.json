@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -42,22 +42,22 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.14.1",
+    "@types/node": "^22.15.2",
     "babel-jest": "^29.7.0",
     "codecov": "^3.8.3",
     "coveralls": "^3.1.1",
     "eslint": "^9.25.1",
     "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-jsdoc": "^50.6.10",
+    "eslint-plugin-jsdoc": "^50.6.11",
     "globals": "^16.0.0",
     "gvv": "^0.0.0",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-junit": "^16.0.0",
-    "jja": "^2.1.1",
+    "jja": "^2.2.2",
     "lint-staged": "^15.5.1",
-    "pjj": "^0.1.4",
+    "pjj": "^0.2.1",
     "prettier": "^3.5.3",
     "rollup": "^4.40.0",
     "rollup-plugin-cleanup": "^3.2.1",
@@ -72,6 +72,6 @@
     "@qqi/dev-log": ">=0.1.0 <1.0.0",
     "a-js-tools": ">=0.5.4 <1.0.0",
     "a-type-of-js": ">=0.2.0 <1.0.0",
-    "color-pen": ">=1.0.0 <2.0.0"
+    "color-pen": "^1.2.2"
   }
 }
