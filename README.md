@@ -28,7 +28,7 @@
 可接受参数
 
 ```ts
-type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn' | '华为';
+type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 ```
 
 各源的测试情况

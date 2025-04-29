@@ -87,6 +87,14 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
         dog.error('请求错误', error);
         resolve(null);
       });
+
+      req.on('timeout', () => {
+        dog.error('请求超时');
+
+        req.destroy();
+        resolve(null);
+      });
+
       req.end();
       dog('结束方法');
     })();

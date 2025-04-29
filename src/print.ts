@@ -1,5 +1,6 @@
-import { isBigInt, isFunction, typeOf } from 'a-type-of-js';
+import { isBoolean, isFunction, typeOf } from 'a-type-of-js';
 import { stdout } from 'node:process';
+import { dog } from './dog';
 
 /** 打印文本内容\
  * 因为某些原因，默认打印完成后进行换行\
@@ -9,11 +10,17 @@ import { stdout } from 'node:process';
  */
 export function _p(r: unknown = '', lineFeed: boolean = true): void {
   let resultStr = '';
-  if (isBigInt(r)) {
+  const _type = typeOf(r);
+
+  if (!isBoolean(lineFeed)) {
+    dog.error('');
+    throw new TypeError('lineFeed 的类型必须是 boolean ');
+  }
+  if (_type === 'bigint') {
     const bigintStr = r.toString().concat('n');
     resultStr = lineFeed ? `${bigintStr}\n` : `${bigintStr}`;
   } else if (
-    ['string', 'number', 'boolean', 'function', 'null'].includes(typeOf(r))
+    ['string', 'number', 'boolean', 'function', 'null'].includes(_type)
   ) {
     resultStr = lineFeed ? `${r}\n` : `${r}`;
     // 当为非 null 的基础类型数据
