@@ -1,6 +1,7 @@
 import { isString } from 'a-type-of-js';
 import { RunOtherCodeOption, RunOtherCodeOptions } from './types';
-import { pathJoin } from 'src/path';
+import { pathJoin } from '../path';
+import { isNode } from 'a-js-tools';
 
 /**
  *
@@ -11,6 +12,10 @@ export function parse(options: RunOtherCodeOption): RunOtherCodeOptions & {
   /**  命令组  */
   cmd: string[];
 } {
+  if (!isNode()) {
+    throw new RangeError('当前环境不支持 node 环境');
+  }
+
   /// 倘若传入的实参是一个字符串，则默认仅传入
   if (isString(options)) {
     options = { code: options };

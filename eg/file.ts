@@ -1,4 +1,4 @@
-import { readFileToJson } from 'src/file/';
+import { readFileToJson } from '../index';
 import test from 'node:test';
 
 test.skip('测试异步读取 JSON 文件', async () => {

@@ -1,7 +1,7 @@
 import { csi } from 'color-pen';
 import test from 'node:test';
-import { _p } from 'src/print';
-import { runOtherCode } from 'src/run-other-code';
+import { _p } from '../index';
+import { runOtherCode } from '../index';
 
 test('测试与 run other code 相关的逻辑', async it => {
   await it.test('简单执行 ls ', async () => {

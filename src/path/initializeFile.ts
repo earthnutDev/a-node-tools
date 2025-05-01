@@ -1,8 +1,8 @@
+import { dog } from './../dog';
 import { fileURLToPath } from 'node:url';
 import { isWindows } from './isWindows';
 import { getCallerFilename } from './getCallerFileInfo';
 import { dirname } from 'node:path';
-import { _p } from 'src/print';
 
 /**
  *
@@ -18,9 +18,7 @@ export function initializeFile(): [string, string] {
     new Function('import("")');
     a = fileURLToPath(import.meta.url);
   } catch (error) {
-    if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      _p(error);
-    }
+    dog.error(error);
     a = __filename;
   }
   if (isWindows) {

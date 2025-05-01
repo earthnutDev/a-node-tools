@@ -1,6 +1,6 @@
+import { dog } from './../dog';
 import { statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { _p } from '../print';
 
 /**
  *  读取 json 文件返回为 JSON 格式
@@ -22,9 +22,7 @@ export function readFileToJson<T extends object = object>(
         try {
           resolve(JSON.parse(res));
         } catch (error) {
-          if (process.env.A_NODE_TOOLS_DEV === 'true') {
-            _p(error);
-          }
+          dog.error(error);
           reject(null);
         }
       })

@@ -1,5 +1,5 @@
+import { dog } from './../dog';
 import { readFileSync, statSync } from 'node:fs';
-import { _p } from '../print';
 
 /**
  *  同步 读取 json 文件并返回为 JSON
@@ -23,9 +23,7 @@ export function readFileToJsonSync<T extends object = object>(
 
     return JSON.parse(fileContent || 'null');
   } catch (error) {
-    if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      _p(error);
-    }
+    dog.error(error);
     return null;
   }
 }

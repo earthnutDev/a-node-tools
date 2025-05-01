@@ -12,6 +12,7 @@ import { _p } from './print';
 import { csi } from 'color-pen';
 import { isNumber } from 'a-type-of-js';
 import { dog } from './dog';
+import { isNode } from 'a-js-tools';
 
 /** 打印转义的内容  */
 function __p(r: string | number) {
@@ -74,7 +75,10 @@ function cursorGetPosition() {
  *
  */
 function cursorMoveUp(len: number = 1, resetCursor: boolean = false) {
-  __p(`${computerLen(len, 'vertical')}${resetCursor ? 'E' : 'A'}`);
+  __p(`${computerLen(len, 'vertical')}A`);
+  if (resetCursor) {
+    cursorMoveLeft(Infinity);
+  }
 }
 /**
  * ## 光标位置向 ⬇️ 移动
@@ -92,7 +96,10 @@ function cursorMoveUp(len: number = 1, resetCursor: boolean = false) {
  *
  */
 function cursorMoveDown(len: number = 1, resetCursor: boolean = false) {
-  __p(`${computerLen(len, 'vertical')}${resetCursor ? 'F' : 'B'}`);
+  __p(`${computerLen(len, 'vertical')}B`);
+  if (resetCursor) {
+    cursorMoveLeft(Infinity);
+  }
 }
 /**
  *
@@ -156,8 +163,11 @@ function computerLen(
   }
 
   /**  最大值  */
-  const maxLength =
-    direction === 'horizontal' ? process.stdout.columns : process.stdout.rows;
+  const maxLength = isNode()
+    ? direction === 'horizontal'
+      ? process.stdout.columns
+      : process.stdout.rows
+    : 80;
 
   if (Infinity === len || len > maxLength) {
     dog.warn('由于 len 的值超大而转化为超大值');

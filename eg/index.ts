@@ -1,5 +1,5 @@
 import { pen } from 'color-pen';
-import { _p } from 'src/print';
+import { _p } from '../index';
 
 const message = pen.brightRed`dev 从我开始`;
 

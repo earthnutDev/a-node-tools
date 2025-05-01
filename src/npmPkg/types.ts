@@ -173,3 +173,41 @@ export type npmPkgInfoType<T extends DefaultT = DefaultT> = {
 };
 
 export type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
+
+/**  获取 npm 包信息  */
+export type getPkgInfoResult<T extends DefaultT = DefaultT> = {
+  /**
+   *
+   *   获取到的包信息并通过 JSON.parse 转化为 npmPkgInfoType 对象
+   *
+   *
+   * 其值为 null 并不意味着请求一定出错，有可能是 npm 中没有该名包或转化为对象时失败
+   *
+   */
+  data: npmPkgInfoType<T> | null;
+  /**
+   *
+   *  错误信息
+   *
+   *
+   * 在
+   *
+   * - 请求出错
+   * - 解析返回值为 JSON 时出错
+   *
+   * 时将有值
+   *
+   */
+  error: Error | null;
+  /**
+   *
+   *  请求是否成功（与获取包最后没有关系）
+   *
+   * 当值为 true 时，表示请求成功，然而仅当
+   */
+  success: boolean;
+  /**  结果状态  */
+  status: 'timeout' | 'success' | 'error' | 'parseJsonError';
+  /**  其他消息  */
+  message?: string;
+};

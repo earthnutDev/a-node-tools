@@ -5,8 +5,8 @@ import {
   cursorHide,
   cursorMoveLeft,
   cursorShow,
-} from 'src/cursor';
-import { _p } from 'src/print';
+} from '../cursor';
+import { _p } from '../print';
 
 /**
  *

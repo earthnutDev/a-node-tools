@@ -1,6 +1,6 @@
-import { cursorAfterClear } from 'src/cursor';
-import { isWindows } from 'src/path';
-import { _p } from 'src/print';
+import { cursorAfterClear } from '../cursor';
+import { isWindows } from '../path';
+import { _p } from '../print';
 
 /**
  *

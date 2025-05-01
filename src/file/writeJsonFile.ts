@@ -1,5 +1,5 @@
+import { dog } from './../dog';
 import { writeFileSync } from 'node:fs';
-import { _p } from '../print';
 
 /**
  *  将一个 JSON 数据写入空白文件
@@ -14,9 +14,7 @@ export function writeJsonFile(pathName: string, data: object): boolean {
     });
     return true;
   } catch (error) {
-    if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      _p(error);
-    }
+    dog.error(error);
     return false;
   }
 }

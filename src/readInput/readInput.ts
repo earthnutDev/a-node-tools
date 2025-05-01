@@ -1,4 +1,4 @@
-import { getRandomInt } from 'a-js-tools';
+import { getRandomInt, isNode } from 'a-js-tools';
 import { createInterface, Interface } from 'node:readline';
 import readInputData from './readInputData';
 import { isFunction } from 'a-type-of-js';
@@ -25,6 +25,9 @@ export async function readInput(
   _callback: (keyValue: string | undefined, key: unknown) => boolean,
   // option: null = null,
 ) {
+  if (!isNode()) {
+    throw new RangeError('当前环境不支持 readInput');
+  }
   const { stdin, stdout } = process;
   // 获取一个随机字母
   const _n = () => getRandomInt(96, 122);

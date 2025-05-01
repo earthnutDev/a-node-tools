@@ -1,7 +1,8 @@
+import { dog } from './../dog';
 import { parseName } from './parseName';
 import { getNpmPkgInfo } from './getNpmPkgInfo';
 import { npmRegistry } from './types';
-import { _p } from 'src/print';
+import { isUndefined } from 'a-type-of-js';
 /**
  * 测试 npm  包是否存在
  *
@@ -20,15 +21,15 @@ export async function testNpmPackageExist(
   }
   try {
     const result = await getNpmPkgInfo(pkgName, registry);
-    if (result) {
+    dog('测试包是否存在', result);
+    if (!isUndefined(result.data) || result.status === 'parseJsonError') {
       return true;
     } else {
       return false;
     }
   } catch (error) {
-    if (process.env.A_NODE_TOOLS_DEV === 'true') {
-      _p(error);
-    }
+    dog.error(error);
+
     return null;
   }
 }

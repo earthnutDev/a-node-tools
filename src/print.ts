@@ -1,6 +1,7 @@
 import { isBoolean, isFunction, typeOf } from 'a-type-of-js';
-import { stdout } from 'node:process';
 import { dog } from './dog';
+import { isNode } from 'a-js-tools';
+import { terminalRegExp } from 'color-pen';
 
 /** 打印文本内容\
  * 因为某些原因，默认打印完成后进行换行\
@@ -40,5 +41,9 @@ export function _p(r: unknown = '', lineFeed: boolean = true): void {
     resultStr = lineFeed ? `${jsonStr}\n` : `${jsonStr}`;
     // 当为其他类型的数据使用  `JSON.stringify()` 进行转化
   }
-  stdout.write(resultStr);
+  if (isNode()) {
+    process.stdout.write(resultStr);
+  } else {
+    console.log(resultStr.replace(terminalRegExp, ''));
+  }
 }
