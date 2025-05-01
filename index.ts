@@ -22,7 +22,11 @@ export type {
 
 export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
 
-export type { npmPkgInfoType, PackageJson } from './src/npmPkg';
+export type {
+  npmPkgInfoType,
+  PackageJson,
+  getPkgInfoResult,
+} from './src/npmPkg';
 
 export {
   __p,

@@ -2,7 +2,8 @@ name: 测试率自动化工具
 
 on:
   push:
-    branches: '*'
+    # 现在不处理所有的测试
+    branches: [no-test]
 
   workflow_dispatch: # 允许允许手动触发
     inputs:

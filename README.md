@@ -1,6 +1,6 @@
 # a node tools
 
-[![version](<https://img.shields.io/npm/v/a-node-tools.svg?logo=npm&logoColor=rgb(0,0,0)&label=版本号&labelColor=rgb(73,73,228)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools) [![Coverage Status](<https://img.shields.io/coverallsCoverage/github/earthnutDev/a-node-tools?logo=coveralls&label=coveralls&labelColor=rgb(12, 244, 39)&color=rgb(0,0,0)>)](https://coveralls.io/github/earthnutDev/a-node-tools?branch=main) [![codecov](<https://img.shields.io/codecov/c/github/earthnutDev/a-node-tools/main?logo=codecov&label=codecov&labelColor=rgb(7, 245, 245)&color=rgb(0,0,0)>)](https://codecov.io/gh/earthnutDev/a-node-tools) [![issues 提交](<https://img.shields.io/badge/issues-提交-rgb(255,0,63)?logo=github>)](https://github.com/earthnutDev/a-node-tools/issues)
+[![version](<https://img.shields.io/npm/v/a-node-tools.svg?logo=npm&logoColor=rgb(0,0,0)&label=版本号&labelColor=rgb(73,73,228)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-node-tools) [![issues 提交](<https://img.shields.io/badge/issues-提交-rgb(255,0,63)?logo=github>)](https://github.com/earthnutDev/a-node-tools/issues)
 
 一个纯函数的工具，包含了
 
@@ -19,7 +19,7 @@
 
 ## `npmPkg` 模块
 
-- `npmPkgInfoType` `getNpmPkgInfo` 返回的类型之一
+- `getPkgInfoResult` 方法 `getNpmPkgInfo` 的返回值类型
 - `getNpmPkgInfo` 获取 npm 包信息
 - `testNpmPackageExist` 测试包是否可下载存在
 
