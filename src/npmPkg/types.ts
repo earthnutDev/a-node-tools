@@ -206,8 +206,27 @@ export type getPkgInfoResult<T extends DefaultT = DefaultT> = {
    * 当值为 true 时，表示请求成功，然而仅当
    */
   success: boolean;
-  /**  结果状态  */
-  status: 'timeout' | 'success' | 'error' | 'parseJsonError';
+  /**
+   *
+   * ### 结果状态
+   *
+   * 该值作为请求的最终结果值
+   *
+   * - success： 请求成功且正确转化为 JSON （此时 success 为 true）
+   * - parseJsonError： 请求成功但是转化为 JSON 时出错 （此时 success 为 true）
+   * - notFound： 请求成功但是 npm 中没有该包名（此时该 success 为 true）
+   * - otherCode： 请求成功，但是 npm  返回值为未知 （此时该 success 为 true）
+   * - timeout： 请求超时（此时该 success 为 false）
+   * - error: 请求出错（此时该 success 为 false）
+   *
+   */
+  status:
+    | 'timeout'
+    | 'success'
+    | 'error'
+    | 'parseJsonError'
+    | 'otherCode'
+    | 'notFound';
   /**  其他消息  */
   message?: string;
 };

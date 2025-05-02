@@ -98,12 +98,21 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
             }
           }
           // 404 返回值为 { error: 'Not found' }
-          else {
+          else if (response.statusCode == 404) {
             resolve({
               data: null,
               success: true,
-              status: 'success',
+              status: 'notFound',
               error: null,
+              message: 'npm 中没有该包',
+            });
+          } else {
+            resolve({
+              data: null,
+              success: true,
+              status: 'otherCode',
+              error: null,
+              message: `请求的返回请求码： ${response.statusCode}`,
             });
           }
         });
