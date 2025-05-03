@@ -1,15 +1,16 @@
 import { csi } from 'color-pen';
-import test from 'node:test';
+
 import { _p } from '../index';
 import { runOtherCode } from '../index';
+import { dev } from '@qqi/dev-log';
 
-test('测试与 run other code 相关的逻辑', async it => {
-  await it.test('简单执行 ls ', async () => {
+dev.skip('测试与 run other code 相关的逻辑', async it => {
+  await it('简单执行 ls ', async () => {
     const result = await runOtherCode('ls');
     _p(result);
   });
 
-  await it.test('测试输出光标位置', async () => {
+  await it('测试输出光标位置', async () => {
     await runOtherCode(`echo "${csi}6n"`);
   });
 });

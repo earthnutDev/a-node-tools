@@ -14,3 +14,5 @@ import './file';
 import './pkg';
 
 import './runOtherCode';
+
+import './typewrite';
