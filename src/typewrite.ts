@@ -38,6 +38,9 @@ export async function typewrite(str: string, delay: number = 10) {
     } else if (str.length === 2 && str.charCodeAt(1) === 0xfe0f) {
       _p(char, false);
       _p('  ', false);
+    } else {
+      _p(char, false);
+      _p(' ', false);
     }
   }
 
