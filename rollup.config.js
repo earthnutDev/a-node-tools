@@ -4,49 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import cleanup from 'rollup-plugin-cleanup';
 import copy from 'rollup-plugin-copy';
-import { readFileToJsonSync } from 'a-node-tools';
-import { pen } from 'color-pen';
-
-/** 配置需要不打包进生产包的包名配置  */
-const excludedPkg = ['node:', 'a-', 'color-pen', '@qqi'];
-
-const excludedRegExp = new RegExp('^'.concat(excludedPkg.join('|^')));
-/**  读取当前文件  */
-const packInfo = readFileToJsonSync('./package.json');
-/**  已配置的依赖  */
-const dependencies = Object.keys({
-  ...(packInfo.dependencies || {}),
-  ...(packInfo.preDependencies || {}),
-});
-
-/**
- *
- * 依赖配置
- *
- */
-function external(id) {
-  excludedRegExp.lastIndex = 0;
-  const result = excludedRegExp.test(id);
-  /// 保证排除的包纯在于
-  if (result === true) {
-    if (
-      dependencies.includes(id) === false &&
-      // 排除 node 依赖包
-      !id.toString().startsWith('node:')
-    ) {
-      throw new RangeError(
-        `${pen.bgRed.blink.bold.yellow(id)} 依赖被排除打包却未再 package.json 中配置`,
-      );
-    }
-  } else {
-    if (/^[^./]/g.test(id)) {
-      throw new RangeError(
-        `${pen.bgRed.blink.bold.yellow(id)} 依赖未被排除，打包关闭`,
-      );
-    }
-  }
-  return result;
-}
+import { external } from '@qqi/rollup-external';
 
 export default {
   input: './index.ts',
@@ -69,13 +27,19 @@ export default {
     },
   ],
   // 配置需要排除的包
-  external,
+  external: external({
+    ignore: [
+      'node:readline',
+      'node:child_process',
+      'node:url',
+      'node:path',
+      'node:https',
+      'node:fs',
+    ],
+  }),
   plugins: [
     resolve(),
     commonjs(),
-    // 打包压缩，自动去注释
-    // terser(),
-    // 可打包 json 内容
     json(),
     typescript({
       exclude: ['node_modules', 'test'],

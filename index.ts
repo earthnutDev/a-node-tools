@@ -58,3 +58,5 @@ import { default as file } from './src/file/';
 export { file };
 
 export { dog as ANodeToolsDevLog } from './src/dog';
+
+export { typewrite } from './src/typewrite';

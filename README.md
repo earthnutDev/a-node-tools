@@ -88,6 +88,32 @@ const callBackFunction = (keyValue: string | undefined, key:any)
 };
 ```
 
+## 其他部分
+
+### \_p
+
+一个简单的 process.stdout.write 的封装，用于在 node 环境向终端输入内容
+
+```ts
+import { _p } from 'a-node-tools';
+
+_p('hello'); // hello
+
+_p('hello', false); // hello （打印完不换行，光标依旧在 o 后面）
+```
+
+### typewrite
+
+一个简单的打字机效果，用于在终端输入内容
+
+```ts
+import { typewrite } from 'a-node-tolls';
+
+await typewrite(
+  '伟大的中华人民共和国万岁！\n伟大的中国共产党万岁！\n伟大的中国人民解放军万岁！\n全国各族人民大团结万岁！\n伟大的中国人民万岁！',
+);
+```
+
 ## 使用日志
 
 在引用该包的包内使用该包内的方法时，可以使用启动参数 `a_node_tools_dev=xxx` 来启用部分方法的日志。
