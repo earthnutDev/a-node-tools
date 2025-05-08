@@ -9,7 +9,7 @@
  ****************************************************************************/
 
 import { _p } from './print';
-import { csi } from 'color-pen';
+import { csi } from '@color-pen/static';
 import { isNumber } from 'a-type-of-js';
 import { dog } from './dog';
 import { isNode } from 'a-js-tools';

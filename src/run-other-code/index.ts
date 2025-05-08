@@ -5,7 +5,7 @@ import { organizeText } from './organizeText';
 import { waiting } from './waiting';
 import { parse } from './parse';
 import { dog } from '../dog';
-import pen from 'color-pen';
+import { pen } from 'color-pen';
 
 /**
  *

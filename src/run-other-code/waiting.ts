@@ -1,5 +1,5 @@
 import { getRandomInt } from 'a-js-tools';
-import { csi } from 'color-pen';
+import { csi } from '@color-pen/static';
 import {
   cursorAfterClear,
   cursorHide,

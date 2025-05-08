@@ -1,7 +1,7 @@
 import { isBoolean, isFunction, typeOf } from 'a-type-of-js';
 import { dog } from './dog';
 import { isNode } from 'a-js-tools';
-import { terminalRegExp } from 'color-pen';
+import { terminalRegExp } from '@color-pen/static';
 
 /** 打印文本内容\
  * 因为某些原因，默认打印完成后进行换行\
@@ -44,6 +44,6 @@ export function _p(r: unknown = '', lineFeed: boolean = true): void {
   if (isNode()) {
     process.stdout.write(resultStr);
   } else {
-    console.log(resultStr.replace(terminalRegExp, ''));
+    console.log(resultStr.replace(terminalRegExp(), ''));
   }
 }

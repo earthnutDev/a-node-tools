@@ -1,4 +1,4 @@
-import { isString } from 'a-type-of-js';
+import { isNull, isString } from 'a-type-of-js';
 import { _p } from './print';
 
 /**
@@ -24,7 +24,7 @@ export async function typewrite(str: string, delay: number = 10) {
   for (const char of strArr) {
     await new Promise(resolve => setTimeout(resolve, delay));
 
-    if (char.length === 1) {
+    if (char.length === 1 && isNull(char.charCodeAt(1))) {
       _p(char, false);
     } else if (
       str.length === 2 &&

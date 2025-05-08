@@ -1,4 +1,4 @@
-import { csi } from 'color-pen';
+import { csi } from '@color-pen/static';
 
 import { _p } from '../index';
 import { runOtherCode } from '../index';
