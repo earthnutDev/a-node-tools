@@ -23,7 +23,7 @@
     "vjj": "vjj -b",
     "prepublishOnly": "pjj"
   },
-  "license": "ISC",
+  "license": "MIT",
   "lint-staged": {
     "src/*.{js,ts,tsx,jsx,md,mdx}": [
       "eslint --fix",
