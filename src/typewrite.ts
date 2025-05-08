@@ -1,5 +1,7 @@
-import { isNull, isString } from 'a-type-of-js';
+import { isString, isNaN } from 'a-type-of-js';
 import { _p } from './print';
+import { dog } from './dog';
+import { boldPen, pen } from 'color-pen';
 
 /**
  *
@@ -24,7 +26,15 @@ export async function typewrite(str: string, delay: number = 10) {
   for (const char of strArr) {
     await new Promise(resolve => setTimeout(resolve, delay));
 
-    if (char.length === 1 && isNull(char.charCodeAt(1))) {
+    dog(`当前字符 ${boldPen(char)} 长度为：`, char.length);
+    dog(
+      `当前字符 ${pen.reversed(char)} 在 charCodeAt`,
+      char.charCodeAt(0),
+      char.charCodeAt(1),
+      char.charCodeAt(2),
+    );
+
+    if (char.length === 1 && isNaN(char.charCodeAt(1))) {
       _p(char, false);
     } else if (
       str.length === 2 &&
