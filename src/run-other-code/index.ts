@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { isFunction } from 'a-type-of-js';
 import { RunOtherCodeOption, runOtherCodeResult } from './types';
 import { organizeText } from './organizeText';
-import { waiting } from './waiting';
+import { waitingCn } from './waiting';
 import { parse } from './parse';
 import { dog } from '../dog';
 import { pen } from 'color-pen';
@@ -11,7 +11,6 @@ import { pen } from 'color-pen';
  *
  * ## 运行其他简单的命令
  * @param options  { code:string , cwd: string, callback:()=> void}
- *
  * @returns  返回一个 Promise
  *    - 返回值包含执行的信息。
  *    - 如果是串行执行，那么结果的话可能就是一个奇特的大字符串
@@ -19,7 +18,6 @@ import { pen } from 'color-pen';
  *          - 为 0 时
  *
  * 此处使用的 'child_process' 的 exec 创建一个子线程
- *
  * @example
  *
  * ```ts
@@ -28,8 +26,16 @@ import { pen } from 'color-pen';
  * runOtherCode({
  *    code:"ls", // 执行命令
  *    cwd : "../", // 执行的工作目录
+ *    // @deprecated hideWaiting 将在下一个版本移除，请使用 `waiting` 代替
  *    hideWaiting: true, // 是否隐藏等待，默认不显示等待 ⌛️ 提示文本
+ *    // @deprecated waitingMessage 将在下一个版本移除，请使用 `waiting` 代替
  *    waitingMessage: 'please wait a moment', // // 等待信息，默认为 “请稍等”
+ *    // 该值可为：布尔值、字符串、数值，对象
+ *    waiting: {
+ *       show: true,
+ *       info: "马上就好",
+ *       suffix: 2
+ *    },
  *    shell: true, //  是否使用 shell 执行，默认值为 true
  *    printLog: true, // 是否打印原始 stdout 输出，默认值为 true
  * }).then((resolve)=>{
@@ -74,10 +80,9 @@ export function runOtherCode(
     status: 1,
   };
 
-  const { cmd, callBack, hideWaiting, waitingMessage, printLog, cwd, shell } =
-    runOptions;
+  const { cmd, callBack, waiting, printLog, cwd, shell } = runOptions;
   /** 打印请稍等。。。 */
-  const waitingDestroyed = waiting(hideWaiting, waitingMessage);
+  const waitingDestroyed = waitingCn(waiting);
 
   try {
     return new Promise(resolve => {

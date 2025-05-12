@@ -3,8 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import cleanup from 'rollup-plugin-cleanup';
-
-const temporaryArr = ['node:', 'a-', 'color-pen', '@qqi'];
+import { external } from '@qqi/rollup-external';
 
 /** 生成  npm 文件的打包配置文件 */
 export default {
@@ -13,14 +12,14 @@ export default {
     {
       format: 'es',
       entryFileNames: '[name].mjs',
-      preserveModules: true,
+      preserveModules: false,
       sourcemap: false,
       exports: 'named',
       dir: '.eg/',
     },
   ],
   // 配置需要排除的包
-  external: id => new RegExp('^'.concat(temporaryArr.join('|^'))).test(id),
+  external: external({ ignore: ['node:'] }),
   plugins: [
     resolve(),
     commonjs(),

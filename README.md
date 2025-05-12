@@ -14,6 +14,8 @@
 
 ## runOtherCode 模块
 
+`runOtherCode` 的参数*属性 `hideWaiting` 将在下一个版本（v4）移除*。现在使用 `waiting` 代替
+
 - `runOtherCode` 运行其他代码
 - `RunOtherCodeParam` 运行其他代码的参数类型声明
 

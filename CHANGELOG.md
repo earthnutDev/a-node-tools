@@ -1,5 +1,10 @@
 # 更新日志
 
+## v3.1.6 （5 🈷️ 12 日 2025 年）
+
+- `runOtherCode` 的参数属性 `hideWaiting` 将在下一个版本（v4）移除。现在使用 `waiting` 代替
+- `runOtherCode` 的参数属性 `waitingMessage` 将在下一个版本（v4）移除。现在使用 `waiting` 中 `info` 代替
+
 ## v3.1.5 （5 🈷️ 10 日 2025 年）
 
 - 更新依赖
