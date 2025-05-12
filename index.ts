@@ -18,6 +18,9 @@ export { runOtherCode } from './src/run-other-code';
 export type {
   RunOtherCodeOption as RunOtherCodeParam,
   RunOtherCodeOption,
+  RunOtherCodeOptions,
+  RunOtherCodeResult,
+  RunOtherCodeWaiting,
 } from './src/run-other-code/types';
 
 export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
@@ -26,6 +29,7 @@ export type {
   npmPkgInfoType,
   PackageJson,
   getPkgInfoResult,
+  npmRegistry,
 } from './src/npmPkg';
 
 export {

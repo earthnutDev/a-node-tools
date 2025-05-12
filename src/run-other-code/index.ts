@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import { isFunction } from 'a-type-of-js';
-import { RunOtherCodeOption, runOtherCodeResult } from './types';
+import { RunOtherCodeOption, RunOtherCodeResult } from './types';
 import { organizeText } from './organizeText';
 import { waitingCn } from './waiting';
 import { parse } from './parse';
@@ -65,7 +65,7 @@ import { pen } from 'color-pen';
  */
 export function runOtherCode(
   options: RunOtherCodeOption,
-): Promise<runOtherCodeResult> {
+): Promise<RunOtherCodeResult> {
   dog('runOtherCode 方法 开始执行 ');
 
   /** 解析后的参数  */
@@ -73,7 +73,7 @@ export function runOtherCode(
 
   dog('执行参数', runOptions);
 
-  const result: runOtherCodeResult = {
+  const result: RunOtherCodeResult = {
     success: true,
     data: '',
     error: '',
