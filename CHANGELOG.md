@@ -1,5 +1,11 @@
 # 更新日志
 
+## v3.1.8 （5 🈷️ 12 日 2025 年）
+
+又是 `runOtherCode` 的问题
+
+在执行等待时监听了 `process.on('exit')` ，但是一般都是 `Ctrl + C` 触发的 `SIGINT` 事件。该事件不经过 `process.on('exit')` 而是以一种更快的方式结束了当前的进程。
+
 ## v3.1.7 （5 🈷️ 12 日 2025 年）
 
 - 移除上一版本在 `package.json` 文件添加了 `deprecated` 信息，导致包被标记移除

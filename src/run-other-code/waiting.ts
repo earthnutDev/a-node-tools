@@ -27,8 +27,8 @@ export function waitingCn(waiting: RunOtherCodeWaiting) {
     cursorMoveLeft(Infinity); /// 移动到最左边
     cursorAfterClear(); /// 🧹光标后的内容，避免出现打印残留
     /// 返回之前将光标展示出来
-    cursorShow();
-    process.removeListener('exit', cursorShow); // 禁止多监听未移除导致程序报错
+    process.removeListener('exit', exitCall); // 禁止多监听未移除导致程序报错
+    process.removeListener('SIGINT', sigintCall); // 移除监听
     cursorShow();
   }
 
@@ -49,7 +49,8 @@ export function waitingCn(waiting: RunOtherCodeWaiting) {
   /// 隐藏光标
   cursorHide();
   // 放置一个在进程结束时展示光标，即便在测试发现异步操作会阻塞该事件的触发
-  process.on('exit', cursorShow);
+  process.on('exit', exitCall);
+  process.on('SIGINT', sigintCall);
   /// 心跳打印 '请稍等'
   timeStamp = setInterval(() => {
     // 🧹光标后内容
@@ -58,4 +59,19 @@ export function waitingCn(waiting: RunOtherCodeWaiting) {
     _p(`\n${waiting.info}${pList[++count % pLength]}${csi}20D${csi}1A`, false);
   }, pLength * 16);
   return destroyed;
+}
+
+/**
+ * 退出之前
+ */
+function exitCall() {
+  cursorShow();
+}
+
+/**
+ * 接收到 SIGINT 信号
+ */
+function sigintCall() {
+  cursorShow();
+  process.exit(0);
 }
