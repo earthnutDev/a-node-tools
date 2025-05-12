@@ -1,10 +1,9 @@
 {
   "type": "module",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
-  "deprecated": "runOtherCode 的对象参数属性 hideWaiting 属性已弃用，计划在 v4.0.0 中正式移除，请使用 waiting 代替; `waitingMessage` 将在下一个版本 v4 移除，现在可通过 `waiting` 代替之",
   "scripts": {
     "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
     "clean:package": "node scripts/clean-package-json.js",

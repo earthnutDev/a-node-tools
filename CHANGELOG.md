@@ -1,5 +1,10 @@
 # 更新日志
 
+## v3.1.7 （5 🈷️ 12 日 2025 年）
+
+- 移除上一版本在 `package.json` 文件添加了 `deprecated` 信息，导致包被标记移除
+- 移除了 `runOtherCode` 注释中用于标注 `hideWaiting`、`waitingMessage` 即将移除的文本，导致编辑器标注 `runOtherCode` 函数被移除
+
 ## v3.1.6 （5 🈷️ 12 日 2025 年）
 
 - `runOtherCode` 的参数属性 `hideWaiting` 将在下一个版本（v4）移除。现在使用 `waiting` 代替

@@ -26,9 +26,9 @@ import { pen } from 'color-pen';
  * runOtherCode({
  *    code:"ls", // 执行命令
  *    cwd : "../", // 执行的工作目录
- *    // @deprecated hideWaiting 将在下一个版本移除，请使用 `waiting` 代替
+ *    //  hideWaiting 将在下一个版本移除，请使用 `waiting` 代替
  *    hideWaiting: true, // 是否隐藏等待，默认不显示等待 ⌛️ 提示文本
- *    // @deprecated waitingMessage 将在下一个版本移除，请使用 `waiting` 代替
+ *    // waitingMessage 将在下一个版本移除，请使用 `waiting` 代替
  *    waitingMessage: 'please wait a moment', // // 等待信息，默认为 “请稍等”
  *    // 该值可为：布尔值、字符串、数值，对象
  *    waiting: {
