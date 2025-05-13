@@ -16,7 +16,6 @@
     "eslint": "jja cls && eslint src",
     "beautify": "npm run eslint && npm run prettier",
     "prettier": "jja cls && prettier . --write",
-    "prepare": "husky",
     "test": "jja clear && jest --coverage",
     "report": "cat ./coverage/lcov.info | coveralls",
     "coverage": "codecov",
