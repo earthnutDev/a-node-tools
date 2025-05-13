@@ -1,34 +1,14 @@
 {
+  "name": "a-node-tool-root",
   "type": "module",
-  "version": "3.1.8",
-  "name": "a-node-tools",
   "private": true,
-  "description": "一点点 🤏 node 函数",
+  "description": "node 的一些方法",
   "scripts": {
-    "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
-    "clean:package": "node scripts/clean-package-json.js",
-    "build": "jja rm dist && npm run b && npm run clean:package",
-    "build:dev": "rollup --config rollup.dev.config.js",
-    "dev": "jja rm .eg cls && npm run build:dev && node --unhandled-rejections=strict .eg/index.mjs",
-    "push:version": "gvv",
-    "push:submit": "gvv",
-    "diff": "jja pkg -d",
-    "eslint": "jja cls && eslint src",
+    "diff": "jja pkg --diff",
+    "eslint": "jja cls && eslint packages",
     "beautify": "npm run eslint && npm run prettier",
     "prettier": "jja cls && prettier . --write",
-    "prepare": "husky",
-    "test": "jja clear && jest --coverage",
-    "report": "cat ./coverage/lcov.info | coveralls",
-    "coverage": "codecov",
-    "vjj": "vjj -b",
     "prepublishOnly": "pjj"
-  },
-  "license": "MIT",
-  "lint-staged": {
-    "src/*.{js,ts,tsx,jsx,md,mdx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
@@ -67,14 +47,16 @@
     "ts-jest": "^29.3.2",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.0",
+    "typescript-eslint": "^8.32.1",
     "vjj": "^0.3.5"
   },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
-    "@color-pen/static": "^0.0.2",
-    "@qqi/dev-log": "^0.3.4",
-    "a-js-tools": "^0.6.2",
-    "a-type-of-js": "^0.3.0",
-    "color-pen": "^2.0.3"
+    "a-node-tools": "^3.1.8",
+    "save-dev": "^0.0.1-security"
   }
 }
