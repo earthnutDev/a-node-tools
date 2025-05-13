@@ -1,6 +1,6 @@
 import { getRandomString, isNode } from 'a-js-tools';
 import { dataStore } from './dataStore';
-import { ReadInputListItem, ReadInputParam } from './types';
+import { ReadInputListItem, ReadInputParam, ReadInputResult } from './types';
 import { createInterface } from 'node:readline';
 import { dog } from '../dog';
 
@@ -10,7 +10,7 @@ const { stdin, stdout } = process;
 export async function readInputCore(
   _callback: ReadInputParam,
   // option: null = null,
-): Promise<boolean> {
+): Promise<ReadInputResult> {
   if (!isNode()) {
     throw new RangeError('当前环境不支持 readInput');
   }
@@ -37,6 +37,7 @@ export async function readInputCore(
          *
          */
         const rl = createInterface({ input: stdin, output: stdout });
+        const { result } = item;
         item.rl = rl;
 
         rl.on('SIGINT', () => {
@@ -44,7 +45,11 @@ export async function readInputCore(
             ...item,
             rl: null,
           });
-          resolve(false);
+
+          result.isSIGINT = true;
+          result.success = false;
+
+          resolve(result);
           dataStore.remove();
         });
         rl.on('close', () => {

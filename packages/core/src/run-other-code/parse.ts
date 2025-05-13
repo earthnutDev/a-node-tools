@@ -40,10 +40,11 @@ export function parse(options: RunOtherCodeOption, dataStore: DataStore) {
     .trim()
     .split(' ');
 
-  const { show, info, suffix } = {
+  const { show, info, suffix, interval } = {
     show: false,
     info: '请等待',
-    suffix: getRandomInt(3),
+    suffix: getRandomInt(6),
+    interval: 20,
   };
   /**  等待  */
   const waiting = isBoolean(options.waiting)
@@ -51,18 +52,21 @@ export function parse(options: RunOtherCodeOption, dataStore: DataStore) {
         show: options.waiting,
         info,
         suffix,
+        interval,
       }
     : isString(options.waiting)
       ? {
           show: true,
           info: options.waiting,
           suffix,
+          interval,
         }
       : isUndefined(options.waiting)
         ? {
             show,
             info,
             suffix,
+            interval,
           }
         : isNumber(options.waiting)
           ? {
@@ -71,14 +75,20 @@ export function parse(options: RunOtherCodeOption, dataStore: DataStore) {
               suffix: isNaN(options.waiting)
                 ? suffix
                 : Math.min(Math.max(0, options.waiting), 2),
+              interval,
             }
           : {
               show: true,
               info,
               suffix,
+              interval,
               ...options.waiting,
             };
-
+  waiting.interval = isFinite(waiting.interval)
+    ? Math.max(20, Math.min(2000, waiting.interval))
+    : waiting.suffix < 2
+      ? 68
+      : interval;
   Object.assign(dataStore.env, {
     shell: true,
     hideWaiting: true,

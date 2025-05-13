@@ -33,6 +33,7 @@ export function closeCn(
       } else if (signal === 'SIGINT') {
         result.success = false;
         result.status = 4;
+        result.isSIGINT = true;
       }
       resolve(result);
     });

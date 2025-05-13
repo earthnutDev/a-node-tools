@@ -8,6 +8,7 @@ export function createData(): DataStore {
       data: '',
       error: '',
       status: 1,
+      isSIGINT: false,
     },
     env: {
       cmd: [],
@@ -20,6 +21,7 @@ export function createData(): DataStore {
         show: false,
         info: '',
         suffix: 0,
+        interval: 10,
       },
     },
   };

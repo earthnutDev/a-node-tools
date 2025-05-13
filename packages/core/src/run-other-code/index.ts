@@ -33,7 +33,8 @@ import {
  *    waiting: {
  *       show: true,
  *       info: "马上就好",
- *       suffix: 2
+ *       suffix: 2，
+ *       interval: 20,
  *    },
  *    shell: true, //  是否使用 shell 执行，默认值为 true
  *    printLog: true, // 是否打印原始 stdout 输出，默认值为 true
@@ -53,11 +54,14 @@ import {
  * // 打印  `true` 后者 `false`
  * _p(result.success);
  *
- *  //如果发生执行错误，则此处将有一个值。
+ *  //如果发生执行错误，则此处可能将有一个值。
  *  _p(result.error);
  *
  *  // 如果 result.success === true，则会出现你自己的代码的实际返回值
  *  _p(result.data);
+ *
+ *  // 如果程序是由于 SIGINT （常见的场景为 `Ctrl` + `C`）中断
+ *  _p(result.isSIGINT); // true
  *
  * ```
  *

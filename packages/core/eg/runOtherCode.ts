@@ -19,7 +19,8 @@ await dev('测试与 run other code 相关的逻辑', async it => {
       code: `sleep 3 && printf "hello"`,
       printLog: true,
       waiting: {
-        suffix: 4,
+        suffix: 3,
+        interval: 20,
       },
     });
     console.log(result);

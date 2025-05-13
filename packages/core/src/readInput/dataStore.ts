@@ -51,6 +51,10 @@ export const dataStore: DataStore = {
       action,
       callback,
       resolve,
+      result: {
+        isSIGINT: false,
+        success: true,
+      },
     };
     if (isEmptyArray(list)) {
       dog('当前执行的栈中没有数据', item);

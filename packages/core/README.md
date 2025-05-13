@@ -33,7 +33,7 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 
 各源的测试情况
 
-[![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/main/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/blob/main/media/测试源情况.png)
+[![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/v4/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/blob/v4/media/测试源情况.png)
 
 由上图可见，使用 `淘宝` 源时，延迟相对较低。而有些国内源都没有 `npm` 原源延迟低。
 

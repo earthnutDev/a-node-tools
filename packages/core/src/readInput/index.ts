@@ -1,5 +1,5 @@
 import { readInputCore } from './core';
-import { ReadInputParam } from './types';
+import { ReadInputParam, ReadInputResult } from './types';
 
 /**
  *
@@ -54,4 +54,4 @@ import { ReadInputParam } from './types';
  */
 export const readInput = readInputCore;
 
-export type { ReadInputParam };
+export type { ReadInputParam, ReadInputResult };
