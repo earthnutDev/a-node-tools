@@ -42,7 +42,7 @@ jobs:
           node-version: 22.x
 
       - name: 安装 dependencies 依赖
-        run: npm install
+        run: npm ci
 
       - name: 运行测试
         run: npx jest --coverage
