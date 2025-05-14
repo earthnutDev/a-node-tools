@@ -16,7 +16,7 @@ export function organizeText(value: unknown, printLog: boolean): string {
   }
   data = data.replace(/\n+/g, '\n');
   // 🧹光标后内容
-  cursorAfterClear();
+  cursorAfterClear(); // 防止妖魔鬼怪不离开
   // 打印文本
   if (printLog) {
     _p(data, !data.endsWith('\n'));

@@ -9,14 +9,14 @@
  ****************************************************************************/
 
 import { _p } from './print';
-import { csi } from '@color-pen/static';
-import { isNumber } from 'a-type-of-js';
+import { csi, esc } from '@color-pen/static';
+import { isFalse, isNumber, isPlainObject, isUndefined } from 'a-type-of-js';
 import { dog } from './dog';
 import { isNode } from 'a-js-tools';
 
 /** 打印转义的内容  */
-function __p(r: string | number) {
-  _p(`${csi}${r}`, false);
+function __p(r: string | number, _csi: boolean = true) {
+  _p(`${_csi ? csi : esc}${r}`, false);
 }
 /**  隐藏光标消失  */
 function cursorHide() {
@@ -59,6 +59,42 @@ function cursorLineClear(resetCursor: boolean = false) {
 function cursorGetPosition() {
   __p('6n');
 }
+
+/**  保存光标的位置  */
+function cursorPositionSave() {
+  __p(7, false);
+}
+
+/**  恢复光标的位置复原  */
+function cursorPositionUndo() {
+  __p(8, false);
+}
+/**  设置光标的位置  */
+function cursorMoveTo(options?: { column?: number; row: number }) {
+  const originOption = {
+    column: 0,
+    row: 0,
+  };
+  if (isUndefined(options)) {
+    options = {
+      ...originOption,
+    };
+  }
+  if (isFalse(isPlainObject(options))) {
+    throw new TypeError('options 类型与期盼不符');
+  }
+
+  let { row, column } = {
+    ...originOption,
+    ...options,
+  };
+
+  row = computerLen(row, 'horizontal');
+  column = computerLen(column);
+
+  __p(`${row};${column}H`);
+}
+
 /**
  *
  * ## 光标位置向 ⬆️ 移动
@@ -140,6 +176,7 @@ function cursorMoveRight(len: number = 1) {
  * 计算光标移动的长度
  *
  * @param len  数值
+ * @param [direction='horizontal'] 计算的方向值，默认为横向终端的宽（列数）
  * @returns number 整理后的数值
  *
  */
@@ -189,4 +226,7 @@ export {
   cursorLineAfterClear,
   cursorLineBeforeClear,
   cursorLineClear,
+  cursorPositionSave,
+  cursorPositionUndo,
+  cursorMoveTo,
 };

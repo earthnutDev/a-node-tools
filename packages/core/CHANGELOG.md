@@ -1,5 +1,17 @@
 # 更新日志
 
+## v4.1.0 （5 🈷️ 14 日 2025 年）
+
+### 新增可用 ✨
+
+- `cursorPositionSave` 光标位置保存
+- `cursorPositionUndo` 恢复最后一次（可能受自行使用 `\e7` 的影响 ）使用 `cursorPositionSave` 保存的光标的位置
+- `cursorMoveTo` 光标位置移动到目标（可用）位置
+- `terminalPageUp` 终端整页向上滚动
+- `terminalPageOn` 终端整页下翻
+- `terminalScrollScreen` 全屏滚动
+- `terminalScrollBetween` 设定终端可滚动范围
+
 ## v4.0.1 （5 🈷️ 14 日 2025 年）
 
 - 添加了两个 `runOtherCode` 等待时的尾缀样式。

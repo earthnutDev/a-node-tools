@@ -46,7 +46,17 @@ export {
   cursorLineAfterClear,
   cursorLineBeforeClear,
   cursorLineClear,
+  cursorPositionSave,
+  cursorPositionUndo,
+  cursorMoveTo,
 } from './src/cursor.js';
+
+export {
+  terminalPageOn,
+  terminalPageUp,
+  terminalScrollScreen,
+  terminalScrollBetween,
+} from './src/terminal';
 
 export {
   readFileToJson,

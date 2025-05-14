@@ -1,7 +1,7 @@
-import { csi } from '@color-pen/static';
 import {
   cursorAfterClear,
   cursorHide,
+  cursorLineClear,
   cursorMoveLeft,
   cursorShow,
 } from '../cursor';
@@ -69,9 +69,10 @@ export function waitingCn(waiting: RunOtherCodeWaiting) {
   /// 心跳打印 '请稍等'
   timeStamp = setInterval(() => {
     // 🧹光标后内容
-    cursorAfterClear();
+    cursorLineClear();
     // 打印文本
-    _p(`\n${waiting.info}${pList[++count % pLength]}${csi}20D${csi}1A`, false);
+    _p(`${waiting.info}${pList[++count % pLength]}`, false);
+    cursorMoveLeft(Infinity); // 防止别的打印列占用较少导致
   }, waiting.interval);
   return destroyed;
 }

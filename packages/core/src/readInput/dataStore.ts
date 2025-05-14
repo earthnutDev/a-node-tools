@@ -40,7 +40,7 @@ export const dataStore: DataStore = {
   ) {
     if (isFalse(this.listened)) {
       this.listened = true;
-      stdin.on('keypress', pressCallFn);
+      stdin.on('keypress', pressCallFn); // 我才是大哥
       process.on('beforeExit', stdRemoveListener);
     }
     const list = this.list;

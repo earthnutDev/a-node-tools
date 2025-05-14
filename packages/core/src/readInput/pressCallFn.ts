@@ -1,10 +1,13 @@
-import { isFunction } from 'a-type-of-js';
+import { isFunction, isTrue } from 'a-type-of-js';
 import { dataStore } from './dataStore';
 import { dog } from '../dog';
 
 /**
  *
- * 键盘按下回调 */
+ * 键盘按下回调
+ *
+ * （主要的逻辑）
+ */
 export function pressCallFn(keyValue: string | undefined, key: unknown) {
   /**  当前运行的 action  */
   const currentItem = dataStore[dataStore.list[0]];
@@ -20,10 +23,9 @@ export function pressCallFn(keyValue: string | undefined, key: unknown) {
   if (isFunction(callback)) {
     /**
      *  回调返回的是  true
-     *
      *  则说明该方法已经结束，可以申请结束当前的移除监听工作
      */
-    if (Reflect.apply(callback, null, [keyValue, key])) {
+    if (isTrue(Reflect.apply(callback, null, [keyValue, key]))) {
       dog(
         '回调遇见了想待的键，执行了退出操作，keyValue: < ',
         keyValue,

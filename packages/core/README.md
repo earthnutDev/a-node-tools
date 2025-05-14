@@ -68,6 +68,13 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 | `cursorLineBeforeClear` | 清理光标所在行光标位置前的内容 |                                                  |
 |    `cursorLineClear`    |    清理光标所在行的所有内容    |                                                  |
 
+## terminal 部分
+
+- `terminalPageUp` 终端整页向上滚动
+- `terminalPageOn` 终端整页下翻
+- `terminalScrollScreen` 全屏滚动
+- `terminalScrollBetween` 设定终端可滚动范围
+
 ### readInput 部分
 
 等待用户输入的一个函数。因为要等待，所以是异步的，使用的时候应当使用 `await`
@@ -75,17 +82,34 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 例：
 
 ```js
+import { isTrue } from 'a-type-of-js';
 import { readInput , _p} from "a-node-tools";
 
+// 不建议使用异步函数，因为我想不到使用场景，所以移除了相关的判断
 const callBackFunction = (keyValue: string | undefined, key:any)
 => {
+    /// 自定义当遇到某一个钟意的键则可以返回，这里只是示例，没有说必须要 `enter` 键才可以
     if(key.name && key.name == 'return') {
         return true;
     }
     else {
+      // 如果返回的是非 `true` 则不会触发异步事件的 resolve 事件
       return _p(`换一个键试试，这个键（${keyValue}）不执行退出`);
     }
 };
+
+async function main() {
+    const result = await readInput(callBackFunction)
+    // 从 `v4` 版本开始，`Ctrl` + `C` 不再强制退出，而是交予您处理
+
+    if (isTrue(result.isSIGINT)) {
+      _p('老逼登你要干么？你以为按一个 `Ctrl` + `C` 仅能退出去了？');
+      _p('try again !');
+     await  main();
+    }
+}
+
+await main();
 ```
 
 ## 其他部分
