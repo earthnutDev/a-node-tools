@@ -13,7 +13,7 @@ export {
 
 export { readInput } from './src/readInput/';
 
-export type { ReadInputParam, ReadInputResult } from './src/readInput';
+export type { ReadInputParam, ReadInputKey } from './src/readInput';
 
 export { runOtherCode } from './src/run-other-code';
 export type {

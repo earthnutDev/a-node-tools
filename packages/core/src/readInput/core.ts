@@ -1,11 +1,11 @@
 import { getRandomString, isNode } from 'a-js-tools';
 import { dataStore } from './dataStore';
-import { ReadInputParam, ReadInputResult } from './types';
+import { ReadInputParam } from './types';
 
 /**  核心逻辑  */
 export async function readInputCore(
   _callback: ReadInputParam,
-): Promise<ReadInputResult> {
+): Promise<boolean> {
   if (!isNode()) {
     throw new RangeError('当前环境不支持 readInput');
   }

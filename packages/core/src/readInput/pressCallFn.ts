@@ -12,7 +12,7 @@ export function pressCallFn(keyValue: string | undefined, key: unknown) {
   /**  当前运行的 action  */
   const currentItem = dataStore[dataStore.list[0]];
 
-  const { callback, resolve, result } = currentItem;
+  const { callback, resolve } = currentItem;
 
   dog('当前执行的回调是', {
     ...currentItem,
@@ -35,14 +35,12 @@ export function pressCallFn(keyValue: string | undefined, key: unknown) {
       );
       dataStore.remove();
       /**  正常的退出  */
-      resolve(result);
+      resolve(true);
     }
   } else {
     // 移除监听
     dataStore.remove();
-    result.isSIGINT = true;
-    result.success = false;
     // 返回值
-    resolve(result);
+    resolve(false);
   }
 }
