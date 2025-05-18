@@ -1,13 +1,10 @@
-import {
-  DataStore,
-  ReadInputAction,
-  ReadInputListItem,
-  ReadInputParam,
-} from './types';
+import { DataStore, ReadInputListItem, ReadInputParam } from './types';
 import { isEmptyArray, isFalse } from 'a-type-of-js';
 import { dog } from '../dog';
 import { stdRemoveListener } from './stdRemoveListener';
 import { pressCallFn } from './pressCallFn';
+import { emitKeypressEvents } from 'node:readline';
+import { isTTY } from '../isTTY';
 
 const { stdin } = process;
 /**
@@ -31,34 +28,32 @@ const { stdin } = process;
 export const dataStore: DataStore = {
   list: [],
   listened: false,
-  on(
-    this: DataStore,
-    key: symbol,
-    callback: ReadInputParam,
-    action: ReadInputAction,
-    resolve,
-  ) {
+  on(this: DataStore, key: symbol, callback: ReadInputParam, resolve) {
     if (isFalse(this.listened)) {
       this.listened = true;
+      emitKeypressEvents(process.stdin); //
+      if (isTTY()) {
+        process.stdin.setRawMode(true); // 启用原始模式
+      }
+      process.stdin.resume(); // 恢复流
       stdin.on('keypress', pressCallFn); // 我才是大哥
       process.on('beforeExit', stdRemoveListener);
+      process.stdin.on('end', () => {});
     }
     const list = this.list;
 
     const item: ReadInputListItem = {
       key,
-      rl: null,
-      action,
       callback,
       resolve,
       result: {
         isSIGINT: false,
         success: true,
+        signalName: '',
       },
     };
     if (isEmptyArray(list)) {
       dog('当前执行的栈中没有数据', item);
-      Reflect.apply(action, item, [item]); // 当前没有执行的项执行当前项
     }
 
     list.push(key); // 推送到栈中
@@ -73,18 +68,16 @@ export const dataStore: DataStore = {
     const list = this.list;
     /** 上一个执行的项   */
     const previousItem = list.shift();
-    if (this[previousItem].rl.close) this[previousItem].rl.close(); // 关闭该项
     delete this[previousItem]; // 移除该项
     dog('执行完毕一项，还有：', list);
     // 告诉程序未结束请不要处理 readline
     if (list.length > 0) {
-      const currentItem = this[list[0]];
-      Reflect.apply(currentItem.action, currentItem, [currentItem]);
       return false;
     }
     this.listened = false; // 设定初始化数据
     // 当前执行栈中没有待执行的项，移除在 process 上的监听
     stdRemoveListener();
+    dog('监听已移除');
     return true;
   },
 };

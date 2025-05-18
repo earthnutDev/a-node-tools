@@ -19,3 +19,11 @@
 风吹过了
 
 传播着他们的故事
+
+## 啥
+
+```ts
+// 此二子可获取当前进程中的相关活动事件
+console.log(process._getActiveHandles());
+console.log(process._getActiveRequests());
+```

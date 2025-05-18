@@ -52,6 +52,7 @@ import { ReadInputParam, ReadInputResult } from './types';
  * ```
  *
  */
-export const readInput = readInputCore;
+export const readInput = (_callback: ReadInputParam) =>
+  readInputCore(_callback);
 
 export type { ReadInputParam, ReadInputResult };

@@ -66,7 +66,8 @@ import {
  * ```
  *
  */
-export const runOtherCode = runOtherCodeCore;
+export const runOtherCode = (options: RunOtherCodeOption) =>
+  runOtherCodeCore(options);
 
 export type {
   RunOtherCodeOption as RunOtherCodeParam,

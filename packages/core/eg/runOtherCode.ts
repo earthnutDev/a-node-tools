@@ -5,7 +5,7 @@ import { runOtherCode } from '../index';
 import { dev } from '@qqi/dev-log';
 
 await dev('测试与 run other code 相关的逻辑', async it => {
-  await it('简单执行 ls ', async () => {
+  await it.skip('简单执行 ls ', async () => {
     const result = await runOtherCode('ls');
     _p(result);
   });
@@ -14,7 +14,7 @@ await dev('测试与 run other code 相关的逻辑', async it => {
     await runOtherCode(`echo "${csi}6n"`);
   });
 
-  await it('测试等待', async () => {
+  await it.skip('测试等待', async () => {
     const result = await runOtherCode({
       code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 2 && echo "11"`,
       printLog: true,

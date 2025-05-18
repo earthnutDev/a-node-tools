@@ -1,13 +1,7 @@
-import { Interface } from 'node:readline';
-
 /** 导出这个子项的类型声明 */
 export type ReadInputListItem = {
   /**  唯一键  */
   key: symbol;
-  /**  interface 的实例  */
-  rl: Interface;
-  /**  执行的具体动作  */
-  action: ReadInputAction;
   /**  用户的参数  */
   callback: ReadInputParam;
   /**  向用户发送结果数据  */
@@ -33,8 +27,6 @@ export type DataStore = {
     key: symbol,
     /**  用户回调  */
     callback: ReadInputParam,
-    /**  执行的动作  */
-    action: ReadInputAction,
     /**  Promise 的 resolve   */
     resolve: (value: ReadInputResult) => void,
   ): ReadInputListItem;
@@ -45,13 +37,13 @@ export type DataStore = {
   [x: symbol]: ReadInputListItem;
 };
 
-/**  主要逻辑执行  */
-export type ReadInputAction = (rl: ReadInputListItem) => void;
-
 /**  读取用户输入的返回值 （ Promise 的范性） */
 export type ReadInputResult = {
   /**  是否是 SIGINT 信号退出的  */
   isSIGINT: boolean;
+
+  /**  退出信号名称  */
+  signalName: 'SIGINT' | '';
   /**  执行是否成功（目前来说与 isSIGINT 值相反）  */
   success: boolean;
 };
@@ -81,3 +73,18 @@ export type ReadInputParam = (
         sequence: string;
       },
 ) => boolean;
+
+/**  使用配置参数  */
+export type ReadInputOptions = {
+  /**
+   *
+   *  是否忽略可捕获退出信号
+   *
+   * - `Ctrl + C` 将触发可捕获的 `SIGINT`
+   * - `Ctrl + D` 将触发可捕获的 `SIGCONT`
+   * - `Ctrl + \` 将触发可捕获的 `SIGQUIT`
+   * - `Ctrl + ` ``
+   *
+   */
+  ignoreExitSignal: boolean;
+};

@@ -7,6 +7,23 @@ import { boldPen, pen } from 'color-pen';
  *
  * 打字机效果打印文本
  *
+ * 异步的需要 await  或者 then
+ *
+ * @param str 要打印的字符串
+ * @param [delay=10]  每两个字符之间时间延迟
+ *
+ * @example
+ *
+ * ```ts
+ * import { redPen } from 'color-pen';
+ * import { typewrite } form 'a-node-tools';
+ *
+ *
+ * await typewrite(`五十六个星座五十六${redPen`支花`}五十六族兄弟姐妹是一家`)
+ *
+ * ```
+ *
+ *
  */
 export async function typewrite(str: string, delay: number = 10) {
   if (!isString(str)) {
