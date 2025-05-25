@@ -21,8 +21,15 @@ export type {
   RunOtherCodeOption,
   RunOtherCodeOptions,
   RunOtherCodeResult,
-  RunOtherCodeWaiting,
 } from './src/run-other-code';
+
+export type {
+  RunOtherCodeWaiting,
+  waitingTipsResult,
+  waitingTipsParams,
+} from './src/waiting';
+
+export { waitingTipsPrefixStore, waitingTips } from './src/waiting';
 
 export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
 

@@ -20,7 +20,7 @@ export function createData(): DataStore {
       waiting: {
         show: false,
         info: '',
-        suffix: 0,
+        prefix: 0,
         interval: 10,
       },
     },

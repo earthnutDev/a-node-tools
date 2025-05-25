@@ -13,24 +13,24 @@ let packageJson = readFileToJsonSync('./package.json');
 );
 
 packageJson = {
-  main: 'cjs/index.cjs',
-  module: 'mjs/index.mjs',
-  types: 'types/index.d.ts',
+  main: 'index.cjs',
+  module: 'index.mjs',
+  types: 'index.d.ts',
   ...packageJson,
   publishConfig: {
     access: 'public',
     registry: 'https://registry.npmjs.org/',
   },
-  files: ['mjs/', 'cjs/', 'types/'],
+  files: ['index.d.ts', 'index.mjs', 'index.cjs', 'src'],
   exports: {
     '.': {
       import: {
-        default: './mjs/index.mjs',
-        types: './types/index.d.ts',
+        default: './index.mjs',
+        types: './index.d.ts',
       },
       require: {
-        default: './cjs/index.cjs',
-        types: './types/index.d.ts',
+        default: './index.cjs',
+        types: './index.d.ts',
       },
     },
   },

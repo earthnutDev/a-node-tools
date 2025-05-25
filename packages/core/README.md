@@ -16,6 +16,8 @@
 
 - `runOtherCode` 运行其他代码
 - `RunOtherCodeParam` 运行其他代码的参数类型声明
+- `waitingTips` 一个用于等待的简单终端提示
+- `waitingTipsPrefixStore` 用于自定义 `waitingTips` 的等待的前缀 emoji
 
 ## `npmPkg` 模块
 

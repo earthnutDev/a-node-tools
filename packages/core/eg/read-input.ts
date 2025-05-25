@@ -1,8 +1,9 @@
 import { dev } from '@qqi/dev-log';
 import { readInput } from '../index';
 import { cyanPen, magentaPen } from 'color-pen';
+import { esc } from '@color-pen/static';
 
-await dev('测试用户输入', async it => {
+await dev.skip('测试用户输入', async it => {
   await it('简单测试', async it => {
     readInput((keyValue, key) => {
       console.log(
@@ -10,7 +11,10 @@ await dev('测试用户输入', async it => {
         magentaPen(keyValue),
         cyanPen(JSON.stringify(key, null, 2)),
       );
-      if (key.name === 'return') {
+      if (
+        key.name === 'return' ||
+        (key.name === 'escape' && key.sequence === esc)
+      ) {
         console.log('执行完毕');
         return true;
       }

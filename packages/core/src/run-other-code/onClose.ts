@@ -1,6 +1,7 @@
 import { isFunction } from 'a-type-of-js';
 import { dog } from '../dog';
 import { RunOtherCodeResult, DataStore } from './types';
+import { waitingTipsResult } from '../waiting';
 
 /**
  *
@@ -14,7 +15,7 @@ export function closeCn(
     value: RunOtherCodeResult | PromiseLike<RunOtherCodeResult>,
   ) => void,
   dataStore: DataStore,
-  waitingDestroyed: () => void,
+  waitingObj: waitingTipsResult,
 ) {
   const { env, result } = dataStore;
 
@@ -26,7 +27,8 @@ export function closeCn(
       if (callBack && isFunction(callBack)) {
         Reflect.apply(callBack, null, []);
       }
-      waitingDestroyed(); // 移除定时器
+      waitingObj.destroyed(); // 移除定时器
+
       if (code !== 0 && signal !== 'SIGINT') {
         result.success = false;
         result.status = 3;

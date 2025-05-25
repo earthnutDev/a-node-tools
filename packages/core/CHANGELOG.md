@@ -1,5 +1,9 @@
 # 更新日志
 
+## v4.2.0 （5 🈷️ 24 日 2025 年）
+
+- 将 `runOtherCode` 中的等待提示拿出来做了一个单独的功能 `waitingTips`
+
 ## v4.1.2 （5 🈷️ 19 日 2025 年）
 
 - 优化 `readInput` 类型，且不再提供返回值（使用 `emitKeypressEvents` 使得使用 `Ctrl + c` 和 `Ctrl + d` 不再退出输入状态，该返回值已没有太大意义）
@@ -26,7 +30,7 @@
 
 ## v4.0.1 （5 🈷️ 14 日 2025 年）
 
-- 添加了两个 `runOtherCode` 等待时的尾缀样式。
+- 添加了两个 `runOtherCode` 等待时的前缀样式。
 - `runOtherCode` 返回值添加了 `isSIGINT` 属性，用于判读是否由 `SIGINT` 信号触发的中断
 - `readInput` 调整了返回格式，为了向后更好的兼容，将返回的异步布尔值改为了异步的对象
 

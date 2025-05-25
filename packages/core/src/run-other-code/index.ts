@@ -3,7 +3,6 @@ import {
   RunOtherCodeOption,
   RunOtherCodeOptions,
   RunOtherCodeResult,
-  RunOtherCodeWaiting,
 } from './types';
 
 /**
@@ -33,7 +32,7 @@ import {
  *    waiting: {
  *       show: true,
  *       info: "马上就好",
- *       suffix: 2，
+ *       prefix: 2，
  *       interval: 20,
  *    },
  *    shell: true, //  是否使用 shell 执行，默认值为 true
@@ -74,5 +73,4 @@ export type {
   RunOtherCodeOption,
   RunOtherCodeOptions,
   RunOtherCodeResult,
-  RunOtherCodeWaiting,
 };

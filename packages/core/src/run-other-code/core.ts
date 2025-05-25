@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import { DataStore, RunOtherCodeOption, RunOtherCodeResult } from './types';
-import { waitingCn } from './waiting';
+import { waitingTips } from '../waiting';
 import { parse } from './parse';
 import { dog } from '../dog';
 import { createData } from './dataStore';
@@ -29,7 +29,7 @@ export function runOtherCodeCore(
 
   const { cmd, waiting, cwd, shell } = env;
   /** 打印请稍等。。。 */
-  const waitingDestroyed = waitingCn(waiting);
+  const waitingObj = waitingTips(waiting || false);
 
   try {
     return new Promise(resolve => {
@@ -41,19 +41,23 @@ export function runOtherCodeCore(
       /// 启动事件
       childProcess.on('spawn', () => spawnCn(dataStore));
       /// 标准输出流
-      childProcess.stdout.on('data', value => stdoutDataCn(value, dataStore));
+      childProcess.stdout.on('data', value =>
+        stdoutDataCn(value, dataStore, waitingObj),
+      );
       /// 退出事件
       childProcess.on('exit', (code, signal) => exitCn(code, signal));
       /// 标准输出流输出错误
-      childProcess.stderr.on('data', value => stderrDataCn(value, dataStore));
+      childProcess.stderr.on('data', value =>
+        stderrDataCn(value, dataStore, waitingObj),
+      );
       // 子进程创建失败并不会抛出 error 触发 try.catch ，相反会在这里打印消息
       // 当子进程无法创建或者无法被杀死时触发
-      childProcess.on('error', err => errorCn(err, dataStore));
+      childProcess.on('error', err => errorCn(err, dataStore, waitingObj));
       /// 子进程关闭事件
       childProcess.on(
         'close',
         (code: number | null, signal: NodeJS.Signals | null) =>
-          closeCn(code, signal, resolve, dataStore, waitingDestroyed),
+          closeCn(code, signal, resolve, dataStore, waitingObj),
       );
     });
   } catch (error) {
@@ -64,7 +68,7 @@ export function runOtherCodeCore(
     );
 
     return new Promise(resolve => {
-      waitingDestroyed();
+      waitingObj.destroyed();
       result.error = errorStr;
       result.success = false;
       result.status = 0;

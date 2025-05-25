@@ -1,13 +1,17 @@
 import { cursorAfterClear } from '../cursor';
 import { isWindows } from '../path';
-import { _p } from '../print';
+import { waitingTipsResult } from '../waiting';
 
 /**
  *
  * 整理数据
  *
  */
-export function organizeText(value: unknown, printLog: boolean): string {
+export function organizeText(
+  value: unknown,
+  printLog: boolean,
+  waitingObj: waitingTipsResult,
+): string {
   let data: string = value.toString().trim();
 
   /// 尾部换行符
@@ -19,7 +23,7 @@ export function organizeText(value: unknown, printLog: boolean): string {
   cursorAfterClear(); // 防止妖魔鬼怪不离开
   // 打印文本
   if (printLog) {
-    _p(data, !data.endsWith('\n'));
+    waitingObj.log(data);
   }
   return data;
 }
