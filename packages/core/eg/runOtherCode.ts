@@ -48,9 +48,9 @@ await dev('测试与 run other code 相关的逻辑', async it => {
     result.log('方法已注销:', new Date().toLocaleString());
     await sleep(2000);
     result.log('销毁后等待 2 秒:', new Date().toLocaleString());
-    result.run();
+    result.run('从新激活');
     result.log('重新激活 2 秒:', new Date().toLocaleString());
     await sleep(2000);
-    result.destroyed();
+    // result.destroyed();
   });
 });

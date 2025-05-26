@@ -2,6 +2,7 @@ import {
   cursorAfterClear,
   cursorHide,
   cursorMoveLeft,
+  cursorMoveUp,
   cursorPositionSave,
   cursorPositionUndo,
   cursorShow,
@@ -19,7 +20,15 @@ import { sigintCall } from './sigintCall';
 import { log } from './log';
 import { waitingTipsPrefixStore } from './waitingTipsPrefixStore';
 import { suffixList } from './suffixList';
-import { cutoffStringWithChar, strInTerminalLength } from 'color-pen';
+import {
+  cutoffStringWithChar,
+  cyanPen,
+  magentaPen,
+  strInOneLineOnTerminal,
+  strInTerminalLength,
+} from 'color-pen';
+import { readInput } from '../readInput';
+import { esc } from '@color-pen/static';
 
 export type { RunOtherCodeWaiting, waitingTipsResult, waitingTipsParams };
 
@@ -40,18 +49,28 @@ export { waitingTipsPrefixStore };
  *          - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
  */
 export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
-  const { show, prefix: prefixIndex, info, interval } = parse(params);
+  const { show } = parse(params);
   let timeStamp: undefined | NodeJS.Timeout = undefined;
+  const readInputKey = Symbol('waitingTips');
   /**  打印列表  */
   const logList: unknown[][] = [];
   /**  原始打印  */
   const originLog = (...args: unknown[]) => log(args);
+  /**  当前的状态  */
+  let state: 'run' | 'destroyed' = 'destroyed';
+  /**  当前已经运行的时间  */
+  let runTime: number = 0;
 
   /**  销毁等待信息  */
   function destroyed() {
+    if (state === 'destroyed') return;
+    state = 'destroyed';
+    runTime = 0;
+
     if (!isUndefined(timeStamp)) {
       clearInterval(timeStamp);
     }
+    readInput.remove(readInputKey); // 移除当前的等待输入
     cursorMoveLeft(Infinity); /// 移动到最左边
     cursorAfterClear(); /// 🧹光标后的内容，避免出现打印残留
     /// 返回之前将光标展示出来
@@ -64,8 +83,18 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
   }
 
   /**  执行  */
-  function run() {
-    // 重写
+  function run(runParams?: waitingTipsParams) {
+    if (state === 'run') return;
+    state = 'run';
+    runTime = Date.now();
+
+    const {
+      prefix: prefixIndex,
+      info,
+      interval,
+    } = parse(isUndefined(runParams) ? params : runParams);
+
+    // 重写 log
     result.log = (...args: unknown[]) => logList.push(args);
     /**  尾缀的长度  */
     const suffixLen = suffixList.length;
@@ -94,19 +123,40 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
       cursorAfterClear(true);
       logList.forEach(e => log(e));
       logList.length = 0;
+      _p('\n'.repeat(2));
+      cursorMoveUp(3);
       cursorPositionSave();
       // 保证头部发挥稳定
       const managePrefix = cutoffStringWithChar(
         prefix[++count % prefixLen],
         maxLenPrefix,
       );
-      // 打印文本
-      _p(
-        `${managePrefix}${info}${suffixList[Math.floor(count / 10) % suffixLen]}`,
-        false,
-      );
+      if (Date.now() - runTime < 20000) {
+        // 打印文本
+        _p(
+          strInOneLineOnTerminal(
+            `${managePrefix} ${info.replace(/\n/, '\\n')}${suffixList[Math.floor(count / 10) % suffixLen]}`,
+          ),
+          false,
+        );
+      } else {
+        _p(
+          strInOneLineOnTerminal(
+            `${managePrefix} ${info} ${magentaPen`当前已执行 ${Math.ceil((Date.now() - runTime) / 1000)} 秒`}
+             \n\r${cyanPen`可使用双击 esc 键退出（确保执行完成，若执行仍在期望时间内，请忽略）`}`,
+          ),
+          false,
+        );
+      }
       cursorPositionUndo();
     }, interval);
+    readInput((keyValue, key) => {
+      if (key.meta && key.sequence === esc.repeat(2)) {
+        result.destroyed();
+        return true;
+      }
+      return false;
+    }, readInputKey);
   }
 
   const result: waitingTipsResult = {

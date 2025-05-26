@@ -51,5 +51,7 @@ export function parse(
     ? Math.max(20, Math.min(2000, waiting.interval))
     : interval;
 
+  waiting.info = waiting.info.replace(/\n/g, '\\n');
+
   return waiting;
 }

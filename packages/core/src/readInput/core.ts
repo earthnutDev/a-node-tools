@@ -5,13 +5,14 @@ import { ReadInputParam } from './types';
 /**  核心逻辑  */
 export async function readInputCore(
   _callback: ReadInputParam,
+  key?: symbol,
 ): Promise<boolean> {
   if (!isNode()) {
     throw new RangeError('当前环境不支持 readInput');
   }
 
   /** 获取唯一的 key， 用于向数据仓储中添加本次调用的 key  */
-  const uniKey = Symbol(getRandomString(3));
+  const uniKey = key ?? Symbol(getRandomString(3));
 
   return new Promise(resolve => {
     /**  注册事件

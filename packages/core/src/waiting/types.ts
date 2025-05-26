@@ -70,5 +70,5 @@ export type waitingTipsResult = {
   /**  销毁等待  */
   destroyed(): void;
   /**  再次执行  */
-  run(): void;
+  run(params?: waitingTipsParams): void;
 };

@@ -9,6 +9,7 @@
     "beautify": "npm run eslint && npm run prettier",
     "prettier": "jja cls && prettier . --write",
     "prepare": "husky",
+    "vjj": "vjj",
     "prepublishOnly": "pjj"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.21",
+    "a-command": "^2.2.4",
     "a-node-tools": "^4.1.2",
     "babel-jest": "^29.7.0",
     "codecov": "^3.8.3",

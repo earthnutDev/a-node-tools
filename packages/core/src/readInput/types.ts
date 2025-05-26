@@ -30,6 +30,8 @@ export type DataStore = {
   ): ReadInputListItem;
   /**  移除当前执行的动作  */
   remove(): void;
+  /**  移除项  */
+  del(key: symbol): boolean;
 } & {
   /**  无序的数据  */
   [x: symbol]: ReadInputListItem;
@@ -63,3 +65,16 @@ export type ReadInputParam = (
   /**  返回的键值详细信息  */
   key: ReadInputKey,
 ) => boolean;
+
+export type ReadInput = {
+  (_callback: ReadInputParam, key?: symbol): Promise<boolean>;
+} & {
+  /**
+   *
+   * 移除某键在 readInput 中的列表数据
+   *
+   * - 请保证你获得了正确的该 key 值（通常是在创建 readInput 时传入）
+   * - 若使用该值，即便当前项在 readInput 中为当前执行项，也会被立刻移除。
+   */
+  remove(key: symbol): boolean;
+};

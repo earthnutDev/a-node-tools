@@ -1,6 +1,6 @@
+import { dog } from './../dog';
 import { DataStore, ReadInputListItem, ReadInputParam } from './types';
-import { isEmptyArray, isFalse } from 'a-type-of-js';
-import { dog } from '../dog';
+import { isEmptyArray, isFalse, isUndefined } from 'a-type-of-js';
 import { stdRemoveListener } from './stdRemoveListener';
 import { pressCallFn } from './pressCallFn';
 import { emitKeypressEvents } from 'node:readline';
@@ -56,14 +56,11 @@ export const dataStore: DataStore = {
 
     return item;
   },
-  /**
-   * 是否可以🧹 readline
-   */
   remove(this: DataStore): boolean {
     const list = this.list;
     /** 上一个执行的项   */
     const previousItem = list.shift();
-    delete this[previousItem]; // 移除该项
+    this.del(previousItem);
     dog('执行完毕一项，还有：', list);
     // 告诉程序未结束请不要处理 readline
     if (list.length > 0) {
@@ -74,5 +71,35 @@ export const dataStore: DataStore = {
     stdRemoveListener();
     dog('监听已移除');
     return true;
+  },
+  del(this: DataStore, key: symbol): boolean {
+    dog('开始移除', key);
+    /**  是否为第一个元素  */
+    const isFirstChild = this.list[0] === key && !isUndefined(this[key]);
+    dog('当前 key 是否为当前执行项', isFirstChild);
+    // 第一个元素需要走销毁流程
+    if (isFirstChild) {
+      this.remove();
+      return true;
+    } else {
+      /**  键是否存在  */
+      const hasItem = this.list.includes(key);
+      /**  键值是否存在  */
+      const hasContent = !isUndefined(this[key]);
+      if (hasItem && hasContent) {
+        this.list.splice(this.list.indexOf(key), 1);
+        this[key].resolve(true); // 告诉程序完结了
+        delete this[key]; // 移除该项
+        return true;
+      } else if (hasItem) {
+        this.list.splice(this.list.indexOf(key), 1);
+        return true;
+      } else if (hasContent) {
+        this.list.splice(this.list.indexOf(key), 1);
+        this[key].resolve(true); // 告诉程序完结了
+        return true;
+      }
+      return false;
+    }
   },
 };

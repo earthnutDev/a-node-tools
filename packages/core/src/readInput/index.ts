@@ -1,5 +1,6 @@
 import { readInputCore } from './core';
-import { ReadInputKey, ReadInputParam } from './types';
+import { dataStore } from './dataStore';
+import { ReadInput, ReadInputKey, ReadInputParam } from './types';
 
 /**
  *
@@ -52,7 +53,15 @@ import { ReadInputKey, ReadInputParam } from './types';
  * ```
  *
  */
-export const readInput = (_callback: ReadInputParam) =>
-  readInputCore(_callback);
+export const readInput: ReadInput = ((
+  _callback: ReadInputParam,
+  key?: symbol,
+) => readInputCore(_callback, key)) as unknown as ReadInput;
+
+Object.defineProperties(readInput, {
+  remove: {
+    value: (key: symbol) => dataStore.del(key),
+  },
+});
 
 export type { ReadInputParam, ReadInputKey };
