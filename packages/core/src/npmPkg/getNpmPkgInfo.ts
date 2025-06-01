@@ -14,7 +14,7 @@ import https from 'node:https';
  * ## 获取给定 npm 包的内容的信息
  *
  * @param pkgName 包的名字
- * @param [registry='官方'] npm 源，默认是官方源。可选值： 淘宝、官方、腾讯、中科大、yarn、华为
+ * @param [registry='官方'] npm 源，默认是官方源。可选值： 淘宝、官方、腾讯、中科大、yarn
  * @param [timeout=5000]  超时设置
  * @returns 返回是一个对象
  *

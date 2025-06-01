@@ -71,4 +71,6 @@ export type waitingTipsResult = {
   destroyed(): void;
   /**  再次执行  */
   run(params?: waitingTipsParams): void;
+  /**  运行超时提醒（当配置值小于 600 时会按秒为单位，当值大于 600 会按毫秒计算）  */
+  timeout: number;
 };

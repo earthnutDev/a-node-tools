@@ -51,6 +51,7 @@ await dev('测试与 run other code 相关的逻辑', async it => {
     result.run('从新激活');
     result.log('重新激活 2 秒:', new Date().toLocaleString());
     await sleep(2000);
+    result.timeout = 10;
     // result.destroyed();
   });
 });

@@ -19,6 +19,19 @@
 - `waitingTips` 一个用于等待的简单终端提示
 - `waitingTipsPrefixStore` 用于自定义 `waitingTips` 的等待的前缀 emoji
 
+### `runOtherCode`
+
+简单执行其他的命令,**_请注意，请不要将用户输入当作 `code` 值传入方法，执行有风险，且调且珍惜_**
+
+```ts
+import { runOtherCode } from 'a-node-tools';
+
+const result = await runOtherCode({
+  code: 'ls',
+  printLog: false,
+});
+```
+
 ## `npmPkg` 模块
 
 - `getPkgInfoResult` 方法 `getNpmPkgInfo` 的返回值类型
@@ -37,9 +50,7 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 
 [![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/v4/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/blob/v4/media/测试源情况.png)
 
-由上图可见，使用 `淘宝` 源时，延迟相对较低。而有些国内源都没有 `npm` 原源延迟低。
-
-（不是对为为有偏见，而是为为总是返回一个空的文件）
+由上图可见，使用 `淘宝` 源时，延迟相对较低。而有些国内源都没有 `npm` 原源（但是各源有各源的用途，譬如，如果是在腾讯云服务器部署的服务，当然是使用腾讯的 npm 源比较快啦，举义翻山）延迟低。
 
 ## path 模块
 
@@ -96,7 +107,7 @@ const callBackFunction = (keyValue: string | undefined, key:any)
     }
     else {
       // 如果返回的是非 `true` 则不会触发异步事件的 resolve 事件
-      return _p(`换一个键试试，这个键（${keyValue}）不执行退出`);
+      return _p(`换一个键试试，这个键（${keyValue}）不允许退出`);
     }
 };
 
@@ -105,8 +116,9 @@ async function main() {
     // 从 `v4` 版本开始，`Ctrl` + `C` 不再强制退出，而是交予您处理
 
     if (isTrue(result.isSIGINT)) {
-      _p('老逼登你要干么？你以为按一个 `Ctrl` + `C` 仅能退出去了？');
-      _p('try again !');
+      _p('老逼登你要干么？你以为按一个 `Ctrl` + `C` 就能退出去了？');
+      _p('try again 啊！');
+      _p('有本事拔电线呀！');
      await  main();
     }
 }
@@ -173,7 +185,3 @@ await typewrite(
 
 - [清华大学源](https://mirrors.tuna.tsinghua.edu.cn/)
 - [网易源](https://mirrors.163.com)
-
-以下源禁止接口访问
-
-- [华为源](https://mirrors.huaweicloud.com)

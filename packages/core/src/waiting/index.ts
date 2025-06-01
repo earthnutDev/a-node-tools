@@ -61,6 +61,8 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
   /**  当前已经运行的时间  */
   let runTime: number = 0;
 
+  /**  超时时间  */
+  let timeout = 40000;
   /**  销毁等待信息  */
   function destroyed() {
     if (state === 'destroyed') return;
@@ -84,7 +86,6 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
 
   /**  执行  */
   function run(runParams?: waitingTipsParams) {
-    if (state === 'run') return;
     state = 'run';
     runTime = Date.now();
 
@@ -131,7 +132,7 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
         prefix[++count % prefixLen],
         maxLenPrefix,
       );
-      if (Date.now() - runTime < 20000) {
+      if (Date.now() - runTime < timeout) {
         // 打印文本
         _p(
           strInOneLineOnTerminal(
@@ -163,6 +164,14 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
     destroyed,
     log: originLog,
     run,
+    set timeout(time: number) {
+      runTime = Date.now();
+      timeout =
+        !isFinite(time) || time < 0 ? 40000 : time < 600 ? time * 1000 : time;
+    },
+    get timeout() {
+      return timeout;
+    },
   };
 
   if (isFalse(show)) return result;
