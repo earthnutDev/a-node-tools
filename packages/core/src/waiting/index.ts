@@ -49,7 +49,7 @@ export { waitingTipsPrefixStore };
  *          - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
  */
 export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
-  const { show } = parse(params);
+  let parsingParameters = parse(params);
   let timeStamp: undefined | NodeJS.Timeout = undefined;
   const readInputKey = Symbol('waitingTips');
   /**  打印列表  */
@@ -89,11 +89,12 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
     state = 'run';
     runTime = Date.now();
 
-    const {
-      prefix: prefixIndex,
-      info,
-      interval,
-    } = parse(isUndefined(runParams) ? params : runParams);
+    // 保证参数是新的
+    parsingParameters = isUndefined(runParams)
+      ? parsingParameters
+      : parse(runParams, parsingParameters);
+    /**  解析参数  */
+    const { prefix: prefixIndex, info, interval } = parsingParameters;
 
     // 重写 log
     result.log = (...args: unknown[]) => logList.push(args);
@@ -174,7 +175,7 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
     },
   };
 
-  if (isFalse(show)) return result;
+  if (isFalse(parsingParameters.show)) return result;
 
   result.run();
   return result;

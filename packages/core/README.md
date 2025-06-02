@@ -140,6 +140,19 @@ _p('hello'); // hello
 _p('hello', false); // hello （打印完不换行，光标依旧在 o 后面）
 ```
 
+### colorLine
+
+一条彩色的分割线：
+
+```ts
+import { colorLine } from 'a-node-tools';
+
+colorLine(); // 打印一个彩色分割线
+colorLine('就是玩'); // 打印一个彩色分割线，中间是文本： “就是玩”
+colorLine('就是玩', true); // 打印一个彩色分割线，中间是彩色文本： “就是玩”
+colorLine('就是玩', '#f21'); // 打印一个彩色分割线，中间是红色文本： “就是玩”
+```
+
 ### typewrite
 
 一个简单的打字机效果，用于在终端输入内容

@@ -73,7 +73,7 @@ export {
   dirEmpty,
 } from './src/file/';
 
-export { _p } from './src/print';
+export { _p, colorLine, colorLine as colorDividingLine } from './src/print';
 
 import { default as file } from './src/file/';
 

@@ -4,8 +4,9 @@ import { isBoolean, isNumber, isString, isUndefined } from 'a-type-of-js';
 /**  解析参数  */
 export function parse(
   params: undefined | waitingTipsParams,
+  parsingParameters?: RunOtherCodeWaiting,
 ): RunOtherCodeWaiting {
-  const { show, info, prefix, interval } = {
+  const { show, info, prefix, interval } = parsingParameters ?? {
     show: true,
     info: '请等待',
     prefix: 0,

@@ -27,7 +27,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.15.29",
     "a-command": "^2.2.5",
-    "a-node-tools": "^4.2.1",
+    "a-node-tools": "^4.2.2",
     "codecov": "^3.8.3",
     "coveralls": "^3.1.1",
     "eslint": "^9.28.0",
