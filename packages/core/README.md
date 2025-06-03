@@ -28,7 +28,7 @@ import { runOtherCode } from 'a-node-tools';
 
 const result = await runOtherCode({
   code: 'ls',
-  printLog: false,
+  printLog: true,
 });
 ```
 

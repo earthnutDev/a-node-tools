@@ -23,7 +23,7 @@ import {
  * @example
  *
  * ```ts
- * import { runOtherCode , _sp} from  "a-node-tools";
+ * import { runOtherCode , _p } from  "a-node-tools";
  *
  * runOtherCode({
  *    code:"ls", // 执行命令
@@ -36,7 +36,7 @@ import {
  *       interval: 20,
  *    },
  *    shell: true, //  是否使用 shell 执行，默认值为 true
- *    printLog: true, // 是否打印原始 stdout 输出，默认值为 true
+ *    printLog: true, // 是否打印原始 stdout 输出，默认值为 false
  * }).then((resolve)=>{
  *     _p(resolve);
  * });

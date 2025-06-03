@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.2.4",
+  "version": "4.2.5",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -11,7 +11,7 @@
     "build:dev": "rollup --config rollup.dev.config.js",
     "dev": "jja rm .eg cls && npm run build:dev && node --unhandled-rejections=strict .eg/index.mjs",
     "push:version": "gvv",
-    "push:submit": "gvv",
+    "push": "gvv",
     "diff": "jja pkg -d",
     "eslint": "jja cls && eslint src",
     "beautify": "npm run eslint && npm run prettier",
@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@color-pen/static": "^1.0.0",
-    "@qqi/dev-log": "^1.0.1",
+    "@qqi/dev-log": "^1.0.2",
     "a-js-tools": "^1.0.0",
     "a-type-of-js": "^1.0.1",
     "color-pen": "^2.0.10"

@@ -41,7 +41,7 @@ dev.skip('测试用户输入', async it => {
   });
 });
 
-dev(`多次测试第  次`, async () => {
+dev.skip(`多次测试第  次`, async () => {
   for (let i = 0; i < 12; i++) {
     await readInput((a, b) => {
       console.log('====================================');

@@ -6,9 +6,11 @@ import { dev } from '@qqi/dev-log';
 import { waitingTips } from '../src/waiting';
 import { sleep } from 'a-js-tools';
 
-await dev.skip('测试与 run other code 相关的逻辑', async it => {
-  await it.skip('简单执行 ls ', async () => {
-    const result = await runOtherCode('ls');
+await dev('测试与 run other code 相关的逻辑', async it => {
+  await it('简单执行 ls ', async () => {
+    const result = await runOtherCode({
+      code: 'ls',
+    });
     _p(result);
   });
 

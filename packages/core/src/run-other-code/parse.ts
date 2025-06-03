@@ -37,7 +37,7 @@ export function parse(options: RunOtherCodeOption, dataStore: DataStore) {
     shell: true,
     hideWaiting: true,
     waitingMessage: '请稍等',
-    printLog: true,
+    printLog: false,
     ...options,
     cmd,
     cwd,
