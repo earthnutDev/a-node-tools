@@ -3,7 +3,7 @@ import { readInput } from '../index';
 import { cyanPen, magentaPen } from 'color-pen';
 import { esc } from '@color-pen/static';
 
-await dev.skip('测试用户输入', async it => {
+dev.skip('测试用户输入', async it => {
   await it('简单测试', async it => {
     readInput((keyValue, key) => {
       console.log(
@@ -39,4 +39,17 @@ await dev.skip('测试用户输入', async it => {
     // console.log(process._getActiveHandles());
     // console.log(process._getActiveRequests());
   });
+});
+
+dev(`多次测试第  次`, async () => {
+  for (let i = 0; i < 12; i++) {
+    await readInput((a, b) => {
+      console.log('====================================');
+      console.log('第' + i + '次执行');
+      console.log('====================================');
+      if (b.name === 'return') {
+        return true;
+      }
+    });
+  }
 });

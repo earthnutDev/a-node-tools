@@ -5,6 +5,7 @@ import { stdRemoveListener } from './stdRemoveListener';
 import { pressCallFn } from './pressCallFn';
 import { emitKeypressEvents } from 'node:readline';
 import { isTTY } from '../isTTY';
+import { endCn } from './end';
 
 const { stdin } = process;
 /**
@@ -38,7 +39,7 @@ export const dataStore: DataStore = {
       process.stdin.resume(); // 恢复流
       stdin.on('keypress', pressCallFn); // 我才是大哥
       process.on('beforeExit', stdRemoveListener);
-      process.stdin.on('end', () => {});
+      process.stdin.on('end', endCn);
     }
     const list = this.list;
 

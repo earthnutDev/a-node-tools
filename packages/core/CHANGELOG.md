@@ -1,5 +1,13 @@
 # 更新日志
 
+## v4.2.4 (2025-6-3)
+
+- 修复 `readInput` 的监听事件（该事件是测试时随手写上的，忘了注释或删除），导致在多次调用该函数后，导致的多次监听的警告
+
+```text
+ MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added to [ReadStream]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+```
+
 ## v4.2.3 (2025-6-2)
 
 - 添加了一个可有可无的 `colorLine` 用户绘制一条彩色的分割线

@@ -1,4 +1,5 @@
 import { isTTY } from '../isTTY';
+import { endCn } from './end';
 import { pressCallFn } from './pressCallFn';
 
 const { stdin } = process;
@@ -8,6 +9,7 @@ const { stdin } = process;
 export function stdRemoveListener() {
   stdin.removeListener('keypress', pressCallFn);
   process.removeListener('beforeExit', stdRemoveListener);
+  process.stdin.removeListener('end', endCn);
   if (isTTY) {
     stdin.setRawMode(false);
   }
