@@ -1,17 +1,24 @@
 import { RunOtherCodeWaiting, waitingTipsParams } from './types';
 import { isBoolean, isNumber, isString, isUndefined } from 'a-type-of-js';
 
-/**  解析参数  */
+/**
+ * 解析参数
+ *
+ * @param params  原始参数
+ * @param parsingParameters  配置初始的参数，多用于一个已经 destroyed 的 waiting 又执行了 run
+ */
 export function parse(
   params: undefined | waitingTipsParams,
   parsingParameters?: RunOtherCodeWaiting,
 ): RunOtherCodeWaiting {
-  const { show, info, prefix, interval } = parsingParameters ?? {
-    show: true,
-    info: '请等待',
-    prefix: 0,
-    interval: 20,
-  };
+  const { show, info, prefix, interval, beforeDestroyed } =
+    parsingParameters ?? {
+      show: true,
+      info: '请等待',
+      prefix: 0,
+      interval: 20,
+      beforeDestroyed: () => undefined,
+    };
   /**  等待  */
   const waiting = isBoolean(params)
     ? {
@@ -19,6 +26,7 @@ export function parse(
         info,
         prefix,
         interval,
+        beforeDestroyed,
       }
     : isString(params)
       ? {
@@ -26,6 +34,7 @@ export function parse(
           info: params,
           prefix,
           interval,
+          beforeDestroyed,
         }
       : isUndefined(params)
         ? {
@@ -33,6 +42,7 @@ export function parse(
             info,
             prefix,
             interval,
+            beforeDestroyed,
           }
         : isNumber(params)
           ? {
@@ -40,12 +50,14 @@ export function parse(
               info: '请等待',
               prefix: isNaN(params) ? prefix : Math.min(Math.max(0, params), 2),
               interval,
+              beforeDestroyed,
             }
           : {
               show,
               info,
               prefix,
               interval,
+              beforeDestroyed,
               ...params,
             };
   waiting.interval = isFinite(waiting.interval)

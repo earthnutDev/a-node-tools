@@ -22,6 +22,9 @@ export function createData(): DataStore {
         info: '',
         prefix: 0,
         interval: 10,
+        beforeDestroyed(): Promise<void> {
+          return undefined;
+        },
       },
     },
   };

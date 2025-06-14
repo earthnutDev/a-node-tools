@@ -23,11 +23,11 @@ export function closeCn(
   {
     // 子进程使用 Ctrl + V 后默认使用的关必为此处。而不是
     dog('进行正常关闭', code);
-    setTimeout(() => {
+    setTimeout(async () => {
       if (callBack && isFunction(callBack)) {
         Reflect.apply(callBack, null, []);
       }
-      waitingObj.destroyed(); // 移除定时器
+      await waitingObj.destroyed(); // 移除定时器
 
       if (code !== 0 && signal !== 'SIGINT') {
         result.success = false;

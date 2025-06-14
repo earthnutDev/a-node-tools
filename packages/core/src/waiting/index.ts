@@ -8,7 +8,7 @@ import {
   cursorShow,
 } from '../cursor';
 import { _p } from '../print';
-import { isFalse, isUndefined } from 'a-type-of-js';
+import { isFalse, isPromise, isUndefined } from 'a-type-of-js';
 import {
   RunOtherCodeWaiting,
   waitingTipsParams,
@@ -38,17 +38,19 @@ export { waitingTipsPrefixStore };
  *
  * ## 等待
  *
- *     - show 可选属性，是否展示文本。缺省值为 true
- *     - info 可选属性，展示的具体文本。缺省值为 ""
- *     - interval 前缀的两个时间间隔
- *     - prefix 可选属性，展示跳动前缀类型。缺省将随机展示（可通过全局的 `waitingTipsPrefixStore` 数组替换为自己想要展示的前缀）
- *          - 0 旋转的省略号前缀 ['···', '⋱', '⋮', '⋰', '···', '⋱', '⋮', '⋰']
- *          - 1 时针旋转的前缀  ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖','🕗','🕘', '🕙','🕚','🕛']
- *          - 2 分针旋转前缀 ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦', '🕧']
- *          - 3 前缀 ['👈','👆','👉','👇','🤘','🤟','🫳','🫴','👊']
- *          - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
+ *  - show 可选属性，是否展示文本。缺省值为 true
+ *  - info 可选属性，展示的具体文本。缺省值为 ""
+ *  - interval 前缀的两个时间间隔
+ * - beforeDestroyed 临销毁前执行
+ *  - prefix 可选属性，展示跳动前缀类型。缺省将随机展示（可通过全局的 `waitingTipsPrefixStore` 数组替换为自己想要展示的前缀）
+ *    - 0 旋转的省略号前缀 ['···', '⋱', '⋮', '⋰', '···', '⋱', '⋮', '⋰']
+ *    - 1 时针旋转的前缀  ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖','🕗','🕘', '🕙','🕚','🕛']
+ *    - 2 分针旋转前缀 ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦', '🕧']
+ *    - 3 前缀 ['👈','👆','👉','👇','🤘','🤟','🫳','🫴','👊']
+ *    - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
  */
 export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
+  /**  执行参数  */
   let parsingParameters = parse(params);
   let timeStamp: undefined | NodeJS.Timeout = undefined;
   const readInputKey = Symbol('waitingTips');
@@ -64,7 +66,7 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
   /**  超时时间  */
   let timeout = 40000;
   /**  销毁等待信息  */
-  function destroyed() {
+  async function destroyed() {
     if (state === 'destroyed') return;
     state = 'destroyed';
     runTime = 0;
@@ -82,9 +84,28 @@ export function waitingTips(params?: waitingTipsParams): waitingTipsResult {
     logList.forEach(e => originLog(...e));
     logList.length = 0; /// 释放未完成的打印
     result.log = originLog; // 恢复原有的 log 打印
+    if (!isPromise(parsingParameters.beforeDestroyed)) {
+      parsingParameters.beforeDestroyed();
+    } else {
+      await parsingParameters.beforeDestroyed();
+    }
   }
 
-  /**  执行  */
+  /**
+   * ## 执行暂停的等待
+   *
+   *
+   * - show 可选属性，是否展示文本。缺省值为 true
+   * - info 可选属性，展示的具体文本。缺省值为 ""
+   * - interval 前缀的两个时间间隔
+   * - beforeDestroyed 临销毁前执行
+   * - prefix 可选属性，展示跳动前缀类型。缺省将随机展示（可通过全局的 `waitingTipsPrefixStore` 数组替换为自己想要展示的前缀）
+   *   - 0 旋转的省略号前缀 ['···', '⋱', '⋮', '⋰', '···', '⋱', '⋮', '⋰']
+   *   - 1 时针旋转的前缀  ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖','🕗','🕘', '🕙','🕚','🕛']
+   *   - 2 分针旋转前缀 ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦', '🕧']
+   *   - 3 前缀 ['👈','👆','👉','👇','🤘','🤟','🫳','🫴','👊']
+   *   - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
+   */
   function run(runParams?: waitingTipsParams) {
     state = 'run';
     runTime = Date.now();

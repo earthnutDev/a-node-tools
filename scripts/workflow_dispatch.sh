@@ -62,7 +62,7 @@ main() {
   # echo "update_packages=$UPDATE_PACKAGES" >> $GITHUB_OUTPUT    
   echo "update_packages=$UPDATE_PACKAGES" >> $GITHUB_ENV
 
-  printf "\e[手动触发的包为 \e[m$UPDATE_PACKAGES \n"
+  printf "\e[38;5;164m手动触发的包为 \e[m$UPDATE_PACKAGES \n"
 }
 echo "准备好了么"
 main

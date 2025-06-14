@@ -10,6 +10,7 @@ import { spawnCn } from './onSpawn';
 import { stderrDataCn } from './onStderrData';
 import { errorCn } from './onError';
 import { closeCn } from './onClose';
+import { parse as parseWaiting } from '../waiting/parse';
 
 /**  执行其他命令  */
 export function runOtherCodeCore(
@@ -28,8 +29,13 @@ export function runOtherCodeCore(
   dog('执行参数', dataStore);
 
   const { cmd, waiting, cwd, shell } = env;
+  /**  解析当前等待的参数  */
+  const waitingParam = parseWaiting(waiting);
+  /**  保留是否执行等待  */
+  const isRunWaiting = waitingParam.show;
+  waitingParam.show = false; // 先暂停执行等待
   /** 打印请稍等。。。 */
-  const waitingObj = waitingTips(waiting || false);
+  const waitingObj = waitingTips(waitingParam);
 
   try {
     return new Promise(resolve => {
@@ -38,6 +44,15 @@ export function runOtherCodeCore(
         cwd,
         shell,
       });
+      /// 若原参数为启动等待则启动等待
+      if (isRunWaiting)
+        waitingObj.run({
+          /**  在执行等待退出时退出该执行  */
+          beforeDestroyed: () => {
+            waitingObj.log('执行退出');
+            childProcess.kill('SIGKILL');
+          },
+        });
       /// 启动事件
       childProcess.on('spawn', () => spawnCn(dataStore));
       /// 标准输出流
@@ -68,7 +83,9 @@ export function runOtherCodeCore(
     );
 
     return new Promise(resolve => {
-      waitingObj.destroyed();
+      (async () => {
+        await waitingObj.destroyed();
+      })();
       result.error = errorStr;
       result.success = false;
       result.status = 0;

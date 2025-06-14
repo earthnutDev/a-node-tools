@@ -18,9 +18,9 @@ await dev('测试与 run other code 相关的逻辑', async it => {
     await runOtherCode(`echo "${csi}6n"`);
   });
 
-  await it.skip('测试等待', async () => {
+  await it('测试等待', async () => {
     const result = await runOtherCode({
-      code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 2 && echo "11"`,
+      code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 20 && echo "11"`,
       printLog: true,
       waiting: {
         prefix: 2,
@@ -31,7 +31,7 @@ await dev('测试与 run other code 相关的逻辑', async it => {
     console.log(result);
   });
 
-  await it('测试单独的 awaiting', async () => {
+  await it.skip('测试单独的 awaiting', async () => {
     const result = waitingTips({
       // interval: 100,
       prefix: 1,
