@@ -1,5 +1,9 @@
 # 更新日志
 
+## v4.2.8 (2025-6-16)
+
+- 么事，更着玩
+
 ## v4.2.7 (2025-6-15)
 
 - `waitingTips` 在自身清理时可使用 `beforeDestroyed` 执行清理（需要来自于 `runOtherCode`）

@@ -2,6 +2,7 @@ import { isString, isNaN } from 'a-type-of-js';
 import { _p } from './print';
 import { dog } from './dog';
 import { boldPen, pen } from 'color-pen';
+import { sleep } from 'a-js-tools';
 
 /**
  *
@@ -41,8 +42,7 @@ export async function typewrite(str: string, delay: number = 10) {
     return;
   }
   for (const char of strArr) {
-    await new Promise(resolve => setTimeout(resolve, delay));
-
+    await sleep(delay);
     dog(`当前字符 ${boldPen(char)} 长度为：`, char.length);
     dog(
       `当前字符 ${pen.reversed(char)} 在 charCodeAt`,

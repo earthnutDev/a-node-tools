@@ -49,8 +49,9 @@ export function runOtherCodeCore(
         waitingObj.run({
           /**  在执行等待退出时退出该执行  */
           beforeDestroyed: () => {
-            waitingObj.log('执行退出');
-            childProcess.kill('SIGKILL');
+            // 该条打印导致多个应用打印该值
+            // waitingObj.log('执行退出');
+            childProcess.kill('SIGINT');
           },
         });
       /// 启动事件
