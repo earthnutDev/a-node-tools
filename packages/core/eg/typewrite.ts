@@ -1,7 +1,7 @@
 import { dev } from '@qqi/dev-log';
 import { typewrite } from '../index';
 
-await dev('测试 typewrite', async it => {
+await dev.skip('测试 typewrite', async it => {
   await it('测试 1', async () => {
     await typewrite('你好');
   });

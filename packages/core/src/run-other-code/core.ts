@@ -11,6 +11,7 @@ import { stderrDataCn } from './onStderrData';
 import { errorCn } from './onError';
 import { closeCn } from './onClose';
 import { parse as parseWaiting } from '../waiting/parse';
+import { isWindows } from '../path';
 
 /**  执行其他命令  */
 export function runOtherCodeCore(
@@ -51,7 +52,32 @@ export function runOtherCodeCore(
           beforeDestroyed: () => {
             // 该条打印导致多个应用打印该值
             // waitingObj.log('执行退出');
-            childProcess.kill('SIGINT');
+            dog('执行退出前');
+            // SIGINT 优雅退出好像并没有终止进程
+            if (isWindows) {
+              try {
+                if (!childProcess.killed) childProcess.kill(-1);
+              } catch (error) {
+                dog.error(
+                  '使用 child.kill(child.pid, -1 ) 关闭子进程失败',
+                  error,
+                );
+                spawn(
+                  'taskkill',
+                  ['/pid', childProcess.pid?.toString(), '/T', '/F'],
+                  {
+                    stdio: 'pipe', //
+                  },
+                );
+              }
+
+              dog('终结在 windows 下的子进程');
+            } else {
+              // childProcess.kill('SIGINT');
+              childProcess.kill('SIGTERM');
+              // childProcess.kill('SIGKILL');
+              dog('终结在非 windows 下的子进程');
+            }
           },
         });
       /// 启动事件

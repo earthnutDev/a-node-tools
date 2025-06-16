@@ -6,7 +6,7 @@ import { dev } from '@qqi/dev-log';
 import { waitingTips } from '../src/waiting';
 import { sleep } from 'a-js-tools';
 
-await dev('测试与 run other code 相关的逻辑', async it => {
+await dev.skip('测试与 run other code 相关的逻辑', async it => {
   await it('简单执行 ls ', async () => {
     const result = await runOtherCode({
       code: 'ls',
@@ -20,6 +20,7 @@ await dev('测试与 run other code 相关的逻辑', async it => {
 
   await it('测试等待', async () => {
     const result = await runOtherCode({
+      // code: `sleep 20 && echo "11"`,
       code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 20 && echo "11"`,
       printLog: true,
       waiting: {

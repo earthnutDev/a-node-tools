@@ -9,3 +9,5 @@ import './typewrite';
 import './read-input';
 
 import './colorLine';
+
+import './path';
