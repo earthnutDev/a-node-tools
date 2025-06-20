@@ -1,4 +1,4 @@
-import { dev } from '@qqi/dev-log';
+import { dev } from '@qqi/dev';
 import { typewrite } from '../index';
 
 await dev.skip('测试 typewrite', async it => {

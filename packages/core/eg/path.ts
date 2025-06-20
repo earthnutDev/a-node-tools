@@ -1,4 +1,4 @@
-import { dev } from '@qqi/dev-log';
+import { dev } from '@qqi/dev';
 import { getDirectoryBy } from '../src/path';
 import { _p } from '../src/print';
 import { redPen } from 'color-pen';

@@ -2,7 +2,7 @@ import { _p, getNpmPkgInfo, testNpmPackageExist } from '../index';
 import assert from 'node:assert';
 import { npmRegistry } from '../src/npmPkg/types';
 import { isUndefined } from 'a-type-of-js';
-import { dev } from '@qqi/dev-log';
+import { dev } from '@qqi/dev';
 const list: npmRegistry[] = ['官方', '淘宝', '腾讯', '中科大', 'yarn'];
 
 list.forEach(async e => {

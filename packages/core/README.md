@@ -50,7 +50,7 @@ type npmRegistry = '官方' | '淘宝' | '腾讯' | '中科大' | 'yarn';
 
 [![测试情况](https://raw.githubusercontent.com/earthnutDev/a-node-tools/v4/media/测试源情况.png)](https://github.com/earthnutDev/a-node-tools/blob/v4/media/测试源情况.png)
 
-由上图可见，使用 `淘宝` 源时，延迟相对较低。而有些国内源都没有 `npm` 原源（但是各源有各源的用途，譬如，如果是在腾讯云服务器部署的服务，当然是使用腾讯的 npm 源比较快啦，举义翻山）延迟低。
+由上图可见，使用 `淘宝` 源时，延迟相对较低。而有些国内源都没有 `npm` 原源（但是各源有各源的用途，譬如，如果是在腾讯云服务器部署的服务，当然是使用腾讯的 npm 源比较快啦，举衣反山）延迟低。
 
 ## path 模块
 

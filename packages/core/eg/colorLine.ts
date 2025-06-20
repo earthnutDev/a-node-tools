@@ -1,4 +1,4 @@
-import { dev } from '@qqi/dev-log';
+import { dev } from '@qqi/dev';
 import { colorLine } from '../src/print';
 
 await dev('测试彩色线条', () => {

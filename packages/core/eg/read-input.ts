@@ -1,4 +1,4 @@
-import { dev } from '@qqi/dev-log';
+import { dev } from '@qqi/dev';
 import { readInput } from '../index';
 import { cyanPen, magentaPen } from 'color-pen';
 import { esc } from '@color-pen/static';

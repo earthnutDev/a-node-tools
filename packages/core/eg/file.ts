@@ -1,4 +1,4 @@
-import { dev } from '@qqi/dev-log';
+import { dev } from '@qqi/dev';
 import { readFileToJson } from '../index';
 
 dev.skip('测试异步读取 JSON 文件', async () => {
