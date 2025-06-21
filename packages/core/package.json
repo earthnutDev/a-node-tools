@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.2.11",
+  "version": "4.2.12",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -9,7 +9,7 @@
     "clean:package": "node scripts/clean-package-json.js",
     "build": "npm run b && npm run clean:package",
     "build:dev": "rollup --config rollup.dev.config.js",
-    "dev": "jja rm .eg cls && npm run build:dev &&a_node_tools_dev=all node --unhandled-rejections=strict .eg/index.mjs",
+    "dev": "jja rm .eg cls && npm run build:dev &&a_node_tools_dev=false node --unhandled-rejections=strict .eg/index.mjs",
     "push:version": "gvv",
     "push": "gvv",
     "diff": "jja pkg -d",

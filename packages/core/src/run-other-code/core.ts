@@ -12,11 +12,13 @@ import { errorCn } from './onError';
 import { closeCn } from './onClose';
 import { parse as parseWaiting } from '../waiting/parse';
 import { isWindows } from '../path';
+import { isTrue } from 'a-type-of-js';
 
 /**  执行其他命令  */
 export function runOtherCodeCore(
   options: RunOtherCodeOption,
 ): Promise<RunOtherCodeResult> {
+  // process.env.NODE_NO_WARNINGS = '1';
   /**  每一次函数执行的单独数据 (你就是我的唯一，不能被玷污的数据) */
   const dataStore: DataStore = createData();
 
@@ -29,7 +31,7 @@ export function runOtherCodeCore(
 
   dog('执行参数', dataStore);
 
-  const { cmd, waiting, cwd, shell } = env;
+  const { cmd, waiting, cwd, shell, code } = env;
   /**  解析当前等待的参数  */
   const waitingParam = parseWaiting(waiting);
   /**  保留是否执行等待  */
@@ -41,10 +43,15 @@ export function runOtherCodeCore(
   try {
     return new Promise(resolve => {
       /** 子命令  */
-      const childProcess = spawn(cmd[0], cmd.slice(1), {
-        cwd,
-        shell,
-      });
+      const childProcess = isTrue(shell)
+        ? spawn(code, [], {
+            cwd,
+            shell,
+          })
+        : spawn(cmd[0], cmd.slice(1), {
+            cwd,
+            shell,
+          });
       /// 若原参数为启动等待则启动等待
       if (isRunWaiting)
         waitingObj.run({
