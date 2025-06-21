@@ -11,7 +11,7 @@
 import { _p } from './print';
 import { csi, esc } from '@color-pen/static';
 import { isFalse, isNumber, isPlainObject, isUndefined } from 'a-type-of-js';
-import { dog } from './dog';
+// import { dog } from './dog';
 import { isNode } from 'a-js-tools';
 
 /** 打印转义的内容  */
@@ -184,10 +184,10 @@ function computerLen(
   len: number,
   direction: 'horizontal' | 'vertical' = 'horizontal',
 ): number {
-  dog('计算光标移动的长度', '方向为：', direction);
-  dog('数值化前的值:', len);
+  // dog('计算光标移动的长度', '方向为：', direction);
+  // dog('数值化前的值:', len);
   len = Number(len);
-  dog('数值化后的值:', len);
+  // dog('数值化后的值:', len);
   // 非数值
   if (
     !isNumber(len) ||
@@ -195,7 +195,7 @@ function computerLen(
     len < 1 ||
     (Number.isInteger(len) === false && len !== Infinity)
   ) {
-    dog.warn('由于 len =', len, '不符合要求，转化为 1');
+    // dog.warn('由于 len =', len, '不符合要求，转化为 1');
     len = 1;
   }
 
@@ -207,7 +207,7 @@ function computerLen(
     : 80;
 
   if (Infinity === len || len > maxLength) {
-    dog.warn('由于 len 的值超大而转化为超大值');
+    // dog.warn('由于 len 的值超大而转化为超大值');
     len = maxLength;
   }
   return len;

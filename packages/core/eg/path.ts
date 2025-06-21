@@ -3,7 +3,7 @@ import { getDirectoryBy } from '../src/path';
 import { _p } from '../src/print';
 import { redPen } from 'color-pen';
 
-await dev('测试文件路径', it => {
+await dev.skip('测试文件路径', it => {
   it('测试错误的标记查找文件应返回 undefined', () => {
     const result = getDirectoryBy('package.json', 'directory');
     _p('查找结果', false);

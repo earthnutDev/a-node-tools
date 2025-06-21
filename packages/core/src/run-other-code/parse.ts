@@ -1,7 +1,10 @@
 import { isFalse, isString } from 'a-type-of-js';
 import { DataStore, RunOtherCodeOption } from './types';
-import { pathJoin } from '../path';
 import { isNode } from 'a-js-tools';
+import { resolve } from 'node:path/posix';
+import { isEmptyDir } from '../file';
+import { dog } from '../dog';
+import { cyanPen, redPen } from 'color-pen';
 
 /**
  *
@@ -24,8 +27,15 @@ export function parse(options: RunOtherCodeOption, dataStore: DataStore) {
     };
   }
 
+  const pwd = process.cwd();
+
   /**  工作目录  */
-  const cwd = pathJoin(process.cwd(), options.cwd || '');
+  let cwd = resolve(pwd, options.cwd || '');
+
+  if (isEmptyDir(cwd) === -1) {
+    dog(`执行目录 ${redPen(cwd)} 不存在，使用命令执行目录 ${cyanPen(pwd)}`);
+    cwd = pwd;
+  }
 
   /**  执行命令  */
   const cmd = options.code

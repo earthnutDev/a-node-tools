@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.2.10",
+  "version": "4.2.11",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",

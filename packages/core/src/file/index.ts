@@ -1,4 +1,4 @@
-import { isEmpty } from './isEmpty';
+import { isEmptyDir } from './isEmpty';
 import { isExist } from './isExist';
 import { readFileToJson } from './readFileToJson';
 import { readFileToJsonSync } from './readFileToJsonSync';
@@ -8,7 +8,7 @@ export {
   readFileToJson,
   readFileToJsonSync,
   isExist as fileExist,
-  isEmpty as dirEmpty,
+  isEmptyDir,
   writeJsonFile,
 };
 
@@ -16,6 +16,6 @@ export default {
   readFileToJson,
   readFileToJsonSync,
   isExist,
-  isEmpty,
+  isEmptyDir,
   writeJsonFile,
 };

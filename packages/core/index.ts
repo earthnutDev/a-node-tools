@@ -70,7 +70,7 @@ export {
   readFileToJsonSync,
   fileExist,
   writeJsonFile,
-  dirEmpty,
+  isEmptyDir,
 } from './src/file/';
 
 export { _p, colorLine, colorLine as colorDividingLine } from './src/print';

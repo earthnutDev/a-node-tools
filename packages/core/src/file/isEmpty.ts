@@ -19,7 +19,7 @@ import { isExist } from './isExist';
  * isEmpty('src/index.ts'); // -1
  * ```
  */
-export function isEmpty(dirname: string): -1 | 0 | 1 {
+export function isEmptyDir(dirname: string): -1 | 0 | 1 {
   try {
     const fileInfo = isExist(dirname);
     if (fileInfo && fileInfo.isDirectory()) {

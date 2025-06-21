@@ -19,7 +19,9 @@ export default {
     },
   ],
   // 配置需要排除的包
-  external: external({ ignore: ['node:'] }),
+  external: external({
+    ignore: ['node:', '@qqi/dev'],
+  }),
   plugins: [
     resolve(),
     commonjs(),
