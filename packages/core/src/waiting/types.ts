@@ -11,7 +11,11 @@
  *          - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
  */
 export type RunOtherCodeWaiting = {
-  /**  可选属性，是否展示文本。缺省值为 true  */
+  /**
+   *  可选属性，是否展示文本。缺省值为 true
+   *
+   *  非初始化环境使用该值（后续调用 `run` 执行）， 该值无效
+   */
   show: boolean;
   /**  可选属性，展示的具体文本。缺省值为 ""  */
   info: string;
@@ -39,7 +43,9 @@ export type RunOtherCodeWaiting = {
   /**  是否可以使用 `ctrl + d` 键退出 */
   canCtrlDExit: boolean;
   /**  执行退出前  */
-  beforeDestroyed: (() => Promise<void>) | (() => void);
+  beforeDestroyed:
+    | ((exitProactively: boolean) => Promise<void>)
+    | ((exitProactively: boolean) => void);
 };
 /**
  *

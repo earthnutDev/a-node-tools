@@ -38,7 +38,7 @@ await dev('测试与 run other code 相关的逻辑', async it => {
       //   info: '65465464646489798798797897979879879879789789798798798798798797979src/readInput/dataStore.ts -> src/readInput/stdRemoveListener.ts -> src/readInput/pressCallFn.ts -> src/readInput/dataStore.ts98',
       // },
     });
-    console.log(result.isSIGINT);
+    console.log(result);
   });
 
   await it.skip('测试单独的 awaiting', async () => {

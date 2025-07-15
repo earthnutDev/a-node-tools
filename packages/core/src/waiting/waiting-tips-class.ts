@@ -47,6 +47,9 @@ export class WaitingTipsResult {
 
   /** 超时时间   */
   #timeout: number = 40000;
+
+  /**  主动退出  */
+  #exitProactively: boolean = false;
   /**  销毁等待信息  */
   async destroyed() {
     if (this.state === 'destroyed') return;
@@ -67,10 +70,11 @@ export class WaitingTipsResult {
     this.#logList.length = 0; /// 释放未完成的打印
     this.log = this.#originLog; // 恢复原有的 log 打印
     if (!isPromise(this.#parsingParameters.beforeDestroyed)) {
-      this.#parsingParameters.beforeDestroyed();
+      this.#parsingParameters.beforeDestroyed(this.#exitProactively);
     } else {
-      await this.#parsingParameters.beforeDestroyed();
+      await this.#parsingParameters.beforeDestroyed(this.#exitProactively);
     }
+    this.#exitProactively = false;
   }
 
   /**  在等待中插入打印消息  */
@@ -95,10 +99,12 @@ export class WaitingTipsResult {
       // 尚在运行，执行上一次的清理
       this.destroyed();
     }
-
-    this.state = 'run';
-    this.#runTime = Date.now();
-
+    {
+      // 初始化状态
+      this.#exitProactively = false;
+      this.state = 'run';
+      this.#runTime = Date.now();
+    }
     // 保证参数是新的
     this.#parsingParameters = isUndefined(runParams)
       ? this.#parsingParameters
@@ -177,6 +183,7 @@ export class WaitingTipsResult {
           ((canCtrlCExit && key?.name === 'c') ||
             (canCtrlDExit && key?.name === 'd')))
       ) {
+        this.#exitProactively = true; // 主动退出
         this.destroyed();
         return true;
       }

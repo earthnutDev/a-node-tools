@@ -58,7 +58,9 @@ export function runOtherCodeCore(
       if (isRunWaiting)
         waitingObj.run({
           /**  在执行等待退出时退出该执行  */
-          beforeDestroyed: () => {
+          beforeDestroyed: exitProactively => {
+            /// 非主动触发退出
+            if (!exitProactively) return;
             // 该条打印导致多个应用打印该值
             // waitingObj.log('执行退出');
             dog('执行退出前');
