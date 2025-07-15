@@ -46,7 +46,7 @@ export class WaitingTipsResult {
   #runTime: number = 0;
 
   /** 超时时间   */
-  #timeout: number = 0;
+  #timeout: number = 40000;
   /**  销毁等待信息  */
   async destroyed() {
     if (this.state === 'destroyed') return;
