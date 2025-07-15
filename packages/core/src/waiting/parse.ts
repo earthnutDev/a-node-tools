@@ -11,14 +11,23 @@ export function parse(
   params: undefined | waitingTipsParams,
   parsingParameters?: RunOtherCodeWaiting,
 ): RunOtherCodeWaiting {
-  const { show, info, prefix, interval, beforeDestroyed } =
-    parsingParameters ?? {
-      show: true,
-      info: '请等待',
-      prefix: 0,
-      interval: 20,
-      beforeDestroyed: () => undefined,
-    };
+  const {
+    show,
+    info,
+    prefix,
+    interval,
+    canCtrlCExit,
+    canCtrlDExit,
+    beforeDestroyed,
+  } = parsingParameters ?? {
+    show: true,
+    info: '请等待',
+    prefix: 0,
+    interval: 20,
+    canCtrlCExit: false,
+    canCtrlDExit: false,
+    beforeDestroyed: () => undefined,
+  };
   /**  等待  */
   const waiting = isBoolean(params)
     ? {
@@ -26,6 +35,8 @@ export function parse(
         info,
         prefix,
         interval,
+        canCtrlCExit,
+        canCtrlDExit,
         beforeDestroyed,
       }
     : isString(params)
@@ -34,6 +45,8 @@ export function parse(
           info: params,
           prefix,
           interval,
+          canCtrlCExit,
+          canCtrlDExit,
           beforeDestroyed,
         }
       : isUndefined(params)
@@ -42,6 +55,8 @@ export function parse(
             info,
             prefix,
             interval,
+            canCtrlCExit,
+            canCtrlDExit,
             beforeDestroyed,
           }
         : isNumber(params)
@@ -50,6 +65,8 @@ export function parse(
               info: '请等待',
               prefix: isNaN(params) ? prefix : Math.min(Math.max(0, params), 2),
               interval,
+              canCtrlCExit,
+              canCtrlDExit,
               beforeDestroyed,
             }
           : {
@@ -57,6 +74,8 @@ export function parse(
               info,
               prefix,
               interval,
+              canCtrlCExit,
+              canCtrlDExit,
               beforeDestroyed,
               ...params,
             };

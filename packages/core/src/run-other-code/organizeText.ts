@@ -1,6 +1,6 @@
 import { cursorAfterClear } from '../cursor';
 import { isWindows } from '../path';
-import { waitingTipsResult } from '../waiting';
+import { WaitingTipsResult } from '../waiting';
 
 /**
  *
@@ -10,7 +10,7 @@ import { waitingTipsResult } from '../waiting';
 export function organizeText(
   value: unknown,
   printLog: boolean,
-  waitingObj: waitingTipsResult,
+  waitingObj: WaitingTipsResult,
 ): string {
   let data: string = value.toString().trim();
 

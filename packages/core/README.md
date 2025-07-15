@@ -21,7 +21,9 @@
 
 ### `runOtherCode`
 
-简单执行其他的命令,**_请注意，请不要将用户输入当作 `code` 值传入方法，执行有风险，且调且珍惜_**
+- 简单执行其他的命令,**_请注意，请不要将用户输入当作 `code` 值传入方法，执行有风险，且调且珍惜_**
+- 在使用时，如果需要读入输入操作，这时候直接使用 `runOtherCode` 显得有些笨拙（因为原则上没有读取的操作）
+- 默认 `Ctrl` + `C` 、 `Ctrl` + `D` 是不会退出 `runOtherCode` ，但是可在 `wait`
 
 ```ts
 import { runOtherCode } from 'a-node-tools';

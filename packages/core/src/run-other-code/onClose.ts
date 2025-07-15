@@ -1,7 +1,7 @@
 import { isFunction } from 'a-type-of-js';
 import { dog } from '../dog';
 import { RunOtherCodeResult, DataStore } from './types';
-import { waitingTipsResult } from '../waiting';
+import { WaitingTipsResult } from '../waiting';
 
 /**
  *
@@ -15,7 +15,7 @@ export function closeCn(
     value: RunOtherCodeResult | PromiseLike<RunOtherCodeResult>,
   ) => void,
   dataStore: DataStore,
-  waitingObj: waitingTipsResult,
+  waitingObj: WaitingTipsResult,
 ) {
   const { env, result } = dataStore;
 
@@ -29,10 +29,10 @@ export function closeCn(
       }
       await waitingObj.destroyed(); // 移除定时器
 
-      if (code !== 0 && signal !== 'SIGINT') {
+      if (code !== 0 && signal !== 'SIGINT' && signal !== 'SIGTERM') {
         result.success = false;
         result.status = 3;
-      } else if (signal === 'SIGINT') {
+      } else if (signal === 'SIGINT' || signal === 'SIGTERM') {
         result.success = false;
         result.status = 4;
         result.isSIGINT = true;

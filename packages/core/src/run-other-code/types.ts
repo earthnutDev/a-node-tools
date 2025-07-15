@@ -1,4 +1,8 @@
-import { RunOtherCodeWaiting, waitingTipsParams } from '../waiting';
+import {
+  RunOtherCodeWaiting,
+  waitingTipsParams,
+  WaitingTipsResult,
+} from '../waiting';
 
 /**  必要的参数  */
 export type RequiredParameter = {
@@ -53,7 +57,7 @@ export type RunOtherCodeOptions = {
    *          - 3  前缀 ['👈','👆','👉','👇','🤘','🤟','🫳','🫴','👊']
    *          - 4  前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
    */
-  waiting?: waitingTipsParams;
+  waiting?: waitingTipsParams | WaitingTipsResult;
 };
 
 /**
@@ -92,7 +96,7 @@ export type RunOtherCodeResult = {
    * - 1 执行完成，且没有 error 信息
    * - 2 执行完成，但是 error 信息不为空
    * - 3 执行未完成，执行中错误
-   * - 4 遭遇到 `Ctrl` + `C` 退出
+   * - 4 遭遇到双 esc 键等退出键退出
    */
   status: 0 | 1 | 2 | 3 | 4;
   /**  是否是 SIGINT 信号退出  */
@@ -111,7 +115,7 @@ export type DataStore = {
     // 执行代码
     cmd: string[];
     // 内部使用的等待参数
-    waiting: RunOtherCodeWaiting;
+    waiting: RunOtherCodeWaiting | WaitingTipsResult;
   };
 
   /**  执行的结果  */

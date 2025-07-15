@@ -22,6 +22,8 @@ export function createData(): DataStore {
         info: '',
         prefix: 0,
         interval: 10,
+        canCtrlDExit: false,
+        canCtrlCExit: false,
         beforeDestroyed(): Promise<void> {
           return undefined;
         },

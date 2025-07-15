@@ -2,13 +2,13 @@ import { bgBrightMagentaPen } from 'color-pen';
 import { organizeText } from './organizeText';
 import { DataStore } from './types';
 import { dog } from '../dog';
-import { waitingTipsResult } from '../waiting';
+import { WaitingTipsResult } from '../waiting';
 
 /**  当触发错误时  */
 export function errorCn(
   err: Error,
   dataStore: DataStore,
-  waitingObj: waitingTipsResult,
+  waitingObj: WaitingTipsResult,
 ) {
   const { env, result } = dataStore;
   {

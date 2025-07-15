@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import { DataStore, RunOtherCodeOption, RunOtherCodeResult } from './types';
-import { waitingTips } from '../waiting';
+import { waitingTips, WaitingTipsResult } from '../waiting';
 import { parse } from './parse';
 import { dog } from '../dog';
 import { createData } from './dataStore';
@@ -32,13 +32,15 @@ export function runOtherCodeCore(
   dog('执行参数', dataStore);
 
   const { cmd, waiting, cwd, shell, code } = env;
-  /**  解析当前等待的参数  */
-  const waitingParam = parseWaiting(waiting);
-  /**  保留是否执行等待  */
-  const isRunWaiting = waitingParam.show;
-  waitingParam.show = false; // 先暂停执行等待
   /** 打印请稍等。。。 */
-  const waitingObj = waitingTips(waitingParam);
+  const [waitingObj, isRunWaiting] = (() => {
+    if (waiting instanceof WaitingTipsResult) {
+      return [waiting, waiting.state === 'run'];
+    }
+    /**  解析当前等待的参数  */
+    const waitingParam = parseWaiting(waiting);
+    return [waitingTips(waitingParam), waitingParam.show];
+  })();
 
   try {
     return new Promise(resolve => {
@@ -85,6 +87,7 @@ export function runOtherCodeCore(
               // childProcess.kill('SIGKILL');
               dog('终结在非 windows 下的子进程');
             }
+            dataStore.result.isSIGINT = true;
           },
         });
       /// 启动事件
@@ -109,6 +112,7 @@ export function runOtherCodeCore(
           closeCn(code, signal, resolve, dataStore, waitingObj),
       );
     });
+    // 执行出错时走这里
   } catch (error) {
     const errorStr: string = error.toString();
     dog.error(

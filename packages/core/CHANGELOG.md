@@ -1,5 +1,37 @@
 # 更新日志
 
+## v4.2.13 (2025-7-14)
+
+### ✨ 添加
+
+- 使用 `waitingTips` 时可通过参数设定是否可以通过 `Ctrl` + `C` 或是 `Ctrl` + `D` 直接退出。但是默认值为 `false`，且双击 `ESC` 键退出不可配置（反人类设计之恶心别人取悦自己）。
+- 作为使用 `waitingTips` 作为辅助等待的工具，`runOtherCode` 也将会支持配置使用 `Ctrl` + `C` 或是 `Ctrl` + `D` 直接退出。
+
+### 🐛 修复
+
+- 使用 `runOtherCode` 时使用意外退出键（ `Ctrl` + `C` 、 `Ctrl` + `D` 、 `Esc` + `Esc`） 时，都被认为是 `SIGINT` 意外退出信号，返回值的 `isSIGINT` 值都将获得 `true`，返回状态为 4。
+
+### 🚀 优化
+
+- 现在使用 `runOtherCode` 的时候，使用 `waiting` 作为参数的属性时，可传入另一个 “实例化” 的 `waitingTips` 作为参数，这样就可以单独使用或配置该执行的等待提示
+
+```ts
+import { waitingTips, runOtherCode, _p } from 'a-node-tools';
+
+// 单独使用 `waitingTips` 时，默认时运行
+const waiting = waitingTips();
+
+const result = await runOtherCode({
+  code: 'npm run build',
+  printLog: true,
+  waiting,
+});
+
+if (result.isSIGINT) {
+  _p('用户主动要求退出');
+}
+```
+
 ## v4.2.12 (2025-6-21)
 
 - 调整了 `runOtherCode` 的 `shell` 值不同时的执行代码的注入方式，避免了使用时当 `shell` 值为 `true` （目前缺省值就是 true ） 时出现的

@@ -34,6 +34,10 @@ export type RunOtherCodeWaiting = {
    * 该值仅在为对象时才能指定。且不指定则使用缺省值， `prefix < 2` 时值为 68 ，`prefix > 2` 时为 20
    */
   interval: number;
+  /**  是否可以使用 `ctrl + c` 键退出 */
+  canCtrlCExit: boolean;
+  /**  是否可以使用 `ctrl + d` 键退出 */
+  canCtrlDExit: boolean;
   /**  执行退出前  */
   beforeDestroyed: (() => Promise<void>) | (() => void);
 };
@@ -64,15 +68,3 @@ export type waitingTipsParams =
   | {
       [x in keyof RunOtherCodeWaiting]?: RunOtherCodeWaiting[x];
     };
-
-/**  等待返回值  */
-export type waitingTipsResult = {
-  /**  在等待中插入打印消息  */
-  log(...arg: unknown[]): void;
-  /**  销毁等待  */
-  destroyed(): Promise<void>;
-  /**  再次执行  */
-  run(params?: waitingTipsParams): void;
-  /**  运行超时提醒（当配置值小于 600 时会按秒为单位，当值大于 600 会按毫秒计算）  */
-  timeout: number;
-};

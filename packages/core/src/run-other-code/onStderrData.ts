@@ -2,7 +2,7 @@ import { bgBrightMagentaPen } from 'color-pen';
 import { dog } from '../dog';
 import { organizeText } from './organizeText';
 import { DataStore } from './types';
-import { waitingTipsResult } from '../waiting';
+import { WaitingTipsResult } from '../waiting';
 
 /**
  *
@@ -12,7 +12,7 @@ import { waitingTipsResult } from '../waiting';
 export function stderrDataCn(
   value: string,
   dataStore: DataStore,
-  waitingObj: waitingTipsResult,
+  waitingObj: WaitingTipsResult,
 ) {
   const { env, result } = dataStore;
   const str = organizeText(value, env.printLog, waitingObj);
