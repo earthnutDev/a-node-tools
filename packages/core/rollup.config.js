@@ -28,14 +28,7 @@ export default {
   ],
   // 配置需要排除的包
   external: external({
-    ignore: [
-      'node:readline',
-      'node:child_process',
-      'node:url',
-      'node:path',
-      'node:https',
-      'node:fs',
-    ],
+    ignore: ['node:'],
   }),
   plugins: [
     resolve(),
