@@ -11,7 +11,7 @@ export function stdRemoveListener() {
   process.removeListener('beforeExit', stdRemoveListener);
   process.stdin.removeListener('end', endCn);
   if (isTTY) {
-    stdin.setRawMode(false);
+    stdin?.setRawMode(false);
   }
   stdin.pause();
 }

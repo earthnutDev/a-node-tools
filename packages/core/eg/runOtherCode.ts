@@ -26,7 +26,8 @@ await dev('测试与 run other code 相关的逻辑', async it => {
     });
     const result = await runOtherCode({
       // code: `sleep 20 && echo "11"`,
-      code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 2 && echo "11"`,
+      // code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 2 && echo "11"`,
+      code: 'npm run vjj',
       printLog: true,
       cwd: '/a',
       waiting,

@@ -24,6 +24,8 @@ export type OptionalParameter = {
    *
    */
   shell: boolean;
+  /**  携带交互，该命令等级权限较高，将覆盖 printLog 和 waiting 的参数效果  */
+  // interact: boolean;
   /**  回调函数  */
   callBack: () => undefined;
 };
