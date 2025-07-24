@@ -114,6 +114,42 @@ importers:
         specifier: ^1.0.8
         version: 1.0.9
 
+  packages/core:
+    dependencies:
+      '@color-pen/static':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@qqi/log':
+        specifier: ^0.1.0
+        version: 0.1.0
+      a-js-tools:
+        specifier: ^1.0.8
+        version: 1.0.9
+      a-type-of-js:
+        specifier: ^1.0.5
+        version: 1.0.5
+      color-pen:
+        specifier: ^2.0.12
+        version: 2.0.12
+
+  packages/core/dist:
+    dependencies:
+      '@color-pen/static':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@qqi/log':
+        specifier: ^0.1.0
+        version: 0.1.0
+      a-js-tools:
+        specifier: ^1.0.8
+        version: 1.0.9
+      a-type-of-js:
+        specifier: ^1.0.5
+        version: 1.0.5
+      color-pen:
+        specifier: ^2.0.12
+        version: 2.0.12
+
 packages:
 
   '@ampproject/remapping@2.3.0':
