@@ -167,6 +167,16 @@ await typewrite(
 );
 ```
 
+### detectPackageManager
+
+检测命令启动的包管理器
+
+```ts
+import { detectPackageManager } from 'a-node-tools';
+
+detectPackageManager(); // 返回值可能是： 'npm'、'yarn'、'pnpm'
+```
+
 ## 使用日志
 
 在引用该包的包内使用该包内的方法时，可以使用启动参数 `a_node_tools_dev=xxx` 来启用部分方法的日志。

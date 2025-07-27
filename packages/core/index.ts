@@ -82,3 +82,5 @@ export { file };
 export { dog as ANodeToolsDevLog } from './src/dog';
 
 export { typewrite } from './src/typewrite';
+
+export { detectPackageManager } from './src/detect-package-manager';
