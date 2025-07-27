@@ -48,7 +48,7 @@ packageJson = {
     node: '>=18.0.0',
   },
   keywords: ['a-node-tools'],
-  homepage: 'https://earthnut.dev/a-node-tools',
+  homepage: 'https://earthnut.dev/npm/a-node-tools/',
   bugs: {
     url: 'https://github.com/earthnutDev/a-node-tools/issues',
     email: 'earthnut.dev@outlook.com',

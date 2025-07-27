@@ -131,7 +131,7 @@ export type npmPkgInfoType<T extends DefaultT = DefaultT> = {
    *
    *  主页
    *
-   *  `npx docs xxx` 时打开的网页
+   *  `npm docs xxx` 时打开的网页
    *
    */
   homepage?: string;

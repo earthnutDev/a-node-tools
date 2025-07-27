@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.2.17-test.1",
+  "version": "4.2.18",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -9,25 +9,23 @@
     "clean:package": "node scripts/clean-package-json.js",
     "build": "pnpm run b && pnpm run clean:package",
     "build:dev": "rollup --config rollup.dev.config.js",
-    "dev": "jja rm .eg cls && pnpm run build:dev &&a_node_tools_dev=all node --unhandled-rejections=strict .eg/index.mjs",
+    "dev": "jja rm .eg cls && pnpm run build:dev && a_node_tools_dev=all node --unhandled-rejections=strict .eg/index.mjs",
     "push:version": "gvv",
     "push": "gvv",
     "diff": "jja pkg -d",
     "eslint": "jja cls && eslint src",
     "beautify": "pnpm run eslint && pnpm run prettier",
     "prettier": "jja cls && prettier . --write",
-    "test": "jja clear && jest --coverage",
-    "report": "cat ./coverage/lcov.info | coveralls",
     "coverage": "codecov",
     "vjj": "vjj -b",
     "prepublishOnly": "pjj"
   },
   "license": "MIT",
   "dependencies": {
-    "@color-pen/static": "^1.0.0",
-    "@qqi/log": "^0.1.0",
-    "a-js-tools": "^1.0.8",
-    "a-type-of-js": "^1.0.5",
-    "color-pen": "^2.0.12"
+    "@color-pen/static": "^1.0.1",
+    "@qqi/log": "^0.1.1",
+    "a-js-tools": "^1.0.10",
+    "a-type-of-js": "^1.0.7",
+    "color-pen": "^2.0.13"
   }
 }

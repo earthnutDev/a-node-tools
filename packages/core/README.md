@@ -184,10 +184,6 @@ await typewrite(
 
 代码内下面的值配置 `ANodeToolsDevLog.type` 该值将会原配置值，是运行时配置
 
-## 文档地址
-
-参看 [https://earthnut.dev/a-node-tools/](https://earthnut.dev/a-node-tools/)
-
 ### npm 源参考
 
 推荐使用 [nry 切换 npm 源](https://www.npmjs.com/package/nry)
@@ -200,3 +196,7 @@ await typewrite(
 
 - [清华大学源](https://mirrors.tuna.tsinghua.edu.cn/)
 - [网易源](https://mirrors.163.com)
+
+## 文档地址
+
+参看 [https://earthnut.dev/npm/a-node-tools/](https://earthnut.dev/npm/a-node-tools/)
