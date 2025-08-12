@@ -1,5 +1,9 @@
 # 更新日志
 
+## v4.2.20 (2025-8-12)
+
+- 添加了 `detectShell` 检测当前的 shell 执行 shell 环境
+
 ## v4.2.19 (2025-7-28)
 
 - 添加了检测当前的启动命令的包管理器方法 `detectPackageManager`

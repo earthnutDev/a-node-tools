@@ -1,4 +1,4 @@
-export { isTTY } from './src/isTTY';
+export { isTTY, detectShell } from './src/isTTY';
 
 export {
   isWindows,
@@ -78,8 +78,6 @@ export { _p, colorLine, colorLine as colorDividingLine } from './src/print';
 import { default as file } from './src/file/';
 
 export { file };
-
-export { dog as ANodeToolsDevLog } from './src/dog';
 
 export { typewrite } from './src/typewrite';
 

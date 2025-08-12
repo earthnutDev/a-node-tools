@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.2.19",
+  "version": "4.2.20",
   "name": "a-node-tools",
   "private": true,
   "description": "一点点 🤏 node 函数",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@color-pen/static": "^1.0.1",
     "@qqi/log": "^0.1.1",
-    "a-js-tools": "^1.0.10",
+    "a-js-tools": "^1.0.12",
     "a-type-of-js": "^1.0.7",
     "color-pen": "^2.0.13"
   }
