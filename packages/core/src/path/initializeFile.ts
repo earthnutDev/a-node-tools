@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { fileURLToPath } from 'node:url';
 import { isWindows } from './isWindows';
 import { getCallerFilename } from './getCallerFileInfo';

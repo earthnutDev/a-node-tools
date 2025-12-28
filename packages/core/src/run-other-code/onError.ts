@@ -1,7 +1,7 @@
 import { bgBrightMagentaPen } from 'color-pen';
 import { organizeText } from './organizeText';
 import { DataStore } from './types';
-import { dog } from '../dog';
+import { dog } from '../utils/dog';
 import { WaitingTipsResult } from '../waiting';
 
 /**  当触发错误时  */

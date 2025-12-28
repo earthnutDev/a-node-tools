@@ -4,7 +4,7 @@
  *  @ProjectName a-node-tools
  *  @FileName cursor.ts
  *  @CreateDate  周二  04/22/2025
- *  @Description [ANSI 转义码](https://earthnutdev.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
+ *  @Description [ANSI 转义码](https://MrMudBean.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
  *
  ****************************************************************************/
 

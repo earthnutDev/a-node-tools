@@ -1,5 +1,5 @@
 import { dev } from '@qqi/dev';
-import { readFileToJson } from '../index';
+import { readFileToJson } from '../src/index';
 
 dev.skip('测试异步读取 JSON 文件', async () => {
   const a = await readFileToJson('package.json');

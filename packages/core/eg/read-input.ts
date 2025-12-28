@@ -1,5 +1,5 @@
 import { dev } from '@qqi/dev';
-import { readInput } from '../index';
+import { readInput } from '../src/index';
 import { cyanPen, magentaPen } from 'color-pen';
 import { esc } from '@color-pen/static';
 

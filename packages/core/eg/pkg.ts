@@ -1,4 +1,4 @@
-import { _p, getNpmPkgInfo, testNpmPackageExist } from '../index';
+import { _p, getNpmPkgInfo, testNpmPackageExist } from '../src/index';
 import assert from 'node:assert';
 import { npmRegistry } from '../src/npmPkg/types';
 import { isUndefined } from 'a-type-of-js';

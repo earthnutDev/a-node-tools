@@ -1,5 +1,5 @@
 import { isFunction } from 'a-type-of-js';
-import { dog } from '../dog';
+import { dog } from '../utils/dog';
 import { RunOtherCodeResult, DataStore } from './types';
 import { WaitingTipsResult } from '../waiting';
 

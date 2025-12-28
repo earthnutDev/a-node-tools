@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { readdirSync } from 'node:fs';
 import { isExist } from './isExist';
 

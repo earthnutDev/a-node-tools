@@ -1,6 +1,6 @@
 import { isFunction, isTrue } from 'a-type-of-js';
 import { dataStore } from './dataStore';
-import { dog } from '../dog';
+import { dog } from '../utils/dog';
 
 /**
  *

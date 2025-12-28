@@ -1,7 +1,7 @@
 import { csi } from '@color-pen/static';
 
-import { _p } from '../index';
-import { runOtherCode } from '../index';
+import { _p } from '../src/index';
+import { runOtherCode } from '../src/index';
 import { dev } from '@qqi/dev';
 import { waitingTips } from '../src/waiting';
 import { sleep } from 'a-js-tools';

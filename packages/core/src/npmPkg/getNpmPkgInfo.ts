@@ -1,5 +1,5 @@
 import { isUndefined } from 'a-type-of-js';
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { parseName } from './parseName';
 import {
   DefaultT,

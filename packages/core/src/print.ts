@@ -5,7 +5,7 @@ import {
   isTrue,
   typeOf,
 } from 'a-type-of-js';
-import { dog } from './dog';
+import { dog } from './utils/dog';
 import { isNode } from 'a-js-tools';
 import {
   colorPen,

@@ -1,5 +1,5 @@
 import { isNull } from 'a-type-of-js';
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 /**
  *
  *  子进程允许退出时触发

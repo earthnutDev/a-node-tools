@@ -1,4 +1,4 @@
-export { isTTY, detectShell } from './src/isTTY';
+export { isTTY, detectShell } from './isTTY';
 
 export {
   isWindows,
@@ -9,36 +9,36 @@ export {
   getCallerFilename,
   initializeFile,
   getDirectoryBy,
-} from './src/path/';
+} from './path';
 
-export { readInput } from './src/readInput/';
+export { readInput } from './readInput';
 
-export type { ReadInputParam, ReadInputKey } from './src/readInput';
+export type { ReadInputParam, ReadInputKey } from './readInput';
 
-export { runOtherCode } from './src/run-other-code';
+export { runOtherCode } from './run-other-code';
 export type {
   RunOtherCodeOption as RunOtherCodeParam,
   RunOtherCodeOption,
   RunOtherCodeOptions,
   RunOtherCodeResult,
-} from './src/run-other-code';
+} from './run-other-code';
 
-export type { RunOtherCodeWaiting, waitingTipsParams } from './src/waiting';
+export type { RunOtherCodeWaiting, waitingTipsParams } from './waiting';
 
 export {
   waitingTipsPrefixStore,
   waitingTips,
   WaitingTipsResult,
-} from './src/waiting';
+} from './waiting';
 
-export { getNpmPkgInfo, testNpmPackageExist } from './src/npmPkg';
+export { getNpmPkgInfo, testNpmPackageExist } from './npmPkg';
 
 export type {
   npmPkgInfoType,
   PackageJson,
   getPkgInfoResult,
   npmRegistry,
-} from './src/npmPkg';
+} from './npmPkg';
 
 export {
   __p,
@@ -56,14 +56,14 @@ export {
   cursorPositionSave,
   cursorPositionUndo,
   cursorMoveTo,
-} from './src/cursor.js';
+} from './cursor.js';
 
 export {
   terminalPageOn,
   terminalPageUp,
   terminalScrollScreen,
   terminalScrollBetween,
-} from './src/terminal';
+} from './terminal';
 
 export {
   readFileToJson,
@@ -71,14 +71,14 @@ export {
   fileExist,
   writeJsonFile,
   isEmptyDir,
-} from './src/file/';
+} from './file';
 
-export { _p, colorLine, colorLine as colorDividingLine } from './src/print';
+export { _p, colorLine, colorLine as colorDividingLine } from './print';
 
-import { default as file } from './src/file/';
+import { default as file } from './file';
 
 export { file };
 
-export { typewrite } from './src/typewrite';
+export { typewrite } from './typewrite';
 
-export { detectPackageManager } from './src/detect-package-manager';
+export { detectPackageManager } from './detect-package-manager';

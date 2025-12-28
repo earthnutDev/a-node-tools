@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { DataStore } from './types';
 /**  子线程启动回调，好像没啥用一样  */
 export function spawnCn(dataStore: DataStore) {

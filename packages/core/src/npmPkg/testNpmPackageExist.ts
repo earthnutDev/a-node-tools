@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { parseName } from './parseName';
 import { getNpmPkgInfo } from './getNpmPkgInfo';
 import { npmRegistry } from './types';

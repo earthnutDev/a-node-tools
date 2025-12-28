@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { DataStore, RunOtherCodeOption, RunOtherCodeResult } from './types';
 import { waitingTips, WaitingTipsResult } from '../waiting';
 import { parse } from './parse';
-import { dog } from '../dog';
+import { dog } from '../utils/dog';
 import { createData } from './dataStore';
 import { stdoutDataCn } from './onStdoutData';
 import { exitCn } from './onExit';

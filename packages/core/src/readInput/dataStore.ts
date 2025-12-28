@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { DataStore, ReadInputListItem, ReadInputParam } from './types';
 import { isEmptyArray, isFalse, isUndefined } from 'a-type-of-js';
 import { stdRemoveListener } from './stdRemoveListener';

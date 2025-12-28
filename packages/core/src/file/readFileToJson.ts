@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 

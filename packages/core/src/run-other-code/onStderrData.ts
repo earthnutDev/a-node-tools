@@ -1,5 +1,5 @@
 import { bgBrightMagentaPen } from 'color-pen';
-import { dog } from '../dog';
+import { dog } from '../utils/dog';
 import { organizeText } from './organizeText';
 import { DataStore } from './types';
 import { WaitingTipsResult } from '../waiting';

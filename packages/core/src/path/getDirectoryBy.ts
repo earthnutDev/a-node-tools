@@ -1,4 +1,4 @@
-import { dog } from './../dog';
+import { dog } from '../utils/dog';
 import { fileExist } from '../file/';
 import { pathDirname } from './pathDirname';
 import { pathJoin } from './pathJoin';

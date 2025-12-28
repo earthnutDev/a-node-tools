@@ -1,6 +1,6 @@
 import { isString, isNaN } from 'a-type-of-js';
 import { _p } from './print';
-import { dog } from './dog';
+import { dog } from './utils/dog';
 import { boldPen, pen } from 'color-pen';
 import { sleep } from 'a-js-tools';
 

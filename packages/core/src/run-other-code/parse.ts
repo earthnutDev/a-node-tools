@@ -3,7 +3,7 @@ import { DataStore, RunOtherCodeOption } from './types';
 import { isNode } from 'a-js-tools';
 import { resolve } from 'node:path/posix';
 import { isEmptyDir } from '../file';
-import { dog } from '../dog';
+import { dog } from '../utils/dog';
 import { cyanPen, redPen } from 'color-pen';
 
 /**

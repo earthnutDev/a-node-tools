@@ -1,5 +1,5 @@
 import { dev } from '@qqi/dev';
-import { typewrite } from '../index';
+import { typewrite } from '../src/index';
 
 await dev.skip('测试 typewrite', async it => {
   await it('测试 1', async () => {
