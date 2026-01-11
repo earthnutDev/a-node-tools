@@ -76,8 +76,7 @@ export function _p(r: unknown = '', lineFeed: boolean = true): void {
  * colorLine('就是玩', true); // 彩色分割线，中间有彩色文本 “就是玩”
  * colorLine('就是玩', '#f23'); // 彩色分割线，中间有红色文本 “就是玩”
  * ```
- *
- *
+ * @todo 在 vs code extension 开发过程中发现未能正常打印，不知原因
  */
 export function colorLine(str?: string, color?: string | true): void {
   str = str?.toString ? str : '';

@@ -1,10 +1,10 @@
-import typescript from '@rollup/plugin-typescript';
-import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
 // import cleanup from 'rollup-plugin-cleanup';
-import copy from 'rollup-plugin-copy';
 import { external } from '@qqi/rollup-external';
+import copy from 'rollup-plugin-copy';
 
 export default {
   input: {

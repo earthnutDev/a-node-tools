@@ -1,5 +1,10 @@
 # 更新日志
 
+## v4.4.0 (2026-1-11)
+
+- 添加 `getPackageJsonSync` 、 `getPackageJson` 方法获取指定层级的 "package.json" 文件的内容
+- 维护了导出的类型
+
 ## v4.3.0 (2025-12-29)
 
 - 依赖维护

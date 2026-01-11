@@ -1,12 +1,12 @@
-/****************************************************************************
- *  @Author earthnut
- *  @Email earthnut.dev@outlook.com
- *  @ProjectName a-node-tools
- *  @FileName cursor.ts
- *  @CreateDate  周二  04/22/2025
- *  @Description [ANSI 转义码](https://MrMudBean.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
+/**
+ *  @author Mr.MudBean <Mr.MudBean@outlook.com>
+ *  @module a-node-tools
+ *  @file cursor.ts
+ *  @date  周二  04/22/2025
+ *  @description [ANSI 转义码](https://MrMudBean.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
+ *  @lastModified 2026-01-11 15:29
  *
- ****************************************************************************/
+ */
 
 import { _p } from './print';
 import { csi, esc } from '@color-pen/static';

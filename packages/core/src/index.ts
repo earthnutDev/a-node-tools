@@ -1,84 +1,88 @@
-export { isTTY, detectShell } from './isTTY';
+import { default as file } from './file';
+
+export { detectShell, isTTY } from './isTTY';
 
 export {
-  isWindows,
-  pathJoin,
-  pathBasename,
-  pathDirname,
   getCallerFileInfo,
   getCallerFilename,
-  initializeFile,
   getDirectoryBy,
+  initializeFile,
+  isWindows,
+  pathBasename,
+  pathDirname,
+  pathJoin,
 } from './path';
 
 export { readInput } from './readInput';
 
-export type { ReadInputParam, ReadInputKey } from './readInput';
+export type { ReadInputKey, ReadInputParam } from './readInput';
 
 export { runOtherCode } from './run-other-code';
 export type {
-  RunOtherCodeOption as RunOtherCodeParam,
   RunOtherCodeOption,
   RunOtherCodeOptions,
+  RunOtherCodeOption as RunOtherCodeParam,
   RunOtherCodeResult,
 } from './run-other-code';
 
 export type { RunOtherCodeWaiting, waitingTipsParams } from './waiting';
 
 export {
-  waitingTipsPrefixStore,
   waitingTips,
+  waitingTipsPrefixStore,
   WaitingTipsResult,
 } from './waiting';
 
 export { getNpmPkgInfo, testNpmPackageExist } from './npmPkg';
 
 export type {
-  npmPkgInfoType,
-  PackageJson,
   getPkgInfoResult,
+  npmPkgInfoType,
   npmRegistry,
+  PackageJson,
 } from './npmPkg';
 
 export {
   __p,
   cursorAfterClear,
-  cursorHide,
-  cursorShow,
   cursorGetPosition,
-  cursorMoveUp,
-  cursorMoveDown,
-  cursorMoveLeft,
-  cursorMoveRight,
+  cursorHide,
   cursorLineAfterClear,
   cursorLineBeforeClear,
   cursorLineClear,
+  cursorMoveDown,
+  cursorMoveLeft,
+  cursorMoveRight,
+  cursorMoveTo,
+  cursorMoveUp,
   cursorPositionSave,
   cursorPositionUndo,
-  cursorMoveTo,
+  cursorShow,
 } from './cursor.js';
 
 export {
   terminalPageOn,
   terminalPageUp,
-  terminalScrollScreen,
   terminalScrollBetween,
+  terminalScrollScreen,
 } from './terminal';
 
 export {
+  fileExist,
+  getPackageJson,
+  getPackageJsonSync,
+  isEmptyDir,
   readFileToJson,
   readFileToJsonSync,
-  fileExist,
   writeJsonFile,
-  isEmptyDir,
+  writeJsonFileAsync,
+  writeJsonFileSync,
 } from './file';
 
-export { _p, colorLine, colorLine as colorDividingLine } from './print';
-
-import { default as file } from './file';
-
-export { file };
+export { _p, colorLine as colorDividingLine, colorLine } from './print';
 
 export { typewrite } from './typewrite';
 
 export { detectPackageManager } from './detect-package-manager';
+
+export { file };

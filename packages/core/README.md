@@ -6,11 +6,15 @@
 
 ## file 模块
 
+- `fileExist` 文件是否存在
+- `getPackageJson` 异步获取指定层级的 "package.json" 文件内容
+- `getPackageJsonSync` 同步获取指定层级的 "package.json" 文件内容
+- `isEmptyDir` 目录是否为空
 - `readFileToJson` 读取 `.json` 文件并返回 JSON 或空对象 `null`
 - `readFileToJsonSync` 同步读取 `.json` 文件并返回 `JSON` 或空对象 `null`
-- `fileExist` 文件是否存在
-- `dirEmpty` 目录是否为空
-- `writeJsonFile` 把 `json` 数据写入空白文件
+- `writeJsonFile` 同步把 `json` 数据写入空白文件（该方法可能在被移除）（全覆盖）
+- `writeJsonFileAsync` 异步把 `json` 数据写入指定文件（全覆盖）
+- `writeJsonFileSync` 同步把 `json` 数据写入执行文件（全覆盖）
 
 ## runOtherCode 模块
 
@@ -130,9 +134,9 @@ await main();
 
 ## 其他部分
 
-### \_p
+### `_p`
 
-一个简单的 process.stdout.write 的封装，用于在 node 环境向终端输入内容
+一个简单的 `process.stdout.write` 的封装，用于在 node 环境向终端输入内容
 
 ```ts
 import { _p } from 'a-node-tools';
@@ -148,6 +152,7 @@ _p('hello', false); // hello （打印完不换行，光标依旧在 o 后面）
 
 ```ts
 import { colorLine } from 'a-node-tools';
+// 在 vs code extension 开发过程中发现未能正常打印，不知原因 
 
 colorLine(); // 打印一个彩色分割线
 colorLine('就是玩'); // 打印一个彩色分割线，中间是文本： “就是玩”
