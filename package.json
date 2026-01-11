@@ -5,10 +5,9 @@
   "description": "node 的一些方法",
   "scripts": {
     "diff": "jja pkg --diff=淘宝",
-    "eslint": "jja cls && eslint packages",
+    "eslint": "jja cls && eslint packages --fix",
     "beautify": "pnpm run eslint && pnpm run prettier",
     "prettier": "jja cls && prettier . --write",
-    "prepare": "husky",
     "push:version": "gvv",
     "push": "gvv",
     "vjj": "vjj",
@@ -20,6 +19,7 @@
     "@babel/preset-typescript": "^7.28.5",
     "@eslint/js": "^9.39.2",
     "@qqi/check-version": "^1.0.5",
+    "@qqi/copy-text": "^1.1.0",
     "@qqi/dev": "^1.0.0",
     "@qqi/log": "^1.0.0",
     "@qqi/rollup-external": "^1.1.0",
@@ -31,8 +31,7 @@
     "@types/node": "^25.0.6",
     "a-command": "^2.3.16",
     "a-node-tools": "^4.3.0",
-    "codecov": "^3.8.3",
-    "coveralls": "^3.1.1",
+    "color-pen": "^3.0.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -43,9 +42,7 @@
     "eslint-plugin-unused-imports": "^4.3.0",
     "globals": "^17.0.0",
     "gvv": "^0.1.8",
-    "husky": "^9.1.7",
     "jja": "^2.3.21",
-    "lint-staged": "^16.2.7",
     "pjj": "^1.0.4",
     "prettier": "^3.7.4",
     "rollup": "^4.55.1",
@@ -55,10 +52,5 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.52.0",
     "vjj": "^1.0.11"
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "prettier --write"
-    ]
   }
 }

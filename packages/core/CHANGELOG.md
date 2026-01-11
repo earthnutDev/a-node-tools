@@ -1,5 +1,10 @@
 # 更新日志
 
+## v4.4.1 (2026-1-11)
+
+- 修复已知问题，该问题导致 `getDirectoryBy` 方法剩余参数为非法字符串时导致解析错误（ `TypeError` ）
+- 修复已知问题，该问题在 `getPackageJsonSync`、 `getPackageJson` 未能正确获取到目标的地址而导致
+
 ## v4.4.0 (2026-1-11)
 
 - 添加 `getPackageJsonSync` 、 `getPackageJson` 方法获取指定层级的 "package.json" 文件的内容

@@ -3,7 +3,7 @@ import { fileExist } from '../file/';
 import { pathDirname } from './pathDirname';
 import { pathJoin } from './pathJoin';
 import { resolve } from 'node:path';
-import { isZero } from 'a-type-of-js';
+import { isString, isZero } from 'a-type-of-js';
 
 /** 根据给定的文件或文件夹名称找到父级目录
  *
@@ -32,6 +32,8 @@ export function getDirectoryBy(
   type: 'file' | 'directory' = 'file',
   ...originalPath: string[]
 ): string | undefined {
+  // 过滤非法值
+  originalPath = originalPath.filter(e => isString(e));
   // 当前工作目录，转化为绝对路径
   let cwd: string = resolve(...originalPath);
   /**  判断当前工作目录是否存在  */

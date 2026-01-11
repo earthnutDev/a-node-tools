@@ -1,4 +1,7 @@
-import type { PackageJsonReturn } from './getPackageJsonContent';
+import type {
+  GetPackageJsonOption,
+  PackageJsonReturn,
+} from './getPackageJsonContent';
 import { getPackageJson, getPackageJsonSync } from './getPackageJsonContent';
 import { isEmptyDir } from './isEmpty';
 import { isExist } from './isExist';
@@ -34,4 +37,4 @@ export default {
   writeJsonFileSync,
 };
 
-export type { PackageJsonReturn };
+export type { PackageJsonReturn, GetPackageJsonOption };

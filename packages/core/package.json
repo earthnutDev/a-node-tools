@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "name": "a-node-tools",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
     "clean:package": "node scripts/clean-package-json.js",
     "build": "jja rm dist && pnpm run b && pnpm run clean:package",
     "build:dev": "rollup --config rollup.dev.config.js",
+    "build:local": "node ../../scripts/build-local.js",
     "dev": "jja rm .eg cls && pnpm run build:dev && a_node_tools_dev=all node --unhandled-rejections=strict .eg/index.mjs",
     "push:version": "gvv",
     "push": "gvv",

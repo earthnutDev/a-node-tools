@@ -79,6 +79,8 @@ export {
   writeJsonFileSync,
 } from './file';
 
+export type { GetPackageJsonOption, PackageJsonReturn } from './file';
+
 export { _p, colorLine as colorDividingLine, colorLine } from './print';
 
 export { typewrite } from './typewrite';
