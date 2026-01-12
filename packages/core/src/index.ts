@@ -85,6 +85,6 @@ export { _p, colorLine as colorDividingLine, colorLine } from './print';
 
 export { typewrite } from './typewrite';
 
-export { detectPackageManager } from './detect-package-manager';
+export { detectPackageManager, isWorkSpace } from './detect-package-manager';
 
 export { file };

@@ -1,5 +1,8 @@
 import { isFalse } from 'a-type-of-js';
-import { getDirectoryBy } from './path';
+import { getDirectoryBy, pathJoin } from './path';
+import { fileExist, getPackageJsonSync } from './file/index';
+import { readFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 
 /**
  *  ## 检测当前的启动执行
@@ -39,4 +42,53 @@ export function detectPackageManager(
   if (process.env.YARN_IGNORE_PATH) return 'yarn';
 
   return 'npm';
+}
+
+/**
+ * # 是否是工作区
+ * @param packageManager 包方式
+ * @returns 当前是在工作区下（非子包中），则返回 `true` ，否则则返回 `false`
+ */
+export function isWorkSpace(packageManager: 'npm' | 'pnpm' | 'yarn') {
+  const packageJsonResponse = getPackageJsonSync<{
+    private: boolean;
+    workspaces: string[];
+  }>(); // 当前使用的配置文件
+  if (packageJsonResponse === null) {
+    return false;
+  }
+
+  const { content, path } = packageJsonResponse;
+  const parentPath = dirname(path);
+
+  if (packageManager === 'pnpm') {
+    const workSpaceFilePath = pathJoin(parentPath, 'pnpm-workspace.yaml');
+    const workSpaceFileExist = fileExist(workSpaceFilePath);
+    if (!workSpaceFileExist) {
+      return false; // 当前非工作区
+    }
+    const workSpaceContent = readFileSync(workSpaceFilePath, {
+      encoding: 'utf-8',
+    }); // 工作区配置文件
+    // 当前有 workspace 的嫌疑
+    if (workSpaceContent.split('\n').some(e => e.startsWith('packages:'))) {
+      return true;
+    }
+  }
+
+  // 在以 yarn/npm 为包管理器的环境中，即便是配置文件中的 workspaces 为空数组，也识别为工作区
+  if (content.workspaces) {
+    if (packageManager === 'yarn') {
+      const workSpaceFilePath = pathJoin(parentPath, '.yarnrc.yml');
+      const workSpaceFileExist = fileExist(workSpaceFilePath);
+      if (workSpaceFileExist) {
+        return true;
+      }
+    }
+    if (packageManager === 'npm') {
+      return true;
+    }
+  }
+
+  return false;
 }
