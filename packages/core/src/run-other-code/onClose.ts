@@ -30,7 +30,7 @@ export function closeCn(
     dog('进行正常关闭', code);
     setTimeout(async () => {
       if (callBack && isFunction(callBack)) {
-        Reflect.apply(callBack, null, []);
+        await Promise.resolve(Reflect.apply(callBack, null, []));
       }
       await waitingObj.destroyed(); // 移除定时器
 
