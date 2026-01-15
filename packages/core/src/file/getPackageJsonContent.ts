@@ -1,22 +1,22 @@
 /**
  * @packageDocumentation
  * @module  file
- * @file getfile_content.ts
+ * @file getPackageJsonContent.ts
  * @description 获取 packages.json 文件
  * @author MrMudBean <Mr.MudBean@outlook.com>
  * @license MIT
  * @copyright  2026 ©️ MrMudBean
  * @since 2026-01-11 11:11
- * @lastModified 2026-01-11
+ * @lastModified 2026-01-15 18:21
  */
 
 import { isNumber, isString, isUndefined } from 'a-type-of-js';
 import type { PackageJson } from '../npmPkg';
 import type { DefaultT } from '../npmPkg/types';
-import { getDirectoryBy, pathJoin } from '../path';
+import { getDirectoryBy } from '../path/getDirectoryBy';
+import { pathJoin } from '../path/pathJoin';
 import { dog } from '../utils/dog';
-import { readFileToJson } from './readFileToJson';
-import { readFileToJsonSync } from './readFileToJsonSync';
+import { readFileToJson, readFileToJsonSync } from './readFileToJson';
 
 type PackageJsonReturn<T extends DefaultT> = {
   /** package.json 文件内容 */
@@ -70,7 +70,7 @@ export function getPackageJsonSync<T extends DefaultT>(
   let parent_path: string | undefined = _.path;
   do {
     dog('当前执行的路径', parent_path);
-    parent_path = getDirectoryBy(fileName, 'file', parent_path);
+    parent_path = getDirectoryBy(fileName, 'file', parent_path || '');
     if (isUndefined(parent_path)) {
       dog('未获取 package.json 的路径');
       break;
@@ -78,7 +78,8 @@ export function getPackageJsonSync<T extends DefaultT>(
     filePath = pathJoin(parent_path, fileName);
     if (currentDepth === _depth) {
       try {
-        file_content = readFileToJsonSync(filePath);
+        file_content =
+          readFileToJsonSync<PackageJson<T>>(filePath) ?? undefined;
       } catch (error) {
         dog.error('获取 package.json 文件报错', error);
         return null;
@@ -123,7 +124,7 @@ export async function getPackageJson<T extends DefaultT>(
   let parent_path: string | undefined = _.path; // 父目录
   do {
     dog('当前执行的路径', parent_path);
-    parent_path = getDirectoryBy(fileName, 'file', parent_path);
+    parent_path = getDirectoryBy(fileName, 'file', parent_path || '');
     if (isUndefined(parent_path)) {
       dog('未获取 package.json 的路径');
       break;
@@ -131,7 +132,8 @@ export async function getPackageJson<T extends DefaultT>(
     filePath = pathJoin(parent_path, fileName);
     if (currentDepth === _depth) {
       try {
-        file_content = await readFileToJson(filePath);
+        file_content =
+          (await readFileToJson<PackageJson<T>>(filePath)) ?? undefined;
       } catch (error) {
         dog.error('获取 package.json 文件报错', error);
         return null;

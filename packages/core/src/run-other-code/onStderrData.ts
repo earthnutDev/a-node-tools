@@ -1,13 +1,16 @@
 import { bgBrightMagentaPen } from 'color-pen';
 import { dog } from '../utils/dog';
+import { WaitingTipsResult } from '../waiting';
 import { organizeText } from './organizeText';
 import { DataStore } from './types';
-import { WaitingTipsResult } from '../waiting';
 
 /**
  *
  * 标准错误输出流
  *
+ * @param value
+ * @param dataStore
+ * @param waitingObj
  */
 export function stderrDataCn(
   value: string,

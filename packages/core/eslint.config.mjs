@@ -12,7 +12,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const tsconfigPath = resolve(__dirname, 'tsconfig.json');
+const tsconfigPath = resolve(__dirname, 'tsconfig.rollup.json');
 
 const ignorePattern = [
   'node_modules/',
@@ -44,6 +44,7 @@ export default [
       globals: {
         ...globals.browser, // 浏览器全局变量
         ...globals.node, // Node.js 全局变量
+        ...globals.es2025, // 浏览器 + Node +  ES2025 全局
       },
     },
   },
@@ -51,7 +52,7 @@ export default [
   // 2. TypeScript 配置（必须）
   ...tseslint.configs.recommended.map(config => ({
     ...config,
-    files: ['src/**/*.{ts,tsx}'], // 按需配置
+    files: ['src/**/*.{ts,tsx}', 'eg/**/*.ts'], // 按需配置
     // ignores: ignorePattern,
     languageOptions: {
       ...config.languageOptions,
@@ -59,6 +60,7 @@ export default [
         ...globals.browser,
         ...globals.node,
         ...globals.es2025, // 浏览器 + Node +  ES2025 全局
+        NodeJS: 'readonly', // 命名空间全局
       },
       // parser: tseslint.parser, // 显式指定 TS 解析器，解决接口不匹配
       parserOptions: {
@@ -132,13 +134,13 @@ export default [
     rules: {
       // 基础规则
       'jsdoc/check-alignment': 'error',
-         'jsdoc/require-param': 'error',
+      'jsdoc/require-param': 'error',
       'jsdoc/check-param-names': 'error',
       'jsdoc/check-tag-names': [
         'error',
         {
           // 配置允许的标签
-          definedTags: ['packageDocumentation','lastModified'],
+          definedTags: ['packageDocumentation', 'lastModified'],
         },
       ],
       'jsdoc/check-types': 'error',
@@ -165,18 +167,18 @@ export default [
           },
         },
       ],
-    // settings: {
-    //   jsdoc: {
-    //   // 用于配置首选项别名设置一个 JSDoc 标签
-    //     tagNamePreference: {
-    //       // eg.
-    //       // "param": "arg",
-    //       // "returns": "return",
-    //       // todo: false, // 禁用 todo
-    //       // todo: "禁用原因", // 禁用 todo ，并展示友好原因
-    //     },
-    //   },
-    // },
+      // settings: {
+      //   jsdoc: {
+      //   // 用于配置首选项别名设置一个 JSDoc 标签
+      //     tagNamePreference: {
+      //       // eg.
+      //       // "param": "arg",
+      //       // "returns": "return",
+      //       // todo: false, // 禁用 todo
+      //       // todo: "禁用原因", // 禁用 todo ，并展示友好原因
+      //     },
+      //   },
+    },
   },
 
   // 4. 关闭 Prettier 冲突规则（必须，用 Prettier 时）

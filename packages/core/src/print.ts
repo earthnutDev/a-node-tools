@@ -1,3 +1,4 @@
+import { isNode } from 'a-js-tools';
 import {
   isBoolean,
   isBusinessEmptyString,
@@ -5,8 +6,6 @@ import {
   isTrue,
   typeOf,
 } from 'a-type-of-js';
-import { dog } from './utils/dog';
-import { isNode } from 'a-js-tools';
 import {
   colorPen,
   colorText,
@@ -14,6 +13,7 @@ import {
   randomPen,
   strInTerminalLength,
 } from 'color-pen';
+import { dog } from './utils/dog';
 
 /** 打印文本内容\
  * 因为某些原因，默认打印完成后进行换行\
@@ -30,7 +30,7 @@ export function _p(r: unknown = '', lineFeed: boolean = true): void {
     throw new TypeError('lineFeed 的类型必须是 boolean ');
   }
   if (_type === 'bigint') {
-    const bigintStr = r.toString().concat('n');
+    const bigintStr = Object.prototype.toString.call(r).concat('n');
     resultStr = lineFeed ? `${bigintStr}\n` : `${bigintStr}`;
   } else if (
     ['string', 'number', 'boolean', 'function', 'null'].includes(_type)

@@ -9,6 +9,8 @@ export function createData(): DataStore {
       error: '',
       status: 1,
       isSIGINT: false,
+      runCode: '',
+      runCwd: '',
     },
     env: {
       cmd: [],
@@ -24,7 +26,7 @@ export function createData(): DataStore {
         interval: 10,
         canCtrlDExit: false,
         canCtrlCExit: false,
-        beforeDestroyed(): Promise<void> {
+        async beforeDestroyed(): Promise<void> {
           return undefined;
         },
       },

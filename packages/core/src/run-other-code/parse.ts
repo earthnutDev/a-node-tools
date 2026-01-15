@@ -1,15 +1,16 @@
-import { isFalse, isString } from 'a-type-of-js';
-import { DataStore, RunOtherCodeOption } from './types';
-import { isNode } from 'a-js-tools';
 import { resolve } from 'node:path/posix';
+import { isNode } from 'a-js-tools';
+import { isFalse, isString } from 'a-type-of-js';
+import { cyanPen, redPen } from 'color-pen';
 import { isEmptyDir } from '../file';
 import { dog } from '../utils/dog';
-import { cyanPen, redPen } from 'color-pen';
+import { DataStore, RunOtherCodeOption } from './types';
 
 /**
  *
  * 解析参数
- *
+ * @param options
+ * @param dataStore
  */
 export function parse(options: RunOtherCodeOption, dataStore: DataStore) {
   if (isFalse(isNode())) {

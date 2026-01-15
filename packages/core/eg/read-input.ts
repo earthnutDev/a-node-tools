@@ -1,7 +1,7 @@
-import { dev } from '@qqi/dev';
-import { readInput } from '../src/index';
-import { cyanPen, magentaPen } from 'color-pen';
 import { esc } from '@color-pen/static';
+import { dev } from '@qqi/dev';
+import { cyanPen, magentaPen } from 'color-pen';
+import { readInput } from '../src/index';
 
 dev.skip('测试用户输入', async it => {
   await it('简单测试', async it => {
@@ -12,8 +12,8 @@ dev.skip('测试用户输入', async it => {
         cyanPen(JSON.stringify(key, null, 2)),
       );
       if (
-        key.name === 'return' ||
-        (key.name === 'escape' && key.sequence === esc)
+        key?.name === 'return' ||
+        (key?.name === 'escape' && key.sequence === esc)
       ) {
         console.log('执行完毕');
         return true;
@@ -29,7 +29,7 @@ dev.skip('测试用户输入', async it => {
         cyanPen(JSON.stringify(key, null, 2)),
       );
       // console.log(it.description, '<', keyValue, '> <', key, '>');
-      if (key.name === 'return') {
+      if (key?.name === 'return') {
         console.log('执行完毕');
         return true;
       }
@@ -47,9 +47,10 @@ dev.skip(`多次测试第  次`, async () => {
       console.log('====================================');
       console.log('第' + i + '次执行');
       console.log('====================================');
-      if (b.name === 'return') {
+      if (b?.name === 'return') {
         return true;
       }
+      return false;
     });
   }
 });

@@ -1,6 +1,22 @@
 # 更新日志
 
+## 4.4.2 (2026-1-15)
+
+### ✨ 添加
+
+- `runOtherCode` 返回值添加了传入的 `runCode` 信息
+
+### 🐛 修复
+
+- 修复了循环依赖问题：
+  - 存在于 `file` 和 `path` 两个模块
+  - 存在于 `runOtherCode` 模块内部
+  - 存在于 `waiting` 模块内部
+- 修复了
+
 ## v4.4.1 (2026-1-11)
+
+### 🐛 修复
 
 - 修复已知问题，该问题导致 `getDirectoryBy` 方法剩余参数为非法字符串时导致解析错误（ `TypeError` ）
 - 修复已知问题，该问题在 `getPackageJsonSync`、 `getPackageJson` 未能正确获取到目标的地址而导致

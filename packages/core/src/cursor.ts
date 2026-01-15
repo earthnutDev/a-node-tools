@@ -1,20 +1,27 @@
 /**
- *  @author Mr.MudBean <Mr.MudBean@outlook.com>
- *  @module a-node-tools
- *  @file cursor.ts
- *  @date  周二  04/22/2025
- *  @description [ANSI 转义码](https://MrMudBean.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
- *  @lastModified 2026-01-11 15:29
- *
+ * @packageDocumentation
+ * @module @a-node-tools/cursor
+ * @file cursor.ts
+ * @description [ANSI 转义码](https://MrMudBean.github.io/%E6%97%A5%E5%BF%97/ANSI%20%E8%BD%AC%E4%B9%89%E7%A0%81/#%E9%87%8D%E7%BD%AE%E7%BB%88%E7%AB%AF)
+ * @author MrMudBean <Mr.MudBean@outlook.com>
+ * @license MIT
+ * @copyright 2026 ©️ MrMudBean
+ * @since 25-04-22 14:51
+ * @version 4.4.2
+ * @lastModified 2026-01-15 14:51
  */
 
-import { _p } from './print';
 import { csi, esc } from '@color-pen/static';
+import { isNode } from 'a-js-tools';
 import { isFalse, isNumber, isPlainObject, isUndefined } from 'a-type-of-js';
 // import { dog } from './dog';
-import { isNode } from 'a-js-tools';
+import { _p } from './print';
 
-/** 打印转义的内容  */
+/**
+ * 打印转义的内容
+ * @param r
+ * @param _csi
+ */
 function __p(r: string | number, _csi: boolean = true) {
   _p(`${_csi ? csi : esc}${r}`, false);
 }
@@ -27,7 +34,10 @@ function cursorShow() {
   __p('?25h');
 }
 
-/**  🧹 光标之后的显示 */
+/**
+ *  🧹 光标之后的显示
+ * @param cursorReset
+ */
 function cursorAfterClear(cursorReset: boolean = false) {
   // 移动光标到最左侧
   if (cursorReset) {
@@ -69,7 +79,12 @@ function cursorPositionSave() {
 function cursorPositionUndo() {
   __p(8, false);
 }
-/**  设置光标的位置  */
+/**
+ *  设置光标的位置
+ * @param options
+ * @param options.column
+ * @param options.row
+ */
 function cursorMoveTo(options?: { column?: number; row: number }) {
   const originOption = {
     column: 0,

@@ -1,8 +1,8 @@
-import { dog } from '../utils/dog';
-import { fileURLToPath } from 'node:url';
-import { isWindows } from './isWindows';
-import { getCallerFilename } from './getCallerFileInfo';
 import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { dog } from '../utils/dog';
+import { getCallerFilename } from './getCallerFileInfo';
+import { isWindows } from './isWindows';
 
 /**
  *

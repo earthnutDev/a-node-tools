@@ -12,7 +12,7 @@
     "node_modules",
     "dist",
     "**/*.test.ts",
-    "eg",
+    "eg/**/*.ts",
     "jest.setup.ts"
   ]
 }

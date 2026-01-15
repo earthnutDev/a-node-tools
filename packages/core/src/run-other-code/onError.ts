@@ -1,10 +1,15 @@
 import { bgBrightMagentaPen } from 'color-pen';
-import { organizeText } from './organizeText';
-import { DataStore } from './types';
 import { dog } from '../utils/dog';
 import { WaitingTipsResult } from '../waiting';
+import { organizeText } from './organizeText';
+import { DataStore } from './types';
 
-/**  当触发错误时  */
+/**
+ *  当触发错误时
+ * @param err
+ * @param dataStore
+ * @param waitingObj
+ */
 export function errorCn(
   err: Error,
   dataStore: DataStore,

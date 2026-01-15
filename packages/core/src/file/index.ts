@@ -5,8 +5,7 @@ import type {
 import { getPackageJson, getPackageJsonSync } from './getPackageJsonContent';
 import { isEmptyDir } from './isEmpty';
 import { isExist } from './isExist';
-import { readFileToJson } from './readFileToJson';
-import { readFileToJsonSync } from './readFileToJsonSync';
+import { readFileToJson, readFileToJsonSync } from './readFileToJson';
 import {
   writeJsonFile,
   writeJsonFileAsync,

@@ -14,6 +14,7 @@ import { WaitingTipsResult } from './waiting-tips-class';
  *    - 2 分针旋转前缀 ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦', '🕧']
  *    - 3 前缀 ['👈','👆','👉','👇','🤘','🤟','🫳','🫴','👊']
  *    - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
+ * @param params
  */
 export function waitingTips(params?: waitingTipsParams): WaitingTipsResult {
   const result = new WaitingTipsResult(params);

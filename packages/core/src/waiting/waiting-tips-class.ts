@@ -1,8 +1,12 @@
+import { esc } from '@color-pen/static';
 import { isPromise, isTrue, isUndefined } from 'a-type-of-js';
-import { log } from './log';
-import { parse } from './parse';
-import { RunOtherCodeWaiting, waitingTipsParams } from './types';
-import { readInput } from '../readInput';
+import {
+  cutoffStringWithChar,
+  cyanPen,
+  magentaPen,
+  strInOneLineOnTerminal,
+  strInTerminalLength,
+} from 'color-pen';
 import {
   cursorAfterClear,
   cursorHide,
@@ -12,19 +16,15 @@ import {
   cursorPositionUndo,
   cursorShow,
 } from '../cursor';
+import { _p } from '../print';
+import { readInput } from '../readInput';
 import { exitCall } from './exitCall';
+import { log } from './log';
+import { parse } from './parse';
 import { sigintCall } from './sigintCall';
 import { suffixList } from './suffixList';
+import { RunOtherCodeWaiting, waitingTipsParams } from './types';
 import { waitingTipsPrefixStore } from './waitingTipsPrefixStore';
-import {
-  cutoffStringWithChar,
-  cyanPen,
-  magentaPen,
-  strInOneLineOnTerminal,
-  strInTerminalLength,
-} from 'color-pen';
-import { _p } from '../print';
-import { esc } from '@color-pen/static';
 
 /**  等待的返回结果  */
 export class WaitingTipsResult {
@@ -37,7 +37,10 @@ export class WaitingTipsResult {
   /**  打印列表  */
   #logList: unknown[][] = [];
 
-  /**  原始打印  */
+  /**
+   *  原始打印
+   * @param args
+   */
   #originLog = (...args: unknown[]) => log(args);
 
   /**  当前的状态  */
@@ -93,6 +96,7 @@ export class WaitingTipsResult {
    *   - 2 分针旋转前缀 ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦', '🕧']
    *   - 3 前缀 ['👈','👆','👉','👇','🤘','🤟','🫳','🫴','👊']
    *   - 4 前缀 ['🌞','🌕','🌖','🌗' ,'🌜','🌘','🌑','🌒','🌓','🌛','🌔','🌔','🌔','🌝']
+   * @param runParams
    */
   run(runParams?: waitingTipsParams) {
     if (this.state === 'run') {
@@ -203,7 +207,10 @@ export class WaitingTipsResult {
     return this.#timeout;
   }
 
-  /**  构建  */
+  /**
+   *  构建
+   * @param params
+   */
   constructor(params?: waitingTipsParams) {
     this.#parsingParameters = parse(params);
     // 初始话时允许使用等待

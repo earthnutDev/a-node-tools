@@ -1,8 +1,8 @@
-import { isFalse } from 'a-type-of-js';
-import { getDirectoryBy, pathJoin } from './path';
-import { fileExist, getPackageJsonSync } from './file/index';
 import { readFileSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { isFalse } from 'a-type-of-js';
+import { fileExist, getPackageJsonSync } from './file/index';
+import { getDirectoryBy, pathJoin } from './path';
 
 /**
  *  ## 检测当前的启动执行

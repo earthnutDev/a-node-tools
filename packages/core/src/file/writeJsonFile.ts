@@ -4,6 +4,8 @@ import { dog } from '../utils/dog';
 
 /**
  *  将一个 JSON 数据写入空白文件
+ * @param pathName
+ * @param data
  */
 export function writeJsonFileSync(pathName: string, data: object): boolean {
   try {
@@ -28,6 +30,8 @@ export const writeJsonFile = writeJsonFileSync;
 /**
  * ## 将一个 JSON 数据写入空白文件
  * 由于历史原因， `writeJsonFile` 是同步的，而 `writeJsonFileAsync` 是异步的
+ * @param pathName
+ * @param data
  */
 export async function writeJsonFileAsync(
   pathName: string,

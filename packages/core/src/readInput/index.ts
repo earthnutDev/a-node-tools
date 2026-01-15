@@ -10,6 +10,7 @@ import { ReadInput, ReadInputKey, ReadInputParam } from './types';
  * 请注意，在 `v4` 版本之后，与 `runOtherCode` 一致，不再直接退出程序，而是将后续交互留给用户自己处理
  *
  * @param _callback 回调函数，必须，可接收两个参数，分别用户按键及键原始值
+ * @param key
  * @returns   Promise<unknown>
  * @example
  *

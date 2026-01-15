@@ -4,6 +4,7 @@ import { isString } from 'a-type-of-js';
  *
  * 解析名称
  *
+ * @param pkgName
  */
 export function parseName(pkgName: string): string | null {
   // 非法的参数进行过滤

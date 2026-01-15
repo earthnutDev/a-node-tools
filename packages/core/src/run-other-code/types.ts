@@ -105,6 +105,10 @@ export type RunOtherCodeResult = {
   isSIGINT: boolean;
   /**  执行时的标准流输出  */
   data: string;
+  /** 执行代码 */
+  runCode: string;
+  /** 执行工作目录 */
+  runCwd: string;
 };
 
 /**  每次执行的数据  */

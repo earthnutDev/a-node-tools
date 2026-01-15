@@ -1,8 +1,8 @@
-import { _p, getNpmPkgInfo, testNpmPackageExist } from '../src/index';
 import assert from 'node:assert';
-import { npmRegistry } from '../src/npmPkg/types';
-import { isUndefined } from 'a-type-of-js';
 import { dev } from '@qqi/dev';
+import { isUndefined } from 'a-type-of-js';
+import { _p, getNpmPkgInfo, testNpmPackageExist } from '../src/index';
+import { npmRegistry } from '../src/npmPkg/types';
 const list: npmRegistry[] = ['官方', '淘宝', '腾讯', '中科大', 'yarn'];
 
 list.forEach(async e => {
@@ -26,7 +26,7 @@ list.forEach(async e => {
         return;
       }
 
-      assert.equal(result.data.name, 'jja');
+      assert.equal(result.data?.name, 'jja');
     });
 
     await t('测试不存在的 npm 包 aii', async () => {

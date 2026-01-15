@@ -1,10 +1,9 @@
 import { csi } from '@color-pen/static';
 
-import { _p } from '../src/index';
-import { runOtherCode } from '../src/index';
 import { dev } from '@qqi/dev';
-import { waitingTips } from '../src/waiting';
 import { sleep } from 'a-js-tools';
+import { _p, runOtherCode } from '../src/index';
+import { waitingTips } from '../src/waiting';
 
 await dev.skip('测试与 run other code 相关的逻辑', async it => {
   await it('简单执行 ls ', async () => {
@@ -24,7 +23,7 @@ await dev.skip('测试与 run other code 相关的逻辑', async it => {
       prefix: 1,
       canCtrlCExit: true,
     });
-    const result = await runOtherCode({
+    const _result = await runOtherCode({
       // code: `sleep 20 && echo "11"`,
       // code: `sleep 3 && echo "h" && sleep 1 && echo "hello" && sleep 2 && echo "11"`,
       code: 'npm run vjj',
@@ -39,7 +38,8 @@ await dev.skip('测试与 run other code 相关的逻辑', async it => {
       //   info: '65465464646489798798797897979879879879789789798798798798798797979src/readInput/dataStore.ts -> src/readInput/stdRemoveListener.ts -> src/readInput/pressCallFn.ts -> src/readInput/dataStore.ts98',
       // },
     });
-    console.log(result);
+    // console.log(result);
+    // console.log('', pathJoin());
   });
 
   await it.skip('测试单独的 awaiting', async () => {

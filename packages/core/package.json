@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "4.4.1",
+  "version": "4.4.2",
   "name": "a-node-tools",
   "private": true,
   "scripts": {
@@ -13,9 +13,8 @@
     "push:version": "gvv",
     "push": "gvv",
     "diff": "jja pkg -d",
-    "eslint": "jja cls && eslint src",
-    "beautify": "pnpm run eslint && pnpm run prettier",
-    "prettier": "jja cls && prettier . --write",
+    "lint": "jja cls && eslint . --fix",
+    "beautify": "jja cls && prettier . --write",
     "coverage": "codecov",
     "vjj": "vjj -b",
     "prepublishOnly": "pjj"

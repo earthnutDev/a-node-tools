@@ -1,5 +1,5 @@
-import { RunOtherCodeWaiting, waitingTipsParams } from './types';
 import { isBoolean, isNumber, isString, isUndefined } from 'a-type-of-js';
+import { RunOtherCodeWaiting, waitingTipsParams } from './types';
 
 /**
  * 解析参数

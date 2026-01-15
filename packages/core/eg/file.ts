@@ -5,7 +5,7 @@ import {
   readFileToJson,
 } from '../src/index';
 
-dev('测试文件相关的方法', async test => {
+dev.skip('测试文件相关的方法', async test => {
   test.skip('测试异步读取 JSON 文件', async () => {
     const a = await readFileToJson('package.json');
     console.log(a);

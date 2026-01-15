@@ -1,12 +1,17 @@
 import { isFunction } from 'a-type-of-js';
 import { dog } from '../utils/dog';
-import { RunOtherCodeResult, DataStore } from './types';
 import { WaitingTipsResult } from '../waiting';
+import { RunOtherCodeResult, DataStore } from './types';
 
 /**
  *
  * 当执行关闭的时候
  *
+ * @param code
+ * @param signal
+ * @param resolve
+ * @param dataStore
+ * @param waitingObj
  */
 export function closeCn(
   code: number,

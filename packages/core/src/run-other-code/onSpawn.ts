@@ -1,6 +1,9 @@
 import { dog } from '../utils/dog';
 import { DataStore } from './types';
-/**  子线程启动回调，好像没啥用一样  */
+/**
+ *  子线程启动回调，好像没啥用一样
+ * @param dataStore
+ */
 export function spawnCn(dataStore: DataStore) {
   const { result } = dataStore;
   dog('子线程已启动，运行状态良好');

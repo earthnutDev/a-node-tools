@@ -1,9 +1,9 @@
-import { dog } from '../utils/dog';
-import { fileExist } from '../file/';
-import { pathDirname } from './pathDirname';
-import { pathJoin } from './pathJoin';
 import { resolve } from 'node:path';
 import { isString, isZero } from 'a-type-of-js';
+import { isExist } from '../file/isExist';
+import { dog } from '../utils/dog';
+import { pathDirname } from './pathDirname';
+import { pathJoin } from './pathJoin';
 
 /** 根据给定的文件或文件夹名称找到父级目录
  *
@@ -37,7 +37,7 @@ export function getDirectoryBy(
   // 当前工作目录，转化为绝对路径
   let cwd: string = resolve(...originalPath);
   /**  判断当前工作目录是否存在  */
-  const cwdIsExist = fileExist(cwd);
+  const cwdIsExist = isExist(cwd);
   dog('当前工作目录', cwd);
   // 倘若 cwd 不存在（只要针对于传入参数的情况）
   if (!cwdIsExist) {
@@ -52,7 +52,7 @@ export function getDirectoryBy(
   let times = 20;
   const searchDir = () => {
     // 目标文件
-    const fileTest = fileExist(pathJoin(cwd, target));
+    const fileTest = isExist(pathJoin(cwd, target));
     // 判断文件
     if (
       // 判定有值且类型与指定相同

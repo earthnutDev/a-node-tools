@@ -2,7 +2,11 @@ import { getRandomString, isNode } from 'a-js-tools';
 import { dataStore } from './dataStore';
 import { ReadInputParam } from './types';
 
-/**  核心逻辑  */
+/**
+ *  核心逻辑
+ * @param _callback
+ * @param key
+ */
 export async function readInputCore(
   _callback: ReadInputParam,
   key?: symbol,

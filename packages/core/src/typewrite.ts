@@ -1,8 +1,8 @@
+import { sleep } from 'a-js-tools';
 import { isString, isNaN } from 'a-type-of-js';
+import { boldPen, pen } from 'color-pen';
 import { _p } from './print';
 import { dog } from './utils/dog';
-import { boldPen, pen } from 'color-pen';
-import { sleep } from 'a-js-tools';
 
 /**
  *

@@ -1,3 +1,4 @@
+import https from 'node:https';
 import { isUndefined } from 'a-type-of-js';
 import { dog } from '../utils/dog';
 import { parseName } from './parseName';
@@ -7,7 +8,6 @@ import {
   npmPkgInfoType,
   npmRegistry,
 } from './types';
-import https from 'node:https';
 
 /**
  *
@@ -92,7 +92,7 @@ export async function getNpmPkgInfo<T extends DefaultT = DefaultT>(
                 data: null,
                 success: true,
                 status: 'parseJsonError',
-                error: error,
+                error: error as Error,
                 message: resultStr,
               });
             }

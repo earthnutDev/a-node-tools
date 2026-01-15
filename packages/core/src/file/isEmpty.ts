@@ -1,11 +1,12 @@
-import { dog } from '../utils/dog';
 import { readdirSync } from 'node:fs';
+import { dog } from '../utils/dog';
 import { isExist } from './isExist';
 
 /**
  * 判断文件夹是否为空
  *
  *
+ * @param dirname
  * @returns [-1 , 0 , 1] 返回值为简单的 `-1`、`0`、`1`
  *      - `-1` 当前给出的目录名在当前目录下不是目录或是打开失败时返回该值
  *      - `0`   当前给出的目录名为目录，但是该目录为非空目录

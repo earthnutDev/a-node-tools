@@ -6,14 +6,16 @@ import { WaitingTipsResult } from '../waiting';
  *
  * 整理数据
  *
+ * @param value
+ * @param printLog
+ * @param waitingObj
  */
 export function organizeText(
-  value: unknown,
+  value: any,
   printLog: boolean,
   waitingObj: WaitingTipsResult,
 ): string {
   let data: string = value.toString().trim();
-
   /// 尾部换行符
   if (!/\n$/.test(data)) {
     data = data.concat(isWindows ? '\r\n' : '\n');

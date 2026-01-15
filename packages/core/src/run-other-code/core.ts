@@ -1,20 +1,22 @@
 import { spawn } from 'node:child_process';
-import { DataStore, RunOtherCodeOption, RunOtherCodeResult } from './types';
-import { waitingTips, WaitingTipsResult } from '../waiting';
-import { parse } from './parse';
+import { isNull, isTrue } from 'a-type-of-js';
+import { isWindows } from '../path';
 import { dog } from '../utils/dog';
+import { waitingTips, WaitingTipsResult } from '../waiting';
+import { parse as parseWaiting } from '../waiting/parse';
 import { createData } from './dataStore';
-import { stdoutDataCn } from './onStdoutData';
-import { exitCn } from './onExit';
+import { closeCn } from './onClose';
+import { errorCn } from './onError';
 import { spawnCn } from './onSpawn';
 import { stderrDataCn } from './onStderrData';
-import { errorCn } from './onError';
-import { closeCn } from './onClose';
-import { parse as parseWaiting } from '../waiting/parse';
-import { isWindows } from '../path';
-import { isTrue } from 'a-type-of-js';
+import { stdoutDataCn } from './onStdoutData';
+import { parse } from './parse';
+import { DataStore, RunOtherCodeOption, RunOtherCodeResult } from './types';
 
-/**  执行其他命令  */
+/**
+ *  执行其他命令
+ * @param options
+ */
 export function runOtherCodeCore(
   options: RunOtherCodeOption,
 ): Promise<RunOtherCodeResult> {
@@ -42,6 +44,10 @@ export function runOtherCodeCore(
     return [waitingTips(waitingParam), waitingParam.show];
   })();
 
+  // 给执行结果
+  result.runCode = code;
+  result.runCwd = cwd || process.cwd();
+
   try {
     return new Promise(resolve => {
       /** 子命令  */
@@ -57,7 +63,10 @@ export function runOtherCodeCore(
       /// 若原参数为启动等待则启动等待
       if (isRunWaiting)
         waitingObj.run({
-          /**  在执行等待退出时退出该执行  */
+          /**
+           *  在执行等待退出时退出该执行
+           * @param exitProactively
+           */
           beforeDestroyed: exitProactively => {
             /// 非主动触发退出
             if (!exitProactively) return;
@@ -75,7 +84,7 @@ export function runOtherCodeCore(
                 );
                 spawn(
                   'taskkill',
-                  ['/pid', childProcess.pid?.toString(), '/T', '/F'],
+                  ['/pid', childProcess.pid?.toString() || '', '/T', '/F'],
                   {
                     stdio: 'pipe', //
                   },
@@ -99,7 +108,12 @@ export function runOtherCodeCore(
         stdoutDataCn(value, dataStore, waitingObj),
       );
       /// 退出事件
-      childProcess.on('exit', (code, signal) => exitCn(code, signal));
+      childProcess.on('exit', (code, signal) => {
+        dog('子进程已退出了，退出码为 <', code, '>');
+        if (!isNull(signal)) {
+          dog.error('子进程被其他信号中断执行，执行的退出信号为：', signal);
+        }
+      });
       /// 标准输出流输出错误
       childProcess.stderr.on('data', value =>
         stderrDataCn(value, dataStore, waitingObj),
@@ -108,14 +122,12 @@ export function runOtherCodeCore(
       // 当子进程无法创建或者无法被杀死时触发
       childProcess.on('error', err => errorCn(err, dataStore, waitingObj));
       /// 子进程关闭事件
-      childProcess.on(
-        'close',
-        (code: number | null, signal: NodeJS.Signals | null) =>
-          closeCn(code, signal, resolve, dataStore, waitingObj),
+      childProcess.on('close', (code, signal) =>
+        closeCn(code ?? 0, signal ?? '', resolve, dataStore, waitingObj),
       );
     });
     // 执行出错时走这里
-  } catch (error) {
+  } catch (error: any) {
     const errorStr: string = error.toString();
     dog.error(
       '创建（但是确是非 node 无法创建子进程，而是更上游的 node 创建的错误）子进程出错',

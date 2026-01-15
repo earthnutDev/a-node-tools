@@ -1,6 +1,6 @@
+import { execSync } from 'node:child_process';
 import { isNode } from 'a-js-tools';
 import { dog } from './utils/dog';
-import { execSync } from 'node:child_process';
 
 /**
  *
